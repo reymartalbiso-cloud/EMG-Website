@@ -1126,6 +1126,43 @@ body::after {
   color: var(--ok); font-size: 0.9rem; margin-top: 2px;
   border-left: 2px solid var(--ok); padding-left: 12px;
 }
+/* The build a customer configured, shown back to them on the quote panel.
+   Read-only on purpose: the coordinate list underneath is written for whoever
+   quotes the job, and a customer should never have to look at it — or be able
+   to delete their own order by editing a textarea. */
+.build-card {
+  border: 1px solid var(--line); border-left: 3px solid var(--accent);
+  border-radius: 4px; background: var(--bg-1);
+  padding: var(--space-3);
+  display: grid; gap: 0.7rem;
+}
+.build-card-eyebrow { font-size: 0.58rem; letter-spacing: 0.18em; color: var(--accent-text); }
+.build-card-head { display: flex; align-items: baseline; gap: 0.7rem; flex-wrap: wrap; }
+.build-card-head h2 { font-size: clamp(1.2rem, 2.4vw, 1.6rem); }
+.build-chip {
+  font-size: 0.58rem; letter-spacing: 0.14em; color: var(--text-mid);
+  border: 1px solid var(--line); border-radius: 2px; padding: 3px 7px;
+}
+.build-rows { display: grid; gap: 0.5rem; }
+.build-rows > div { display: grid; grid-template-columns: 6.5rem 1fr; gap: 0.7rem; align-items: baseline; }
+.build-rows dt { font-size: 0.56rem; letter-spacing: 0.14em; color: var(--text-mid); }
+.build-rows dd { font-size: 0.86rem; color: var(--text-hi); line-height: 1.5; }
+.build-total {
+  display: flex; align-items: baseline; gap: 0.6rem; flex-wrap: wrap;
+  border-top: 1px solid var(--line); padding-top: 0.7rem;
+}
+.build-total .mono { font-size: 0.58rem; letter-spacing: 0.14em; color: var(--text-mid); }
+.build-total strong {
+  font-family: var(--font-archivo), sans-serif; font-size: 1.5rem;
+  font-variant-numeric: tabular-nums; color: var(--text-hi);
+}
+.build-total small { font-size: 0.7rem; color: var(--text-mid); }
+.build-note { font-size: 0.76rem; color: var(--text-mid); }
+.build-note a { color: var(--accent-text); text-decoration: underline; }
+@media (max-width: 560px) {
+  .build-rows > div { grid-template-columns: 1fr; gap: 0.15rem; }
+}
+
 /* Honeypot: reachable by a bot parsing the DOM, invisible and untabbable for a
    person. Not display:none — some bots skip hidden fields. */
 .hp {

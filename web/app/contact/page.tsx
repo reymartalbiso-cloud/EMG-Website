@@ -6,13 +6,31 @@ import { PORTAL_URL } from "@/lib/links";
 
 type Status = "idle" | "sending" | "sent" | "failed";
 
+/** What the configurator hands over. Every field is optional on purpose — an
+    older tab, or a browser that blocked storage, may carry less. */
+type QuoteData = {
+  model?: string;
+  modelId?: string;
+  size?: string;
+  spec?: string;
+  layoutPlan?: string;
+  layoutSummary?: string;
+  layout?: unknown[];
+  totalAud?: number;
+  deliveryKm?: number;
+  custom?: string | null;
+};
+
+const money = (n: number) =>
+  "$" + Math.round(n).toLocaleString("en-AU");
+
 export default function Contact() {
   const [status, setStatus] = useState<Status>("idle");
   const [ref, setRef] = useState<string | null>(null);
   const [sendError, setSendError] = useState("");
   const [message, setMessage] = useState("");
   const [fromQuote, setFromQuote] = useState(false);
-  const [quoteData, setQuoteData] = useState<Record<string, unknown> | null>(null);
+  const [quoteData, setQuoteData] = useState<QuoteData | null>(null);
   const [errors, setErrors] = useState<{ name?: string; email?: string }>({});
   /* One key per submission attempt, so a double-click or a retry cannot create
      two jobs for one customer. Regenerated only after a successful send. */
@@ -39,21 +57,26 @@ export default function Contact() {
   useEffect(() => {
     idem.current = crypto.randomUUID();
     let q: string | null = null;
+    let data: QuoteData | null = null;
     try {
       q = localStorage.getItem("emg-quote");
       if (q) localStorage.removeItem("emg-quote");
       const d = localStorage.getItem("emg-quote-data");
       if (d) {
         localStorage.removeItem("emg-quote-data");
-        setQuoteData(JSON.parse(d));
+        data = JSON.parse(d) as QuoteData;
+        setQuoteData(data);
       }
     } catch {}
     if (!q) {
       q = new URLSearchParams(window.location.search).get("q");
     }
     if (q) {
-      setMessage(q);
       setFromQuote(true);
+      /* Only prefill the message box when there is NO structured build to show.
+         With one, the build gets its own summary and this box stays empty for
+         the customer's own words. */
+      if (!data) setMessage(q);
     }
   }, []);
 
@@ -63,7 +86,7 @@ export default function Contact() {
     const f = new FormData(e.currentTarget);
     setStatus("sending");
     setSendError("");
-    const q = quoteData ?? {};
+    const q: QuoteData = quoteData ?? {};
     try {
       const res = await fetch("/api/order", {
         method: "POST",
@@ -109,30 +132,53 @@ export default function Contact() {
     const form = document.querySelector<HTMLFormElement>(".contact-form");
     if (!form) return "";
     const f = new FormData(form);
+    const q = quoteData;
     const body = [
       `Name: ${f.get("name")}`,
       `Phone: ${f.get("phone")}`,
       `Email: ${f.get("email")}`,
       `Location: ${f.get("location")}`,
-      `Building: ${f.get("building")}`,
+      /* the build no longer lives in the message box, so spell it out here or
+         the email fallback would arrive with the order missing */
+      ...(q
+        ? [
+            "",
+            `Building: ${q.model ?? ""}${q.size ? ` (${q.size})` : ""}`,
+            `Options: ${q.spec ?? ""}`,
+            q.layoutSummary ? `Layout: ${q.layoutSummary}` : "",
+            q.layoutPlan ? `Layout positions: ${q.layoutPlan}` : "",
+            q.deliveryKm != null ? `Delivery: ${q.deliveryKm} km` : "",
+            q.totalAud != null ? `Indicative total: ${money(q.totalAud)} inc GST` : "",
+          ].filter(Boolean)
+        : [`Building: ${f.get("building")}`]),
       "",
       `${f.get("message")}`,
     ].join("\n");
     return (
       "mailto:admin@elitemanufacturing.com.au?subject=" +
-      encodeURIComponent(`Website enquiry — ${f.get("building") || "general"}`) +
+      encodeURIComponent(
+        q ? `Order request — ${q.model ?? "configured build"}` : `Website enquiry — ${f.get("building") || "general"}`
+      ) +
       "&body=" + encodeURIComponent(body)
     );
   }
+  /* Three states: an order request with a build to show, the same arriving
+     without structured data (storage-blocked browsers carry only the text),
+     and a plain enquiry. */
+  const orderMode = fromQuote && !!quoteData;
+
   return (
     <>
       <div className="page-hero">
         <Reveal>
-          <p className="eyebrow mono">TALK TO US</p>
-          <h1 className="display">Tell us what you&apos;re building.</h1>
+          <p className="eyebrow mono">{orderMode ? "ALMOST THERE" : "TALK TO US"}</p>
+          <h1 className="display">
+            {orderMode ? "Send your order request." : "Tell us what you're building."}
+          </h1>
           <p className="section-sub">
-            A block location and a rough idea is plenty to start. We&apos;ll come
-            back with real answers about access, timing and cost.
+            {orderMode
+              ? "Your build is below. Add your details and we'll confirm a firm quote, delivery access and dates — nothing is ordered until you've agreed it with us."
+              : "A block location and a rough idea is plenty to start. We'll come back with real answers about access, timing and cost."}
           </p>
         </Reveal>
       </div>
@@ -157,29 +203,73 @@ export default function Contact() {
               {errors.email && <span className="field-error">{errors.email}</span>}
             </label>
             <label>Property location (town / region)<input name="location" /></label>
-            <label>What are you building?
-              <select name="building" defaultValue="">
-                <option value="" disabled>Choose one…</option>
-                <option>Slide-out container home</option>
-                <option>Two-bedroom container home</option>
-                <option>Expandable container home</option>
-                <option>Site accommodation / offices</option>
-                <option>Ablution block</option>
-                <option>Kitchen / mess unit</option>
-                <option>Container dome</option>
-                <option>Not sure yet</option>
-              </select>
-            </label>
-            <label>
-              {fromQuote ? "Your configured build (edit freely)" : "Anything else we should know?"}
-              <textarea name="message" value={message} onChange={(e) => setMessage(e.target.value)} />
-            </label>
-            {fromQuote && (
-              <p className="footer-muted" style={{ marginTop: 0 }}>
-                Your configuration came through from Build Your Own — add your
-                details above and send it, and we&apos;ll confirm your quote.
-              </p>
+            {/* They already chose it in the configurator — asking again invites
+               an answer that contradicts their own build. */}
+            {!orderMode && (
+              <label>What are you building?
+                <select name="building" defaultValue="">
+                  <option value="" disabled>Choose one…</option>
+                  <option>Slide-out container home</option>
+                  <option>Two-bedroom container home</option>
+                  <option>Expandable container home</option>
+                  <option>Site accommodation / offices</option>
+                  <option>Ablution block</option>
+                  <option>Kitchen / mess unit</option>
+                  <option>Container dome</option>
+                  <option>Not sure yet</option>
+                </select>
+              </label>
             )}
+
+            {orderMode && quoteData && (
+              <div className="build-card">
+                <p className="mono build-card-eyebrow">YOUR BUILD</p>
+                <div className="build-card-head">
+                  <h2 className="display">{quoteData.model}</h2>
+                  {quoteData.size && <span className="mono build-chip">{quoteData.size.toUpperCase()}</span>}
+                </div>
+                <dl className="build-rows">
+                  {quoteData.spec && (
+                    <div><dt className="mono">OPTIONS</dt><dd>{quoteData.spec}</dd></div>
+                  )}
+                  {quoteData.layoutSummary && (
+                    <div><dt className="mono">LAYOUT</dt><dd>{quoteData.layoutSummary}</dd></div>
+                  )}
+                  {quoteData.custom && (
+                    <div><dt className="mono">YOUR BRIEF</dt><dd>{quoteData.custom}</dd></div>
+                  )}
+                  <div>
+                    <dt className="mono">DELIVERY</dt>
+                    <dd>
+                      {quoteData.deliveryKm
+                        ? `${quoteData.deliveryKm} km from Herbert${quoteData.deliveryKm <= 100 ? " — included" : ""}`
+                        : "First 100 km included"}
+                    </dd>
+                  </div>
+                </dl>
+                {quoteData.totalAud != null && (
+                  <p className="build-total">
+                    <span className="mono">INDICATIVE TOTAL</span>
+                    <strong>{money(quoteData.totalAud)}</strong>
+                    <small>inc GST</small>
+                  </p>
+                )}
+                <p className="build-note">
+                  Indicative only — every job is quoted individually once we know
+                  your site. <a href="/build-your-own">Change your build</a>.
+                </p>
+              </div>
+            )}
+
+            <label>
+              {fromQuote && !orderMode ? "Your configured build (edit freely)" : "Anything else we should know?"}
+              <textarea
+                name="message"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                placeholder={orderMode ? "Site access, timing, anything we should know before we quote…" : undefined}
+              />
+            </label>
             {/* Honeypot: off-screen, not hidden, never announced or tabbed to.
                A person cannot fill it; a bot fills everything. */}
             <div className="hp" aria-hidden="true">

@@ -121,6 +121,9 @@ export default function Configurator({ initialModel }: { initialModel?: string }
       size: is20ft ? "20ft" : "40ft",
       spec: specParts,
       layoutPlan,
+      /* the same fixtures in words — the quote panel shows a customer this,
+         never the coordinate list, which is written for whoever quotes it */
+      layoutSummary,
       layout: layoutItems,
       totalAud: total,
       deliveryKm: km,
