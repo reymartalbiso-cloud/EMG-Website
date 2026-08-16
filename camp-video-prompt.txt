@@ -1,0 +1,60 @@
+SEEDANCE PROMPT — COMMERCIAL CAMP-BUILD VIDEO v2 (10 seconds, scroll-scrub, EXPLORING camera)
+Opening frame: the "before" image (single unit on graded pad). If your tool accepts an END frame,
+supply the finished camp aerial (camp.jpg) so the video lands exactly on it.
+
+Use the supplied image as the opening frame. Create a 10-second photorealistic video for
+scroll-controlled website playback; every frame will be scrubbed forward and backward. One
+factory-new accommodation unit in freshly painted RAL 7035 light grey stands alone on a graded
+red-earth pad at an Australian mining site — and multiplies into a complete workers' camp
+village while the camera EXPLORES the camp as it grows.
+
+CAMERA:
+One continuous, uninterrupted shot with constant dramatic motion — the camera never slows to a
+hold at any point. It flies like a cinematic drone on a sweeping choreographed flight path:
+diving low, weaving between building rows, gliding close along walls, and soaring high — all
+blended into one fluid curved journey with pronounced parallax. Motion is smooth and flowing —
+powerful but never shaky, whipping, or cutting. Never fly through a building.
+
+0-12% — APPROACH (low sweeping dive):
+Match the opening image's framing, lighting and environment. The camera sweeps down and glides
+fast and low across the graded red-earth pad toward the lone unit, dust-free and sharp, survey
+string lines flicking past beneath. Late golden afternoon light.
+
+12-40% — FIRST ROWS (rising orbit):
+The camera swings into a rising orbit around the first unit as identical units arrive along
+clear mechanical paths — lowered into place beside it, seating onto footings one after another,
+a row forming beneath the camera as it circles. A second row starts opposite, creating a street.
+
+40-72% — STREET RUN (the exploring moment):
+The camera dives back down to walking height and FLIES ALONG THE STREET between the two rows —
+units assembling on both sides just ahead of it, walkway canopies locking on overhead, ablution
+blocks and a larger kitchen/mess unit sliding into place at the cross-streets it passes. The
+corridor builds itself around the viewer as they travel through it. Daylight softens toward
+dusk; the first row lights flicker on as the camera passes.
+
+72-100% — VILLAGE REVEAL (soaring pullback):
+At the end of the street the camera soars upward and backward in one grand rising spiral,
+higher and wider, the full village revealing beneath — dozens of units in ordered rows,
+connected walkways, light masts — glowing warm against the dusk desert, deep blue-to-orange
+sky, distant mine lights on the horizon. Lights activate row by row as the camera climbs. End
+in a high elevated wide aerial composed like the supplied finished-camp image, with clear sky
+space for website text.
+
+SCROLL:
+Every scroll position shows clearly visible camera movement AND construction progress — no
+moment is static or subtle. Motion stays coherent played forward, paused, reversed, or scrubbed
+slowly. Keep geometry, scale and background stable; lighting changes gradually. No motion blur —
+every frame sharp.
+
+STYLE/OUTPUT:
+Photorealistic architectural film, accurate construction detail, sweeping cinematic motion,
+strong parallax, stable shadows, frame-to-frame consistency. Horizontal 16:9, minimum 1920x1080,
+one uninterrupted shot, image-sequence compatible.
+
+NEGATIVE:
+No people, hands, vehicles, animals, birds. No rust, corrosion, dents, dirt, weathering, faded
+paint. No static camera, motionless holds, shake, whip pans, rapid zoom, full 360 orbit,
+top-down-only view, flying through walls, cuts, teleportation, magical morphing, instant
+construction, disappearing materials, changing dimensions, warped walls or windows, flicker,
+unstable background, sudden lighting changes, motion blur, cartoon style, narration, text,
+labels, logos, watermarks.

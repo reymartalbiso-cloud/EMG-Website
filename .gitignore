@@ -1,0 +1,39 @@
+# Dependencies and build output
+node_modules/
+.next/
+out/
+build/
+*.tsbuildinfo
+
+# Secrets — never commit these. The Supabase service-role key bypasses every
+# row-level-security policy in the portal database; it belongs in Vercel's
+# environment variables and nowhere else.
+.env
+.env.*
+!.env.example
+
+# Source video, kept out on purpose.
+#
+# These are the ~110MB of raw generation output the scroll sequences were made
+# FROM. The frames they produced are committed under web/public/, which is what
+# the site actually serves, so nothing here is needed to build or deploy — and
+# Vercel re-clones the repo on every build, so carrying them would slow every
+# deploy for no gain.
+#
+# They still live in this folder on the working machine. If they should be
+# backed up, SharePoint is the right home for video; if they must be versioned,
+# use Git LFS rather than committing them directly.
+*.mp4
+*.mov
+*.avi
+
+# OS and editor noise
+.DS_Store
+Thumbs.db
+*.swp
+.vscode/
+.idea/
+
+# Local QA artefacts
+.qa/
+shots/

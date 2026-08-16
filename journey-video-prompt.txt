@@ -1,0 +1,65 @@
+SEEDANCE PROMPT — "EVERY LEG OF THE JOURNEY" (15s, scroll-scrub, /how-it-works)
+Optional opening frame: generate from journey-start-image-prompt.txt (anonymous factory bay).
+CONFIDENTIALITY: the factory and origin must be completely anonymous — no signage, no text,
+no flags, no recognisable port skyline, nothing that places the origin anywhere on earth.
+
+Create a 15-second photorealistic video for scroll-controlled website playback; every frame
+will be scrubbed forward and backward. One factory-new 40ft container in freshly painted
+RAL 7035 light grey travels its whole journey: an anonymous factory bay, the open ocean, an
+Australian outback highway, and a bush block at dusk — one continuous shot linked by
+seamless match-move transformations, never a cut.
+
+CAMERA:
+Constant dramatic motion — the camera never slows to a hold. It flies like a cinematic drone
+with bold angle changes: low skimming dollies, fast rising orbits, tight close passes along
+steel, wide soaring pullbacks. Each leg has its own camera personality, blended into one
+fluid journey. Transitions between legs are MATCH-MOVE TRANSFORMATIONS: the camera pushes
+into a surface or texture until it fills the frame, and pulls out of it inside the next
+scene. No cuts, no fades, no whip pans.
+
+0-15% — THE FACTORY (anonymous):
+A dark clean industrial bay, pools of cool overhead light, one RAL 7035 container on stands
+— robotic gantry arms finishing welds with small sparks. No signage, no text, no people.
+Camera glides low and fast along the corrugated side, sparks drifting past the lens.
+
+15-20% — TRANSFORMATION 1: the camera pushes straight into the corrugated steel until the
+grey ridges fill the frame like waves —
+
+20-40% — AT SEA: — and the ridges become open ocean swells. Pull back to reveal the
+container locked atop a cargo vessel's deck stack at golden hour, endless ocean, no land.
+The camera carves a fast arc around the bow spray and climbs over the deck.
+
+40-47% — TRANSFORMATION 2: the camera dives toward the sea surface alongside the hull;
+spray and glare whiten the frame —
+
+47-68% — THE HIGHWAY: — and the glare resolves into heat-haze on Australian bitumen. A road
+train hauls the container down a dead-straight outback highway, red dirt and spinifex to the
+horizon. Low wheel-height chase, then a sweeping overtake orbit, then a high aerial pulling
+alongside. No driver visible, no other vehicles.
+
+68-75% — TRANSFORMATION 3: the truck's red dust cloud blooms across the frame —
+
+75-100% — THE BLOCK: — and the dust settles onto a green-and-red bush block at dusk where a
+mobile crane lowers the container gently onto concrete footings. The camera spirals up and
+back as it seats into place, cables release, and warm site lights flick on around it. End on
+an elevated wide with generous dusk sky for website text.
+
+SCROLL:
+Every scroll position shows visible camera movement and journey progress — never static.
+Motion stays coherent played forward, paused, reversed, or scrubbed slowly. Within each leg,
+geometry and background stay stable; lighting shifts only gradually. No motion blur — every
+frame sharp.
+
+STYLE/OUTPUT:
+Photorealistic logistics film, sweeping cinematic motion, strong parallax, stable shadows,
+frame-to-frame consistency. 16:9, minimum 1920x1080, one uninterrupted shot, image-sequence
+compatible.
+
+NEGATIVE:
+No lettering or characters in any language, no text, signage, labels, logos, flags, brand markings
+anywhere. No identifiable ports, cities, skylines or landmarks. No people, hands, faces,
+drivers. No rust, corrosion, dents, dirt on the container, weathering, faded paint. No
+cuts, fades, whip pans, shake, static holds, rapid zoom, top-down-only view, teleportation,
+magical morphing between wrong scenes, disappearing cargo, changing container proportions,
+warped steel, flicker, unstable backgrounds, sudden lighting jumps, motion blur, cartoon
+style, narration, watermarks.

@@ -1,0 +1,4 @@
+IMAGE PROMPT — MINING CAMP STILL (chooser page, bottom-right triangle)
+Save the result as: web/public/cfg/camp.jpg — then tell Claude to swap it in.
+
+Photorealistic aerial three-quarter view of a modern workers' accommodation camp at an Australian mining site: dozens of identical factory-new container accommodation units in freshly painted RAL 7035 light grey, arranged in neat parallel rows on graded red earth, connected by covered walkways, with ablution blocks and a larger kitchen/mess building, light masts at row ends, warm dusk lighting with row lights glowing, distant mine infrastructure and spinifex scrub on the horizon, deep blue-orange dusk sky. Clean, ordered, engineered — clearly a large-scale village, not a single building. No people, no vehicles, no text, no logos, no rust or weathering, photorealistic, 16:9.

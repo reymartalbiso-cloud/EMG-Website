@@ -1,0 +1,250 @@
+{
+ "img1": {
+  "file": "img1.jpg",
+  "bytes": 12852
+ },
+ "img2": {
+  "file": "img2.jpg",
+  "bytes": 14531
+ },
+ "img3": {
+  "file": "img3.jpg",
+  "bytes": 13843
+ },
+ "img4": {
+  "file": "img4.jpg",
+  "bytes": 8608
+ },
+ "img5": {
+  "file": "img5.jpg",
+  "bytes": 11613
+ },
+ "img6": {
+  "file": "img6.jpg",
+  "bytes": 13310
+ },
+ "ch_front": {
+  "file": "ch_front.jpg",
+  "bytes": 35749
+ },
+ "ch_int2": {
+  "file": "ch_int2.jpg",
+  "bytes": 13564
+ },
+ "ch_bed1": {
+  "file": "ch_bed1.jpg",
+  "bytes": 6648
+ },
+ "ch_bed2": {
+  "file": "ch_bed2.jpg",
+  "bytes": 6433
+ },
+ "fp1": {
+  "file": "fp1.jpg",
+  "bytes": 22777
+ },
+ "fp3": {
+  "file": "fp3.jpg",
+  "bytes": 21661
+ },
+ "so_ext1": {
+  "file": "so_ext1.jpg",
+  "bytes": 25055
+ },
+ "so_ext2": {
+  "file": "so_ext2.jpg",
+  "bytes": 35317
+ },
+ "so_int1": {
+  "file": "so_int1.jpg",
+  "bytes": 14663
+ },
+ "so_int2": {
+  "file": "so_int2.jpg",
+  "bytes": 11547
+ },
+ "so_bed": {
+  "file": "so_bed.jpg",
+  "bytes": 13048
+ },
+ "so_bath": {
+  "file": "so_bath.jpg",
+  "bytes": 10821
+ },
+ "so_fp": {
+  "file": "so_fp.jpg",
+  "bytes": 19110
+ },
+ "wa_ext": {
+  "file": "wa_ext.jpg",
+  "bytes": 20719
+ },
+ "wa_row": {
+  "file": "wa_row.jpg",
+  "bytes": 18411
+ },
+ "wa_k": {
+  "file": "wa_k.jpg",
+  "bytes": 11060
+ },
+ "wa_kb": {
+  "file": "wa_kb.jpg",
+  "bytes": 11877
+ },
+ "wa_3d": {
+  "file": "wa_3d.jpg",
+  "bytes": 14503
+ },
+ "wa_fp3": {
+  "file": "wa_fp3.jpg",
+  "bytes": 15788
+ },
+ "wa_fp4": {
+  "file": "wa_fp4.jpg",
+  "bytes": 22557
+ },
+ "fp2bed": {
+  "file": "fp2bed.jpg",
+  "bytes": 22246
+ },
+ "ch_front2": {
+  "file": "ch_front2.jpg",
+  "bytes": 26736
+ },
+ "ch_k": {
+  "file": "ch_k.jpg",
+  "bytes": 10105
+ },
+ "ch_bath": {
+  "file": "ch_bath.jpg",
+  "bytes": 20445
+ },
+ "ch_bath2": {
+  "file": "ch_bath2.jpg",
+  "bytes": 17836
+ },
+ "st_ext": {
+  "file": "st_ext.jpg",
+  "bytes": 24805
+ },
+ "st_room": {
+  "file": "st_room.jpg",
+  "bytes": 7779
+ },
+ "st_k": {
+  "file": "st_k.jpg",
+  "bytes": 8778
+ },
+ "st_bath": {
+  "file": "st_bath.jpg",
+  "bytes": 12319
+ },
+ "st_bath2": {
+  "file": "st_bath2.jpg",
+  "bytes": 15798
+ },
+ "st_fp": {
+  "file": "st_fp.jpg",
+  "bytes": 28956
+ },
+ "bench_7705": {
+  "file": "bench_7705.jpg",
+  "bytes": 1696
+ },
+ "bench_7718": {
+  "file": "bench_7718.jpg",
+  "bytes": 711
+ },
+ "bench_7702": {
+  "file": "bench_7702.jpg",
+  "bytes": 1448
+ },
+ "bench_9038": {
+  "file": "bench_9038.jpg",
+  "bytes": 1001
+ },
+ "bench_7719": {
+  "file": "bench_7719.jpg",
+  "bytes": 1148
+ },
+ "bench_9037": {
+  "file": "bench_9037.jpg",
+  "bytes": 1917
+ },
+ "bench_7701": {
+  "file": "bench_7701.jpg",
+  "bytes": 2264
+ },
+ "bench_Black": {
+  "file": "bench_Black.jpg",
+  "bytes": 938
+ },
+ "floor_2205": {
+  "file": "floor_2205.jpg",
+  "bytes": 779
+ },
+ "floor_2208": {
+  "file": "floor_2208.jpg",
+  "bytes": 996
+ },
+ "floor_2026": {
+  "file": "floor_2026.jpg",
+  "bytes": 1247
+ },
+ "floor_2203": {
+  "file": "floor_2203.jpg",
+  "bytes": 1179
+ },
+ "floor_2021": {
+  "file": "floor_2021.jpg",
+  "bytes": 1179
+ },
+ "floor_2206": {
+  "file": "floor_2206.jpg",
+  "bytes": 1362
+ },
+ "floor_2022": {
+  "file": "floor_2022.jpg",
+  "bytes": 1152
+ },
+ "floor_2025": {
+  "file": "floor_2025.jpg",
+  "bytes": 1441
+ },
+ "floor_2209": {
+  "file": "floor_2209.jpg",
+  "bytes": 1521
+ },
+ "floor_2822": {
+  "file": "floor_2822.jpg",
+  "bytes": 1362
+ },
+ "floor_2825": {
+  "file": "floor_2825.jpg",
+  "bytes": 1448
+ },
+ "floor_2821": {
+  "file": "floor_2821.jpg",
+  "bytes": 1495
+ },
+ "floor_2827": {
+  "file": "floor_2827.jpg",
+  "bytes": 2792
+ },
+ "floor_2829": {
+  "file": "floor_2829.jpg",
+  "bytes": 1414
+ },
+ "floor_2823": {
+  "file": "floor_2823.jpg",
+  "bytes": 1286
+ },
+ "tour_poster": {
+  "file": "tour_poster.jpg",
+  "bytes": 12703
+ },
+ "tour_video": {
+  "file": "tour_video.mp4",
+  "bytes": 1589846
+ }
+}

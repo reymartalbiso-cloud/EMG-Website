@@ -1,0 +1,25 @@
+Use the supplied container image as the opening frame. Create a 15-second photorealistic video for scroll-controlled website playback; every frame will be scrubbed forward and backward. The factory-new container in freshly painted RAL 7035 light grey becomes an X-ray structure, undergoes visible precision assembly, and ends as a modern container home glowing at dusk. Everything stays factory-new throughout.
+
+CAMERA:
+One continuous, uninterrupted shot with constant dramatic motion — the camera never slows to a hold. It moves like a cinematic drone on a sweeping choreographed flight path: diving low, rising high, gliding close, pulling wide, blended into one fluid journey with pronounced parallax. Motion is smooth and flowing — powerful but never shaky, whipping, or cutting. Keep the full container visible at all times; never fly behind or through it.
+
+0-10% — APPROACH (low sweeping dive):
+Match the source image's proportions, perspective, lighting, and environment. The camera sweeps down from an elevated wide position, gliding fast and low across the grass toward the front corner, pristine unmarked corrugated steel filling more of the frame.
+
+10-25% — X-RAY (rising spiral):
+The camera swings into a rising spiral orbit around the front and long side, climbing from ground level to above roof height. A narrow scan line travels front to back; behind it the shell turns semi-transparent section by section, exposing the steel frame, floor reinforcements, planned openings, wall framing, insulation, plumbing and electrical routes. The X-ray stays locked to the structure as the camera wheels around it.
+
+25-70% — PRECISION ASSEMBLY (orbiting fly-bys):
+The X-ray fades and construction proceeds as a precise engineering timelapse with no visible workers. The camera orbits in wide arcs, swooping close to each build event and arcing back out: (1) door and window openings are cut cleanly along marked lines, cut panels lowering away on crane cables; (2) glass window units and a modern door lift in, align, and seat into the openings as the camera glides past; (3) cladding and warm wood panels attach progressively as the camera tracks the facade; (4) a timber deck with steps assembles board by board as the camera sweeps low past the entrance. Every part travels a clear mechanical path. The container frame stays visible, clean and freshly painted. Daylight softens toward late afternoon.
+
+70-100% — HERO REVEAL (grand crane pullback):
+From deck level the camera soars upward and backward in one rising arc through a final 10-15 degrees of orbit. The sky shifts into full dusk: deep blue twilight, warm light on the horizon. Interior lights activate room by room, exterior lights follow, warm reflections sliding across the glass. End in an elevated three-quarter view of the finished home, deck and roofline — large windows, modern door, warm wood, dark metal, glowing light — retaining the original container dimensions and identity.
+
+SCROLL:
+Every scroll position reveals visible camera movement and construction progress — never static. Motion stays coherent forward, paused, reversed, or scrubbed slowly. Keep geometry, scale, architecture, and background stable; lighting changes gradually. No motion blur — every frame sharp. Leave negative space in the sky for website copy.
+
+STYLE/OUTPUT:
+Photorealistic architectural film, accurate construction detail, sweeping cinematic motion, strong parallax, stable shadows, frame-to-frame consistency. 16:9, minimum 1920x1080, one uninterrupted shot, image-sequence compatible.
+
+NEGATIVE:
+No rust, corrosion, dents, dirt, weathering, faded paint. No people, hands, vehicles, animals, birds. No static camera, holds, shake, whip pans, rapid zoom, full 360 orbit, top-down view, fly-through, cuts, magical morphing, instant construction, disappearing materials, changing dimensions, warped walls or windows, flicker, unstable background, sudden lighting changes, motion blur, cartoon style, narration, text, labels, logos, watermarks.
