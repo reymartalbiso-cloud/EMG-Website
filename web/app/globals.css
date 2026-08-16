@@ -939,10 +939,16 @@ html[data-theme="dark"] {
 /* diagonal split: two clipped background images, one click target */
 .chooser-panel.split .chooser-bg.tl { clip-path: polygon(0 0, 100% 0, 0 100%); }
 .chooser-panel.split .chooser-bg.br { clip-path: polygon(100% 0, 100% 100%, 0 100%); }
+/* The seam between the two photos, not a second diagonal.
+   The clip-paths above split the panel along the anti-diagonal — bottom-left
+   to top-right. A corner-keyword gradient draws its band PERPENDICULAR to its
+   axis, so `to top right` produced the opposite diagonal and the two together
+   read as a big X across the image (Ben, 16 Aug). `to bottom right` puts the
+   band exactly on the seam. */
 .chooser-panel.split::before {
   content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
   background: linear-gradient(
-    to top right,
+    to bottom right,
     transparent calc(50% - 2px),
     var(--accent) calc(50% - 1px),
     var(--accent) calc(50% + 1px),
@@ -1302,12 +1308,16 @@ html:not(.js) .jr-cap { position: static; opacity: 1; visibility: visible; trans
 .wipe-panel.p2 { background: #171715; }
 .wipe-badge {
   position: absolute; inset: 0;
-  display: flex; flex-direction: column; gap: 0.9rem;
-  align-items: center; justify-content: center;
-  color: #F6E4DC; letter-spacing: 0.22em; font-size: 0.68rem;
+  display: flex; align-items: center; justify-content: center;
   opacity: 0;
 }
-.wipe-badge img { border-radius: 8px; }
+/* Big, per Ben — it is the one moment the brand gets the whole screen. Capped
+   against the short edge so it never overflows a landscape phone. */
+.wipe-badge img {
+  width: clamp(200px, 34vmin, 460px);
+  height: auto;
+  display: block;
+}
 
 /* Footer mega wordmark: outline letters rise on scroll, fill on hover */
 .footer-mega {

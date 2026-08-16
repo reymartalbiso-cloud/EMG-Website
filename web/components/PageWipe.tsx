@@ -64,10 +64,11 @@ export default function PageWipe() {
     <div className="page-wipe" aria-hidden="true">
       <div className="wipe-panel p1" />
       <div className="wipe-panel p2" />
+      {/* The mark carries "Elite Manufacturing Group" itself, so there is no
+         wordmark beside it — at this size a second one would just crowd it. */}
       <div className="wipe-badge">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/emg-logo.png" alt="" width={52} height={52} />
-        <span className="mono">ELITE MANUFACTURING</span>
+        <img src="/emg-mark.png" alt="" width={800} height={800} />
       </div>
     </div>
   );
