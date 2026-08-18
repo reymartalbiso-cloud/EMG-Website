@@ -213,6 +213,10 @@ export default function TestimonialMap() {
               aria-label={`Testimonial from ${p.name}, ${p.place}`}
               onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); select(p); } }}
             >
+              {/* Invisible thumb target. On a phone the map scales to ~0.45,
+                 so the 16px logo becomes 7px — the name pills below are the
+                 real mobile affordance, but a pin should still be tappable. */}
+              <circle r="26" fill="transparent" />
               <g className="tmap-pin-inner">
                 <circle r="10" className="tmap-glow" />
                 <image href="/emg-logo.png" x="-8" y="-8" width="16" height="16" />

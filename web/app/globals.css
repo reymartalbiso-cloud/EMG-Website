@@ -140,9 +140,22 @@ img { max-width: 100%; display: block; }
   color: var(--accent-text); text-transform: uppercase; white-space: nowrap;
   padding-right: 2rem;
 }
-.spec-table td { color: var(--text-mid); }
+/* Email addresses and order codes are single unbreakable tokens; without this
+   they set the column's min-content width and push the page sideways. */
+.spec-table td { color: var(--text-mid); overflow-wrap: anywhere; }
+@media (max-width: 560px) {
+  /* the nowrap label plus 2rem of gutter does not fit beside the value on a
+     phone, so the pair stacks instead */
+  .spec-table th, .spec-table td { display: block; width: 100%; padding-right: 0; }
+  .spec-table th { white-space: normal; border-bottom: 0; padding-bottom: 0.15rem; }
+  .spec-table td { padding-top: 0; }
+}
 
-.card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-3); }
+/* minmax(0, 1fr), never plain 1fr: `1fr` is `minmax(auto, 1fr)`, and `auto`
+   refuses to shrink below the content's min-content width. A product card's
+   image and headline were forcing a 535px column inside a 327px phone, which
+   pushed the whole page sideways. */
+.card-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-3); }
 .pcard {
   background: var(--bg-2); border: 1px solid var(--line); border-radius: 4px;
   overflow: hidden; display: flex; flex-direction: column;
@@ -199,10 +212,10 @@ html:not(.js) .act {
 .cta-band .actions { display: flex; gap: var(--space-2); justify-content: center; flex-wrap: wrap; margin-top: var(--space-4); }
 
 @media (max-width: 1024px) {
-  .card-grid { grid-template-columns: repeat(2, 1fr); }
+  .card-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 720px) {
-  .card-grid { grid-template-columns: 1fr; }
+  .card-grid { grid-template-columns: minmax(0, 1fr); }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -309,7 +322,69 @@ html:not(.js) .act {
   font-size: 0.9rem;
 }
 
-@media (max-width: 940px) { .nav-links a:not(.nav-track) { display: none; } }
+/* ---------- Mobile navigation ----------
+   The bar cannot hold seven links under 940px, so they move into a panel
+   behind a burger. Before this the links were simply hidden and a phone
+   visitor could not reach a single page. */
+.nav-burger {
+  display: none;
+  width: 42px; height: 42px; padding: 10px;
+  flex-direction: column; justify-content: space-between;
+  background: transparent; border: 1px solid var(--line); border-radius: 4px;
+  color: inherit; cursor: pointer;
+}
+.nav-burger span {
+  display: block; height: 2px; width: 100%; border-radius: 1px;
+  background: currentColor;
+  transition: transform 0.3s var(--ease-out), opacity 0.2s;
+}
+.nav.over-hero .nav-burger { color: #f7f5f2; border-color: rgba(247, 245, 242, 0.4); }
+.nav.menu-open .nav-burger span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+.nav.menu-open .nav-burger span:nth-child(2) { opacity: 0; }
+.nav.menu-open .nav-burger span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+
+.nav-panel {
+  position: fixed; left: 0; right: 0; top: 0;
+  padding: 6.5rem clamp(1.25rem, 6vw, 3rem) 2rem;
+  background: var(--bg-0);
+  max-height: 100svh; overflow-y: auto;
+  display: grid; gap: var(--space-3); align-content: start;
+  transform: translateY(-100%);
+  transition: transform 0.4s var(--ease-out);
+  z-index: -1;
+}
+.nav-panel.open { transform: translateY(0); }
+.nav-panel nav { display: grid; }
+.nav-panel nav a {
+  font-family: var(--font-archivo), sans-serif;
+  font-size: 1.35rem; font-weight: 700;
+  padding: 0.75rem 0; color: var(--text-hi);
+  border-bottom: 1px solid var(--line);
+}
+.nav-panel nav a[aria-current="page"] { color: var(--accent-text); }
+.nav-panel nav a::after { content: none; }   /* no hover underline in the panel */
+.nav-panel-foot { display: grid; gap: 0.6rem; margin-top: var(--space-2); }
+.nav-panel-theme {
+  display: flex; align-items: center; gap: 0.7rem;
+  margin-top: 0.4rem; font-size: 0.62rem; letter-spacing: 0.16em;
+  color: var(--text-mid);
+}
+
+@media (max-width: 940px) {
+  .nav-links a:not(.nav-track), .nav-links .theme-toggle { display: none; }
+  .nav-burger { display: flex; }
+  /* the panel drops from under the bar, so the bar must sit above it */
+  .nav { z-index: 60; }
+  .nav-panel { z-index: 55; }
+}
+/* Track Your Order lives in the panel on the smallest screens — beside a
+   burger and the wordmark there is not room for it too. */
+@media (max-width: 560px) {
+  .nav-links .nav-track { display: none; }
+}
+@media (min-width: 941px) {
+  .nav-panel { display: none; }
+}
 
 /* ---------- Footer ---------- */
 .footer { border-top: 1px solid var(--line); background: var(--bg-1); padding: var(--space-5) clamp(1.5rem, 6vw, 6rem); }
@@ -396,7 +471,7 @@ html:not(.js) .act {
 
 /* ---------- Contact ---------- */
 .contact-layout {
-  display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5);
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-5);
   padding: 0 clamp(1.5rem, 6vw, 6rem) var(--space-6);
   max-width: 88rem; margin: 0 auto;
 }
@@ -407,7 +482,7 @@ html:not(.js) .act {
   background: var(--bg-2); color: var(--text-hi); font: inherit;
 }
 .contact-form textarea { min-height: 8rem; resize: vertical; }
-@media (max-width: 900px) { .contact-layout { grid-template-columns: 1fr; } }
+@media (max-width: 900px) { .contact-layout { grid-template-columns: minmax(0, 1fr); } }
 
 /* ---------- FAQ ---------- */
 .faq-list { max-width: 52rem; display: grid; gap: 0; }
@@ -504,9 +579,19 @@ html[data-theme="dark"] .cfg-free { color: #b9dcae; background: rgba(79, 122, 82
   border-radius: 50%; font-size: 20px; cursor: pointer;
 }
 .cfg-carbtn.prev { left: 10px; } .cfg-carbtn.next { right: 10px; }
-.cfg-dots { display: flex; gap: 6px; justify-content: center; margin-top: 10px; }
-.cfg-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--line); border: none; cursor: pointer; padding: 0; }
-.cfg-dot.on { background: var(--accent); }
+.cfg-dots { display: flex; gap: 0; justify-content: center; margin-top: 4px; }
+/* The dot still reads as 9px, but the BUTTON is 28px so a thumb can hit it.
+   Sizing the button rather than adding a pseudo-element keeps the real target
+   measurable — an invisible ::after satisfies a finger but not an audit. */
+.cfg-dot {
+  width: 28px; height: 28px; padding: 0; border: none; background: transparent;
+  cursor: pointer; display: inline-flex; align-items: center; justify-content: center;
+}
+.cfg-dot::before {
+  content: ""; width: 9px; height: 9px; border-radius: 50%;
+  background: var(--line); transition: background 0.2s;
+}
+.cfg-dot.on::before { background: var(--accent); }
 
 .cfg-pills { display: flex; gap: 8px; flex-wrap: wrap; }
 .cfg-pill {

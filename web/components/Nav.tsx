@@ -46,6 +46,10 @@ export default function Nav() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [overHero, setOverHero] = useState(false);
+  /* Below 940px the links do not fit across the bar, so they move into a
+     panel. Without this there was no way to reach any page from a phone —
+     only the brand and Track Your Order were left on screen. */
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const hasHero = !!document.querySelector(".hero");
@@ -58,8 +62,22 @@ export default function Nav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, [pathname]);
 
+  /* Close on navigation, and never leave the page unscrollable behind it. */
+  useEffect(() => { setMenuOpen(false); }, [pathname]);
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setMenuOpen(false); };
+    window.addEventListener("keydown", onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prev;
+    };
+  }, [menuOpen]);
+
   return (
-    <header className={`nav${scrolled ? " scrolled" : ""}${overHero ? " over-hero" : ""}`}>
+    <header className={`nav${scrolled ? " scrolled" : ""}${overHero ? " over-hero" : ""}${menuOpen ? " menu-open" : ""}`}>
       <Link className="nav-brand" href="/" aria-label="Elite Manufacturing Group — home">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img className="nav-logo" src="/emg-logo.png" alt="" width={34} height={34} />
@@ -68,6 +86,7 @@ export default function Nav() {
           <span className="nav-brand-sub">MANUFACTURING GROUP</span>
         </div>
       </Link>
+
       <nav className="nav-links" aria-label="Primary">
         {LINKS.map((l) => (
           <Link
@@ -83,6 +102,46 @@ export default function Nav() {
           Track Your Order
         </a>
       </nav>
+
+      <button
+        className="nav-burger"
+        aria-label={menuOpen ? "Close menu" : "Open menu"}
+        aria-expanded={menuOpen}
+        aria-controls="mobile-menu"
+        onClick={() => setMenuOpen((v) => !v)}
+      >
+        <span /><span /><span />
+      </button>
+
+      <div
+        id="mobile-menu"
+        className={`nav-panel${menuOpen ? " open" : ""}`}
+        hidden={!menuOpen}
+      >
+        <nav aria-label="Primary, mobile">
+          {LINKS.map((l) => (
+            <Link
+              key={l.href}
+              href={l.href}
+              aria-current={pathname.startsWith(l.href) ? "page" : undefined}
+              onClick={() => setMenuOpen(false)}
+            >
+              {l.label}
+            </Link>
+          ))}
+          <Link href="/contact" onClick={() => setMenuOpen(false)}>Contact</Link>
+        </nav>
+        <div className="nav-panel-foot">
+          <a className="btn btn-accent" href={PORTAL_URL}>Track Your Order</a>
+          <a className="btn btn-ghost" href="tel:0420251550">Call 0420 251 550</a>
+          {/* the toggle lives in the bar on desktop; it would be lost on a
+             phone otherwise, where the bar only has room for the burger */}
+          <div className="nav-panel-theme">
+            <ThemeToggle />
+            <span className="mono">Switch theme</span>
+          </div>
+        </div>
+      </div>
     </header>
   );
 }
