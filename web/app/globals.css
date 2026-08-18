@@ -244,16 +244,26 @@ html:not(.js) .act {
 .hud-line { width: 46px; height: 1px; background: #F6E4DC; }
 .hud-seq { color: #F6E4DC; }
 
+/* Captions travel with the scroll. --act-t is the act's own 0→1 progress,
+   written every scrub frame, so the text drifts across the screen in lockstep
+   with the thumb — motion IS the scroll feedback (Joel, 18 Aug). transform is
+   deliberately NOT in the transition list: a CSS transition fighting per-frame
+   inline updates turns scrub-perfect motion into mush. */
 .act {
+  --act-t: 0.5;
+  --act-drift: 2.2rem;
   position: absolute; inset: 0;
   display: flex; flex-direction: column; justify-content: center;
   padding: 0 clamp(1.5rem, 7vw, 8rem);
   max-width: 64rem;
-  opacity: 0; visibility: hidden; transform: translateY(26px);
+  opacity: 0; visibility: hidden;
+  transform: translateX(calc((0.5 - var(--act-t)) * 2 * var(--act-drift)));
   pointer-events: none;
-  transition: opacity 0.65s var(--ease-out), transform 0.65s var(--ease-out), visibility 0.65s;
+  transition: opacity 0.65s var(--ease-out), visibility 0.65s;
 }
-.act.on { opacity: 1; visibility: visible; transform: none; }
+.act.on { opacity: 1; visibility: visible; }
+/* static fallback (save-data / no frames): text sits still, centred */
+.static .act { --act-drift: 0rem; }
 .hero .act h1 { font-size: clamp(2.5rem, 6.2vw, 5.2rem); color: #f7f5f2; }
 .hero .act h2 { font-size: clamp(2rem, 5vw, 4rem); max-width: 18ch; color: #f7f5f2; }
 .act h1, .act h2, .act-sub, .act .eyebrow {
@@ -275,7 +285,18 @@ html:not(.js) .act {
 @keyframes cue { 0% { top: -50%; } 100% { top: 110%; } }
 .hero.static .scroll-cue { display: none; }
 
-@media (max-width: 720px) { .hud { display: none; } }
+/* Mobile hero (Joel, 18 Aug: most visitors, and he couldn't tell he was
+   scrolling). Captions get a much larger sideways travel so the first swipe
+   produces unmissable motion, the type gets bigger, and the SEQ counter stays
+   on screen as a live progress read-out instead of being hidden. */
+@media (max-width: 720px) {
+  .act { --act-drift: 11vw; }
+  .hero .act h1 { font-size: clamp(2.9rem, 11.5vw, 4rem); }
+  .hero .act h2 { font-size: clamp(2.3rem, 9.5vw, 3.4rem); }
+  .act-sub { font-size: 1.02rem; max-width: 30ch; }
+  .hud { bottom: 1.2rem; gap: 0.3rem; font-size: 0.6rem; }
+  .hud-phase { display: none; }   /* the counter is the signal; the label is noise at this size */
+}
 @media (prefers-reduced-motion: reduce) {
   .scroll-cue span { animation: none; }
   .act { transition-duration: 0.3s; }
@@ -299,14 +320,16 @@ html:not(.js) .act {
 .nav.over-hero .nav-links a:hover { color: #fff; }
 
 .nav-brand { display: flex; flex-direction: column; line-height: 1.05; }
+/* Ben, 18 Aug: "bigger so you can read it" — the failure was the sub-line,
+   which at 0.52rem was decoration, not words */
 .nav-brand-main {
   font-family: var(--font-archivo), sans-serif;
   font-variation-settings: "wdth" 125;
-  font-weight: 900; font-size: 1.1rem; letter-spacing: 0.16em;
+  font-weight: 900; font-size: 1.35rem; letter-spacing: 0.16em;
 }
 .nav-brand-sub {
   font-family: var(--font-plex-mono), monospace;
-  font-size: 0.52rem; letter-spacing: 0.34em; color: var(--accent);
+  font-size: 0.68rem; letter-spacing: 0.22em; color: var(--accent);
 }
 .nav-links { display: flex; gap: clamp(0.9rem, 2vw, 1.8rem); align-items: center; }
 .nav-links a { font-size: 0.85rem; font-weight: 500; color: var(--text-mid); transition: color 0.2s; }
@@ -944,7 +967,14 @@ html[data-theme="dark"] {
 .ld-pan { margin-left: auto; opacity: 0.75; }
 .ld-warn { color: var(--warn); }
 
-.ld-canvas-wrap { overflow-x: auto; }
+/* Ben, 18 Aug, on the 40ft: "there is a scrolling bar… that can be adjusted".
+   The pan is deliberate (a 12m plan cannot fit a column and stay readable),
+   but the fat native scrollbar read as a mistake — so it becomes a thin
+   laterite rail that looks like part of the instrument. */
+.ld-canvas-wrap { overflow-x: auto; scrollbar-width: thin; scrollbar-color: var(--accent) var(--bg-1); padding-bottom: 4px; }
+.ld-canvas-wrap::-webkit-scrollbar { height: 6px; }
+.ld-canvas-wrap::-webkit-scrollbar-track { background: var(--bg-1); border-radius: 3px; }
+.ld-canvas-wrap::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
 /* touch-action stays OFF the canvas so fingers can still pan/scroll/zoom the
    page; only the items themselves capture the gesture for dragging */
 .ld-canvas { width: 100%; display: block; touch-action: pan-x pan-y pinch-zoom; user-select: none; }
@@ -1372,6 +1402,7 @@ html:not(.js) .jr-cap { position: static; opacity: 1; visibility: visible; trans
   white-space: nowrap;
 }
 .spec-chip.glass { color: var(--accent-text); border-color: color-mix(in srgb, var(--accent) 45%, transparent); }
+.spec-chip.nt-only { color: var(--warn); border-color: color-mix(in srgb, var(--warn) 55%, transparent); }
 
 .shop-price {
   font-size: 1.25rem; font-weight: 700;
@@ -1386,11 +1417,11 @@ html:not(.js) .jr-cap { position: static; opacity: 1; visibility: visible; trans
 
 /* ---------- Motion system v3 ---------- */
 
-/* Route-change wipe: laterite panel chased by a steel panel, badge on top */
+/* Route-change wipe (Ben's order, 18 Aug): black fades in over the page, the
+   mark pops on the black, then the orange bar sweeps up and takes it all away */
 .page-wipe { position: fixed; inset: 0; z-index: 240; visibility: hidden; pointer-events: none; }
-.wipe-panel { position: absolute; inset: -2% 0; transform: translateY(103%); }
-.wipe-panel.p1 { background: var(--accent); }
-.wipe-panel.p2 { background: #171715; }
+.wipe-black { position: absolute; inset: 0; background: #171715; opacity: 0; }
+.wipe-orange { position: absolute; inset: -2% 0; background: var(--accent); transform: translateY(103%); }
 .wipe-badge {
   position: absolute; inset: 0;
   display: flex; align-items: center; justify-content: center;

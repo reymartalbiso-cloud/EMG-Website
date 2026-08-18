@@ -41,7 +41,11 @@ export default function ShopGrid() {
   const [size, setSize] = useState("All");
   const [price, setPrice] = useState(0);
   const [sort, setSort] = useState(0);
+  const [ntFilter, setNtFilter] = useState<"all" | "nt" | "everywhere">("all");
   const [q, setQ] = useState("");
+  /* the NT controls exist only once a flagged model exists — invisible until
+     Joel's D-types and fold-outs land */
+  const hasNtStock = MODELS.some((m) => m.ntOnly);
   const gridRef = useRef<HTMLDivElement>(null);
   const flipState = useRef<ReturnType<typeof Flip.getState> | null>(null);
 
@@ -51,11 +55,13 @@ export default function ShopGrid() {
       if (beds !== "All" && f.beds !== beds && f.beds !== "Any") return false;
       if (size !== "All" && f.size !== size && f.size !== "Any") return false;
       if (!PRICE_FILTERS[price].test(m.base)) return false;
+      if (ntFilter === "nt" && !m.ntOnly) return false;
+      if (ntFilter === "everywhere" && m.ntOnly) return false;
       if (q && !(m.name + " " + m.spec).toLowerCase().includes(q.toLowerCase())) return false;
       return true;
     });
     return sort === 0 ? list : [...list].sort((a, b) => SORTS[sort].cmp(a.base, b.base));
-  }, [beds, size, price, sort, q]);
+  }, [beds, size, price, sort, ntFilter, q]);
 
   /* FLIP: capture positions before a filter/sort change, animate after */
   const capture = () => {
@@ -98,6 +104,16 @@ export default function ShopGrid() {
             {p.label}
           </button>
         ))}
+        {hasNtStock && (
+          <>
+            <span aria-hidden="true" style={{ opacity: 0.3 }}>|</span>
+            {([["all", "NT + interstate"], ["nt", "NT stock only"], ["everywhere", "Delivered anywhere"]] as const).map(([v, label]) => (
+              <button key={v} className={`cfg-pill${ntFilter === v ? " sel" : ""}`} onClick={() => set(setNtFilter)(v)}>
+                {label}
+              </button>
+            ))}
+          </>
+        )}
         <span aria-hidden="true" style={{ opacity: 0.3 }}>|</span>
         {SORTS.map((s, i) => (
           <button key={s.label} className={`cfg-pill${sort === i ? " sel" : ""}`} onClick={() => set(setSort)(i)}>
@@ -130,11 +146,12 @@ export default function ShopGrid() {
                     <span className="mono spec-chip" key={c}>{c.toUpperCase()}</span>
                   ))}
                   {m.glass && <span className="mono spec-chip glass">{m.glass.toUpperCase()}</span>}
+                  {m.ntOnly && <span className="mono spec-chip nt-only">NT DELIVERY ONLY</span>}
                 </div>
                 <p className="shop-price">
                   <span className="from mono">FROM</span> {money(m.base)} <small>inc GST</small>
                 </p>
-                <Link className="btn btn-accent" href={`/build-your-own?model=${m.id}#configurator`}>
+                <Link className="btn btn-accent" href={`/build-your-own?model=${m.id}`}>
                   Build &amp; price ↗
                 </Link>
               </div>

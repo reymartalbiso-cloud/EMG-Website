@@ -140,7 +140,7 @@ export default function TourCinema() {
 
       <figcaption className="tour-caption">
         <span className="mono">40FT ONE · 1 BED · FROM $57,900 INC GST</span>
-        <Link className="btn btn-accent" href="/build-your-own?model=one#configurator" onClick={(e) => e.stopPropagation()}>
+        <Link className="btn btn-accent" href="/build-your-own?model=one" onClick={(e) => e.stopPropagation()}>
           Build &amp; price ↗
         </Link>
       </figcaption>

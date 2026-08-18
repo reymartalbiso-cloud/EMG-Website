@@ -87,6 +87,11 @@ export default function CampHero() {
       acts.forEach((el, n) => {
         const a = ACT_RANGES[n];
         el.classList.toggle("on", p >= a.from && p <= a.to);
+        /* local progress inside this act's window drives the caption's travel
+           across the screen — text that moves with the thumb is the proof of
+           scrolling Joel asked for, and the motion Ben wants on the camp */
+        const t = Math.min(1, Math.max(0, (p - a.from) / (a.to - a.from)));
+        el.style.setProperty("--act-t", t.toFixed(4));
       });
       const frame = Math.round(p * (FRAME_COUNT - 1));
       hudSeq.textContent = `SEQ ${String(frame + 1).padStart(3, "0")}/${FRAME_COUNT}`;
@@ -112,7 +117,9 @@ export default function CampHero() {
         scrollTrigger: {
           trigger: root,
           start: "top top",
-          end: "+=380%",
+          /* phones get a shorter pin: the same frames in fewer swipes,
+             so the picture visibly answers every scroll */
+          end: window.matchMedia("(max-width: 720px)").matches ? "+=280%" : "+=380%",
           pin: ".hero-stage",
           scrub: 1,
           anticipatePin: 1,

@@ -17,6 +17,11 @@ export type Model = {
   setup?: { label: string; price: number; incl: string };
   photo: string;
   carousel: string[];
+  /** NT-yard stock EMG cannot deliver interstate (Joel, 18 Aug: D-types and
+      fold-outs). The shop badges and filters these automatically the moment a
+      model carries the flag — an interstate caller asking for a product we
+      cannot supply is a lost sale that never needed to happen. */
+  ntOnly?: boolean;
 };
 
 const img = (k: string) => `/cfg/${k}.jpg`;
