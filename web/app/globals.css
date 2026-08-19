@@ -196,6 +196,7 @@ html:not(.js) .act {
   position: static; opacity: 1; visibility: visible; transform: none;
   pointer-events: auto; padding: var(--space-4) clamp(1.5rem, 7vw, 8rem);
 }
+html:not(.js) .act > * { transform: none; }
 
 .page-hero { padding: calc(var(--space-6) + 4rem) clamp(1.5rem, 6vw, 6rem) var(--space-5); max-width: 88rem; margin: 0 auto; }
 .page-hero h1 { font-size: clamp(2.4rem, 5.4vw, 4.6rem); max-width: 20ch; }
@@ -244,26 +245,57 @@ html:not(.js) .act {
 .hud-line { width: 46px; height: 1px; background: #F6E4DC; }
 .hud-seq { color: #F6E4DC; }
 
-/* Captions travel with the scroll. --act-t is the act's own 0→1 progress,
-   written every scrub frame, so the text drifts across the screen in lockstep
-   with the thumb — motion IS the scroll feedback (Joel, 18 Aug). transform is
-   deliberately NOT in the transition list: a CSS transition fighting per-frame
-   inline updates turns scrub-perfect motion into mush. */
+/* Captions live on the scrub. --act-t is the act's own 0→1 progress, written
+   every frame, and EVERYTHING here derives from it: the drift across the
+   screen (motion IS the scroll feedback — Joel, 18 Aug), the fade at each
+   end of the act's window, the depth stagger between the caption's own lines,
+   and the eyebrow's tracking. No time-based transitions on any of it — a CSS
+   transition fighting per-frame updates turns scrub-perfect motion into mush.
+   Scrolling backwards replays everything in reverse for free. */
 .act {
-  --act-t: 0.5;
+  --act-t: 0;
   --act-drift: 2.2rem;
-  position: absolute; inset: 0;
+  position: absolute; inset: 0; z-index: 1;
   display: flex; flex-direction: column; justify-content: center;
   padding: 0 clamp(1.5rem, 7vw, 8rem);
   max-width: 64rem;
-  opacity: 0; visibility: hidden;
+  /* fade in over the first fifth of the window, out over the last fifth */
+  opacity: min(calc(var(--act-t) * 5), calc((1 - var(--act-t)) * 5), 1);
+  visibility: hidden;
   transform: translateX(calc((0.5 - var(--act-t)) * 2 * var(--act-drift)));
   pointer-events: none;
-  transition: opacity 0.65s var(--ease-out), visibility 0.65s;
+  transition: visibility 0.4s;
 }
-.act.on { opacity: 1; visibility: visible; }
+.act.on { visibility: visible; }
+/* the opening act is already on screen at rest; the closing act must still be
+   there when the scrub parks at the end. (Explicit classes — :first-of-type
+   fails here because another div precedes the acts in the stage.) */
+.act.act-1 { opacity: min(calc((1 - var(--act-t)) * 5), 1); }
+.act.act-4 { opacity: min(calc(var(--act-t) * 5), 1); }
+
+/* depth: each line drifts at its own rate on top of the block's travel, so
+   the caption reads as layers in space rather than a flat card */
+.act > * { transform: translateX(calc((0.5 - var(--act-t)) * 2 * var(--act-depth, 0rem))); }
+.act h1, .act h2 { --act-depth: 0.9rem; }
+.act-sub { --act-depth: -0.5rem; }
+.act-cta { --act-depth: -1.1rem; }
+.act .eyebrow {
+  --act-depth: -0.8rem;
+  /* the label tracks open as its act plays */
+  letter-spacing: calc(0.14em + var(--act-t) * 0.09em);
+}
+
+/* legibility scrim: bright frames (sky, glass) were eating the type. It rides
+   the act's own opacity, so it enters and leaves with the words. */
+.act::before {
+  content: ""; position: absolute; inset: 0 -100vw 0 -100vw; z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(100deg, rgba(18, 16, 14, 0.55), rgba(18, 16, 14, 0.22) 48%, transparent 75%);
+}
+
 /* static fallback (save-data / no frames): text sits still, centred */
 .static .act { --act-drift: 0rem; }
+.static .act > * { --act-depth: 0rem; }
 .hero .act h1 { font-size: clamp(2.5rem, 6.2vw, 5.2rem); color: #f7f5f2; }
 .hero .act h2 { font-size: clamp(2rem, 5vw, 4rem); max-width: 18ch; color: #f7f5f2; }
 .act h1, .act h2, .act-sub, .act .eyebrow {
