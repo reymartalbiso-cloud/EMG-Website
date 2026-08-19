@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import CampHero from "@/components/CampHero";
+import CampScoper from "@/components/CampScoper";
 import CountStat from "@/components/CountStat";
 import { Reveal } from "@/components/shared";
 import { PRODUCTS } from "@/lib/products";
@@ -51,6 +52,25 @@ export default function Commercial() {
             <span className="band-label">Stations, island communities and mine sites, Australia-wide</span>
           </Reveal></li>
         </ul>
+      </section>
+
+      {/* Scope your camp — drag a crew size, watch the village assemble. The
+         proof this buyer wants ("can they handle my 100-person camp?") as an
+         experience instead of a sentence. */}
+      <section className="section" id="camp-scoper">
+        <div className="section-head">
+          <Reveal>
+            <h2 className="display">Size the camp to your crew.</h2>
+            <p className="section-sub">
+              Drag your headcount and watch the program take shape —
+              accommodation rows, ablutions, kitchen and offices, planned and
+              delivered as one village.
+            </p>
+          </Reveal>
+        </div>
+        <Reveal>
+          <CampScoper />
+        </Reveal>
       </section>
 
       {/* Tailored capability block — "specifically copywritten for them" (Ben) */}

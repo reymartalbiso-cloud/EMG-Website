@@ -18,12 +18,18 @@ export default function Fabs() {
   }, []);
 
   const onConfigurator = pathname === "/build-your-own";
+  /* the commercial buyer is scoping a program, not pricing a retail build —
+     the floating action follows the audience */
+  const commercial = pathname.startsWith("/commercial");
 
   return (
     <>
       {!onConfigurator && (
-        <Link href="/build-your-own" className={`fab fab-quote${show ? " show" : ""}`}>
-          Build &amp; price ↗
+        <Link
+          href={commercial ? "/commercial#camp-scoper" : "/build-your-own"}
+          className={`fab fab-quote${show ? " show" : ""}`}
+        >
+          {commercial ? "Scope a camp ↗" : "Build & price ↗"}
         </Link>
       )}
       <button
