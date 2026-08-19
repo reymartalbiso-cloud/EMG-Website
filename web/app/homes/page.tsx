@@ -19,7 +19,7 @@ export default function Homes() {
           <p className="eyebrow mono">CONTAINER HOMES</p>
           <h1 className="display">A real home. On your land. This year.</h1>
           <p className="section-sub">
-            Class 1A certified dwellings — designed for Territory conditions,
+            Class 1A certified dwellings — designed for remote Australian conditions,
             delivered and installed on your block, typically 4–6 months from
             order to keys.
           </p>

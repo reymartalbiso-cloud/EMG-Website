@@ -56,7 +56,7 @@ export default function Quality() {
               ceiling height than a standard container, and the difference
               between &ldquo;converted container&rdquo; and a room you&apos;d
               happily live in. The standard finish is RAL&nbsp;7035 light grey:
-              heat-sensible in the Territory sun and consistent across every
+              heat-sensible in the harshest Australian sun and consistent across every
               building we deliver.
             </p>
           </Reveal>

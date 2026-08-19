@@ -26,7 +26,7 @@ export const PRODUCTS: Product[] = [
       ["CLASS", "Class 1A habitable dwelling"],
       ["COLOUR", "RAL 7035 light grey, standard"],
       ["ACCESS", "Threshold-free doorways, sunken shower base"],
-      ["DELIVERY", "NT & QLD, including remote sites"],
+      ["DELIVERY", "Australia-wide, including remote sites"],
     ],
     body: [
       "The slide-out arrives on your block as a standard 40-foot container — then opens out on site to roughly double its floor area. One truck, one crane lift, and a building that no flat-pack or kit home can match for arrival-day drama.",
@@ -47,7 +47,7 @@ export const PRODUCTS: Product[] = [
       ["CLASS", "Class 1A habitable dwelling"],
       ["COLOUR", "RAL 7035 light grey, standard"],
       ["ACCESS", "Threshold-free doorways, sunken shower base"],
-      ["DELIVERY", "NT & QLD, including remote sites"],
+      ["DELIVERY", "Australia-wide, including remote sites"],
     ],
     body: [
       "This is the building most of our residential customers choose: a 40-foot high-cube fitted out as a one- or two-bedroom home with a full kitchen, bathroom and living area.",
@@ -67,7 +67,7 @@ export const PRODUCTS: Product[] = [
       ["FORMAT", "20 ft high-cube, Type A expandable"],
       ["COLOUR", "RAL 7035 light grey, standard"],
       ["ACCESS", "Threshold-free doorways, sunken shower base"],
-      ["DELIVERY", "NT & QLD, including remote sites"],
+      ["DELIVERY", "Australia-wide, including remote sites"],
     ],
     body: [
       "The expandable Type A ships compact and unfolds on site into a liveable space with kitchenette and bathroom — a practical first dwelling, granny flat, or station quarters.",
@@ -86,10 +86,10 @@ export const PRODUCTS: Product[] = [
       ["FORMAT", "20 ft & 40 ft high-cube units"],
       ["USE", "Camps, villages, site offices"],
       ["COLOUR", "RAL 7035 light grey, standard"],
-      ["DELIVERY", "NT & QLD, incl. remote and island sites"],
+      ["DELIVERY", "Australia-wide, incl. remote and island sites"],
     ],
     body: [
-      "We supply and install accommodation for the places hotels don't exist: mine sites, remote communities, work camps and stations across the NT and Queensland.",
+      "We supply and install accommodation for the places hotels don't exist: mine sites, remote communities, work camps and stations, Australia-wide.",
       "Orders are specified per project — unit count, layouts, electrical spec, furniture — and delivered as a coordinated program, not a pile of containers on a pad.",
     ],
   },
@@ -105,7 +105,7 @@ export const PRODUCTS: Product[] = [
       ["FORMAT", "Type-01A shower/toilet units"],
       ["USE", "Camps, events, community facilities"],
       ["ACCESS", "Sunken shower bases, threshold-free"],
-      ["DELIVERY", "NT & QLD, including remote sites"],
+      ["DELIVERY", "Australia-wide, including remote sites"],
     ],
     body: [
       "Our ablution blocks are plumbed, ventilated and finished as permanent-quality facilities: proper showers with sunken bases, real fixtures, and steel buildings that survive site life.",
@@ -124,7 +124,7 @@ export const PRODUCTS: Product[] = [
       ["FORMAT", "20 ft Type-D open plan"],
       ["FIT-OUT", "Kitchenette + bathroom, updated electrical available"],
       ["COLOUR", "RAL 7035 light grey, standard"],
-      ["DELIVERY", "NT & QLD, including remote sites"],
+      ["DELIVERY", "Australia-wide, including remote sites"],
     ],
     body: [
       "The Type-D is our most flexible commercial unit: an open-plan 20-footer with a kitchenette and bathroom that works as a mess, a crib room, an office with amenities, or event catering space.",
@@ -143,7 +143,7 @@ export const PRODUCTS: Product[] = [
       ["MODELS", "C4040S · C4080S"],
       ["FORMAT", "Container-mounted fabric span"],
       ["USE", "Workshops, machinery, hay, storage"],
-      ["DELIVERY", "NT & QLD"],
+      ["DELIVERY", "Australia-wide"],
     ],
     body: [
       "Container domes turn two container rows into the walls of a huge covered span — fast to erect, engineered for real wind, and a fraction of the cost of a steel shed of the same footprint.",
@@ -160,7 +160,7 @@ export const SITE_WORKS = [
   { name: "Plumbing & hot water", desc: "Connection to services, hot water system supplied and fitted." },
   { name: "Electrical connection", desc: "Mains or generator connection by licensed electricians." },
   { name: "Water tank & pump", desc: "Rainwater storage and pressure systems for off-grid blocks." },
-  { name: "Air conditioning", desc: "Split systems sized for Territory heat, installed and tested." },
+  { name: "Air conditioning", desc: "Split systems sized for the harshest Australian heat, installed and tested." },
   { name: "Decking & roofing", desc: "Verandahs, walkways and roof-overs that turn a unit into a homestead." },
   { name: "Sealing & finishing", desc: "The last 2% — flashings, sealing, snag list, handover clean." },
 ];

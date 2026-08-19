@@ -144,7 +144,7 @@ export default function Home() {
       <section className="section" id="reviews">
         <div className="section-head">
           <Reveal>
-            <h2 className="display">Trusted across the Territory.</h2>
+            <h2 className="display">Trusted Australia-wide.</h2>
           </Reveal>
         </div>
         <div className="quotes">

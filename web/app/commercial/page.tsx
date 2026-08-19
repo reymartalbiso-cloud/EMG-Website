@@ -8,7 +8,7 @@ import { PRODUCTS } from "@/lib/products";
 export const metadata: Metadata = {
   title: "Commercial & Remote-Site Buildings — Mining, Community, Government",
   description:
-    "Site accommodation, ablution blocks and kitchen/mess units for mining, remote community and government projects — specified, delivered and installed across NT and QLD.",
+    "Site accommodation, ablution blocks and kitchen/mess units for mining, remote community and government projects — specified, delivered and installed Australia-wide.",
 };
 
 export default function Commercial() {

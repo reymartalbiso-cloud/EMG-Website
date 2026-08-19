@@ -17,7 +17,7 @@ export default function Marquee() {
                 <span className="dot">·</span>
               </span>
             ))}
-            <span className="solid">Built for the Territory</span>
+            <span className="solid">Built for remote Australia</span>
             <span className="dot">·</span>
           </span>
         ))}

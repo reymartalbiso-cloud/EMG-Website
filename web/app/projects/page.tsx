@@ -38,8 +38,8 @@ export default function Projects() {
           <p className="eyebrow mono">DELIVERED, INSTALLED, HANDED OVER</p>
           <h1 className="display">Real buildings on real red dirt.</h1>
           <p className="section-sub">
-            A selection of completed deliveries across the Northern Territory
-            and Queensland — homes on private blocks, camp accommodation,
+            A selection of completed deliveries, Australia-wide — homes on
+            private blocks, camp accommodation,
             ablution facilities and domes. Every photo below is one of our
             real builds; descriptions come straight from the order book.
           </p>

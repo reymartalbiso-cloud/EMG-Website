@@ -9,7 +9,7 @@ import { PORTAL_URL } from "@/lib/links";
 export const metadata: Metadata = {
   title: "How It Works — Container Home Delivery, Honestly Told",
   description:
-    "How a container home actually gets from order to handover in the NT and QLD: specification, factory build, shipping and customs, site works and installation. Typically 4–6 months, honestly tracked.",
+    "How a container home actually gets from order to handover, anywhere in Australia: specification, factory build, shipping and customs, site works and installation. Typically 4–6 months, honestly tracked.",
 };
 
 const STAGES = [
