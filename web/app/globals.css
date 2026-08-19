@@ -966,7 +966,9 @@ html[data-theme="dark"] {
   border-bottom: 1px solid var(--line);
 }
 .ld-stats b { color: var(--accent-text); font-variant-numeric: tabular-nums; font-weight: 600; }
-.ld-pan { margin-left: auto; opacity: 0.75; }
+/* the pan hint only exists where the plan actually pans (phones) */
+.ld-pan { display: none; margin-left: auto; opacity: 0.75; }
+@media (max-width: 700px) { .ld-pan { display: inline; } }
 .ld-warn { color: var(--warn); }
 
 /* Ben, 18 Aug, on the 40ft: "there is a scrolling bar… that can be adjusted".
@@ -980,6 +982,12 @@ html[data-theme="dark"] {
 /* touch-action stays OFF the canvas so fingers can still pan/scroll/zoom the
    page; only the items themselves capture the gesture for dragging */
 .ld-canvas { width: 100%; display: block; touch-action: pan-x pan-y pinch-zoom; user-select: none; }
+/* Ben, 18 Aug: no sideways scroll on the 40ft — the plan fits the column.
+   Phones keep the pan: a 12m plan squeezed into 350px would be untouchable. */
+@media (max-width: 700px) {
+  .ld-canvas-20 { min-width: 620px; }
+  .ld-canvas-40 { min-width: 1100px; }
+}
 .ld-item { cursor: grab; touch-action: none; outline: none; }
 .ld-item:active { cursor: grabbing; }
 .ld-item:focus-visible > rect { stroke: var(--accent); stroke-width: 4; }

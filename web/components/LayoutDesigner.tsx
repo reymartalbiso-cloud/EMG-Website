@@ -22,7 +22,7 @@ import FixtureIcon, { FixtureGlyph } from "@/lib/fixtureIcons";
 
 const WALL_C = 2;        // shell wall thickness in cells (0.1m)
 const WIDTH_C = 49;      // container outer width in cells (2.44m → 48.8, floor to 48; keep 49*0.05=2.45≈)
-const PAD_L = 11, PAD_T = 10, PAD_R = 7, PAD_B = 17;  // svg padding in cells
+const PAD_L = 11, PAD_T = 10, PAD_R = 7, PAD_B = 33;  // bottom pad carries the OUTWARD door swing + annotations
 const S = 5;             // svg units per cell (so 1m = 100 units)
 
 type Props = {
@@ -561,8 +561,7 @@ export default function LayoutDesigner({ len20, colourHex, onChange }: Props) {
         <svg
           ref={svgRef}
           viewBox={`0 0 ${vbW} ${vbH}`}
-          className="ld-canvas"
-          style={{ minWidth: len20 ? 620 : 1100 }}
+          className={`ld-canvas ${len20 ? "ld-canvas-20" : "ld-canvas-40"}`}
           role="group"
           aria-label={`Container floor plan, ${len20 ? "20" : "40"} foot. Use the fixture buttons below to add items or partitions; arrow keys move a focused item, R rotates, Delete removes.`}
         >
@@ -618,9 +617,12 @@ export default function LayoutDesigner({ len20, colourHex, onChange }: Props) {
           {/* openings in the south wall: entry door with swing, plus glazing */}
           <g pointerEvents="none">
             <rect x={OX + DOOR_A * S} y={southY} width={(DOOR_B - DOOR_A) * S} height={wallT} fill="var(--ld-floor)" />
+            {/* swings OUTWARDS (Ben's standing rule for every door):
+               leaf perpendicular to the wall on the outside, arc back to the
+               far jamb */}
             <path
-              d={`M ${OX + DOOR_A * S} ${southY} L ${OX + DOOR_A * S} ${southY - (DOOR_B - DOOR_A) * S}
-                  A ${(DOOR_B - DOOR_A) * S} ${(DOOR_B - DOOR_A) * S} 0 0 1 ${OX + DOOR_B * S} ${southY}`}
+              d={`M ${OX + DOOR_A * S} ${southY + wallT} L ${OX + DOOR_A * S} ${southY + wallT + (DOOR_B - DOOR_A) * S}
+                  A ${(DOOR_B - DOOR_A) * S} ${(DOOR_B - DOOR_A) * S} 0 0 0 ${OX + DOOR_B * S} ${southY + wallT}`}
               fill="none" stroke="var(--text-mid)" strokeWidth={1.5} opacity={0.8}
             />
             {windows.map(([a, b], i) => (
@@ -646,7 +648,7 @@ export default function LayoutDesigner({ len20, colourHex, onChange }: Props) {
           {dimText(shellX - 6.2 * S, shellY + shellH / 2, "2.44 m", true)}
 
           {/* usable-area note under the entry side */}
-          <text x={shellX + shellW / 2} y={shellY + shellH + 5.4 * S} textAnchor="middle" className="ld-note">
+          <text x={shellX + shellW / 2} y={shellY + shellH + 21.4 * S} textAnchor="middle" className="ld-note">
             ENTRY &amp; GLAZING SIDE
           </text>
 
@@ -655,32 +657,32 @@ export default function LayoutDesigner({ len20, colourHex, onChange }: Props) {
             {[0, 1, 2, 3].map((i) => (
               <rect
                 key={`sb${i}`}
-                x={shellX + i * 25} y={shellY + shellH + 8.2 * S}
+                x={shellX + i * 25} y={shellY + shellH + 24.2 * S}
                 width={25} height={7}
                 fill={i % 2 ? "var(--ld-floor)" : "var(--text-mid)"}
                 stroke="var(--text-mid)" strokeWidth={1}
               />
             ))}
-            <text x={shellX} y={shellY + shellH + 11.6 * S} className="ld-note" textAnchor="start">0</text>
-            <text x={shellX + 100} y={shellY + shellH + 11.6 * S} className="ld-note" textAnchor="middle">1 m</text>
+            <text x={shellX} y={shellY + shellH + 27.6 * S} className="ld-note" textAnchor="start">0</text>
+            <text x={shellX + 100} y={shellY + shellH + 27.6 * S} className="ld-note" textAnchor="middle">1 m</text>
           </g>
 
           {/* title block */}
           <g pointerEvents="none">
             <line
-              x1={shellX} y1={shellY + shellH + 13 * S}
-              x2={shellX + shellW + wallT} y2={shellY + shellH + 13 * S}
+              x1={shellX} y1={shellY + shellH + 29 * S}
+              x2={shellX + shellW + wallT} y2={shellY + shellH + 29 * S}
               stroke="var(--line)" strokeWidth={1}
             />
-            <text x={shellX} y={shellY + shellH + 15.4 * S} className="ld-title" textAnchor="start">
+            <text x={shellX} y={shellY + shellH + 31.4 * S} className="ld-title" textAnchor="start">
               ELITE MANUFACTURING GROUP
             </text>
-            <text x={shellX + shellW / 2} y={shellY + shellH + 15.4 * S} className="ld-title" textAnchor="middle">
+            <text x={shellX + shellW / 2} y={shellY + shellH + 31.4 * S} className="ld-title" textAnchor="middle">
               {len20 ? "20FT" : "40FT"} · {items.length} FIXTURES
             </text>
             {/* kept short: at 20ft the three title texts share only 6m of width
                (mono at 11px with 0.14em tracking runs ~8.1 units per character) */}
-            <text x={shellX + shellW + wallT} y={shellY + shellH + 15.4 * S} className="ld-title" textAnchor="end">
+            <text x={shellX + shellW + wallT} y={shellY + shellH + 31.4 * S} className="ld-title" textAnchor="end">
               NOT FOR CONSTRUCTION
             </text>
           </g>
@@ -705,7 +707,7 @@ export default function LayoutDesigner({ len20, colourHex, onChange }: Props) {
             const t = it.rot
               ? `translate(${x + bw / 2} ${y + bh / 2}) rotate(90) translate(${-nw / 2} ${-nh / 2})`
               : `translate(${x} ${y})`;
-            const fs = Math.max(8, Math.min(13, nh * 0.3));
+            const fs = Math.max(12, Math.min(14, nh * 0.3));
             const label = nw >= 100 ? f.name : f.short;
             const isSel = sel?.k === "i" && sel.id === it.id;
             const clash = crossing.has(it.id);
