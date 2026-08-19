@@ -310,7 +310,7 @@ export default function Contact() {
               <tr><th>EMAIL</th><td><a href="mailto:admin@elitemanufacturing.com.au">admin@elitemanufacturing.com.au</a></td></tr>
               <tr><th>YARD</th><td>Herbert, Northern Territory</td></tr>
               <tr><th>HOURS</th><td>Mon–Sun · 11am–6pm</td></tr>
-              <tr><th>DELIVERY</th><td>NT &amp; QLD, including remote sites</td></tr>
+              <tr><th>DELIVERY</th><td>Australia-wide, including remote sites</td></tr>
               <tr><th>ORDERED?</th><td><a href={PORTAL_URL}>Track your order in the portal</a></td></tr>
             </tbody>
           </table>

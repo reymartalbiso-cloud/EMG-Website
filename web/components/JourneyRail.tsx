@@ -14,7 +14,7 @@ const LEGS = [
   { n: "02", title: "Factory build", time: "TYPICALLY 8–12 WEEKS", body: "Built to our specification by our manufacturing partners, inspected before it ships." },
   { n: "03", title: "At sea", time: "TYPICALLY 4–8 WEEKS", body: "The least predictable leg — which is why we own it, and why our dates are ranges." },
   { n: "04", title: "Port & customs", time: "CLEARED WHILE IT SAILS", body: "Documents forwarded, clearance paid, delivery order issued — ready before the ship berths." },
-  { n: "05", title: "The highway", time: "ANYWHERE NT & QLD", body: "Trucked from the port to your block — stations, islands and mine sites included." },
+  { n: "05", title: "The highway", time: "AUSTRALIA-WIDE", body: "Trucked from the port to your block — stations, islands and mine sites included." },
   { n: "06", title: "Your site", time: "SEQUENCED IN ADVANCE", body: "Craned onto footings poured while it was at sea; services connected." },
   { n: "07", title: "Handover", time: "TYPICALLY 4–6 MONTHS ALL UP", body: "Walk-through, keys, warranty — and the portal tracked every leg above, live." },
 ];

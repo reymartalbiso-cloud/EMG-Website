@@ -5,13 +5,13 @@ import { Reveal } from "@/components/shared";
 export const metadata: Metadata = {
   title: "About — Elite Manufacturing Group, Herbert NT",
   description:
-    "Elite Manufacturing Group delivers and installs container homes and portable buildings across the NT and QLD from Herbert, Northern Territory — owning every step from factory to handover.",
+    "Elite Manufacturing Group delivers and installs container homes and portable buildings Australia-wide from Herbert, Northern Territory — owning every step from factory to handover.",
 };
 
 const NUMBERS: [string, string][] = [
   ["2", "Established factories building to our spec"],
   ["1", "Company accountable, end to end"],
-  ["NT+QLD", "Delivered, craned and installed"],
+  ["AUS-wide", "Delivered, craned and installed"],
   ["4–6", "Months, typically, quote to keys"],
 ];
 
@@ -95,8 +95,8 @@ export default function About() {
           <Reveal>
             <p>
               We run that whole journey from Herbert, in the rural area outside
-              Darwin — Territory-based, delivering across the NT and Queensland
-              including the remote sites most suppliers won&apos;t quote. Our
+              Darwin — Territory-based, delivering Australia-wide, including
+              the remote sites most suppliers won&apos;t quote. Our
               customers range from families putting a first home on their own
               land to mining operators housing a crew, remote communities and
               government projects.
@@ -165,7 +165,7 @@ export default function About() {
               <tr><th>Hours</th><td>Monday–Friday 9am–8pm · Saturday 10am–6pm · Sunday by appointment</td></tr>
               <tr><th>Phone</th><td><a href="tel:0420251550">0420 251 550</a></td></tr>
               <tr><th>Email</th><td><a href="mailto:admin@elitemanufacturing.com.au">admin@elitemanufacturing.com.au</a></td></tr>
-              <tr><th>Service area</th><td>Northern Territory &amp; Queensland — remote sites included</td></tr>
+              <tr><th>Service area</th><td>Australia-wide — remote sites, islands and camps included</td></tr>
               <tr><th>ABN</th><td>13 669 513 473</td></tr>
             </tbody>
           </table>

@@ -5,20 +5,20 @@ import Gallery from "@/components/Gallery";
 
 const PHOTOS = [
   { src: "/cfg/ch_front.jpg", alt: "40ft container home on a bush block" },
-  { src: "/cfg/so_ext2.jpg", alt: "40ft Outback slide-out with full glass frontage" },
-  { src: "/cfg/img1.jpg", alt: "20ft Outback double-wide unit" },
+  { src: "/cfg/so_ext2.jpg", alt: "40ft Containerised Slide Out Home with full glass frontage" },
+  { src: "/cfg/img1.jpg", alt: "The Infinity Cube 20ft slide-out unit" },
   { src: "/cfg/wa_ext.jpg", alt: "Workers accommodation unit" },
-  { src: "/cfg/st_ext.jpg", alt: "20ft Studio exterior" },
+  { src: "/cfg/st_ext.jpg", alt: "The Retreat exterior" },
   { src: "/cfg/ch_front2.jpg", alt: "Container home with sliding glass doors" },
   { src: "/cfg/so_ext1.jpg", alt: "Slide-out home under roof-over" },
   { src: "/cfg/ch_k.jpg", alt: "Full kitchen inside a container home" },
-  { src: "/cfg/so_int1.jpg", alt: "Open-plan living inside the 40ft Outback" },
+  { src: "/cfg/so_int1.jpg", alt: "Open-plan living inside the 40ft Containerised Slide Out Home" },
 ];
 
 export const metadata: Metadata = {
-  title: "Projects — Delivered Across NT & QLD",
+  title: "Projects — Delivered Across Australia",
   description:
-    "Completed container home and commercial building deliveries across the Northern Territory and Queensland — homes, camps, ablution blocks and domes, installed and handed over.",
+    "Completed container home and commercial building deliveries across Australia — homes, camps, ablution blocks and domes, installed and handed over.",
 };
 
 const PROJECTS = [

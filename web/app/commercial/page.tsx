@@ -35,12 +35,12 @@ export default function Commercial() {
       <section className="band" aria-label="Delivery record">
         <ul className="band-grid" role="list">
           <li className="band-item"><Reveal>
-            <span className="band-num display"><CountStat value={69} /> × 40ft</span>
-            <span className="band-label">40-foot buildings landed to date</span>
+            <span className="band-num display"><CountStat value={300} />+ × 40ft</span>
+            <span className="band-label">40-foot buildings landed and counting</span>
           </Reveal></li>
           <li className="band-item"><Reveal>
-            <span className="band-num display"><CountStat value={25} /> × 20ft</span>
-            <span className="band-label">20-foot buildings landed to date</span>
+            <span className="band-num display"><CountStat value={180} />+ × 20ft</span>
+            <span className="band-label">20-foot buildings landed and counting</span>
           </Reveal></li>
           <li className="band-item"><Reveal>
             <span className="band-num display">Multi-unit</span>
@@ -48,7 +48,7 @@ export default function Commercial() {
           </Reveal></li>
           <li className="band-item"><Reveal>
             <span className="band-num display">Remote</span>
-            <span className="band-label">Stations, island communities and mine sites, NT &amp; QLD</span>
+            <span className="band-label">Stations, island communities and mine sites, Australia-wide</span>
           </Reveal></li>
         </ul>
       </section>
@@ -71,7 +71,7 @@ export default function Commercial() {
             ["Full camps at 100-person scale", "Accommodation rows, ablutions, kitchen and mess — planned and delivered as one village."],
             ["Volume on schedule", "Multiple buildings per shipping cycle, sequenced so your site is never waiting on us."],
             ["Specified to NCC requirements", "Documented to National Construction Code requirements for your site classification."],
-            ["Remote-site delivery, NT & QLD", "Stations, island communities and mine sites most suppliers won't quote."],
+            ["Remote-site delivery, Australia-wide", "Stations, island communities and mine sites most suppliers won't quote."],
             ["One accountable contractor", "Footings, services, septic, install and after-sales — one team, one contract."],
           ].map(([t, d]) => (
             <Reveal key={t}>

@@ -208,7 +208,7 @@ export default function JourneySequence() {
         <div className="act act-3">
           <h2>Up the highway.</h2>
           <p className="act-sub">
-            From the port to anywhere the NT and Queensland roads reach —
+            From the port to anywhere Australia's roads reach —
             stations, islands and mine sites included.
           </p>
         </div>

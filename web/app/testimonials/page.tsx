@@ -6,7 +6,7 @@ import { Reveal } from "@/components/shared";
 export const metadata: Metadata = {
   title: "Testimonials — Customers Across the Territory",
   description:
-    "Real customers, real buildings, real words — explore Elite Manufacturing testimonials across the Northern Territory and Queensland.",
+    "Real customers, real buildings, real words — explore Elite Manufacturing testimonials across Australia.",
 };
 
 export default function Testimonials() {

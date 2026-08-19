@@ -22,11 +22,11 @@ const plexMono = IBM_Plex_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://elitemanufacturing.com.au"),
   title: {
-    default: "Elite Manufacturing Group — Container Homes & Buildings, NT & QLD",
+    default: "Elite Manufacturing Group — Container Homes & Buildings, Australia-Wide",
     template: "%s — Elite Manufacturing Group",
   },
   description:
-    "Class 1A container homes, commercial accommodation, ablution blocks and container domes — delivered and installed across the Northern Territory and Queensland, owned end-to-end from factory to handover.",
+    "Class 1A container homes, commercial accommodation, ablution blocks and container domes — delivered and installed Australia-wide, owned end-to-end from factory to handover.",
   icons: { icon: "/emg-logo.png", apple: "/emg-logo.png" },
 };
 
@@ -37,7 +37,7 @@ const jsonLd = {
   "@type": "LocalBusiness",
   name: "Elite Manufacturing Group",
   description:
-    "Container homes and portable buildings delivered and installed across the Northern Territory and Queensland.",
+    "Container homes and portable buildings delivered and installed Australia-wide.",
   telephone: "+61 420 251 550",
   email: "admin@elitemanufacturing.com.au",
   address: {
@@ -46,7 +46,7 @@ const jsonLd = {
     addressRegion: "NT",
     addressCountry: "AU",
   },
-  areaServed: ["Northern Territory", "Queensland"],
+  areaServed: "Australia",
   url: "https://elitemanufacturing.com.au",
 };
 

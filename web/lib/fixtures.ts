@@ -84,7 +84,7 @@ export const PARTITION_C = "#8b8b84";
    (loadPreset validates again defensively). */
 export const PRESETS: Record<string, { name: string; len: 20 | 40; items: Omit<PlacedItem, "id">[] }> = {
   "studio-20": {
-    name: "20ft Studio",
+    name: "The Retreat",
     len: 20,
     items: [
       { type: "bed-d", cx: 79, cy: 13, rot: false },
@@ -99,7 +99,7 @@ export const PRESETS: Record<string, { name: string; len: 20 | 40; items: Omit<P
     ],
   },
   "one-40": {
-    name: "40ft One-Bedroom",
+    name: "Deluxe 40ft Home",
     len: 40,
     items: [
       { type: "bed-d", cx: 6, cy: 6, rot: false },

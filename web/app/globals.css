@@ -908,7 +908,9 @@ html.js .chooser-skip { animation: chooserFade 0.8s var(--ease-out) 0.55s backwa
 @media (max-width: 780px) { .ch-grid { grid-template-columns: repeat(3, 1fr); } }
 
 /* ---------- Nav logo badge ---------- */
-.nav-logo { border-radius: 4px; flex-shrink: 0; }
+.nav-logo { flex-shrink: 0; }
+/* the bar is shorter on a phone — the mark scales with it */
+@media (max-width: 560px) { .nav-logo { width: 46px; height: 46px; } }
 .nav-brand { display: flex; flex-direction: row; align-items: center; gap: 0.7rem; }
 .nav-brand > div { display: flex; flex-direction: column; line-height: 1.05; }
 

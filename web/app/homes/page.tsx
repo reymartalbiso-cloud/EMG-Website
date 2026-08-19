@@ -5,9 +5,9 @@ import TourCinema from "@/components/TourCinema";
 import { PRODUCTS } from "@/lib/products";
 
 export const metadata: Metadata = {
-  title: "Container Homes — Class 1A Dwellings for NT & QLD",
+  title: "Container Homes — Class 1A Dwellings, Australia-Wide",
   description:
-    "Slide-out, two-bedroom and expandable container homes — Class 1A certified dwellings delivered and installed on your block across the NT and Queensland.",
+    "Slide-out, two-bedroom and expandable container homes — Class 1A certified dwellings delivered and installed on your block, Australia-wide.",
 };
 
 export default function Homes() {

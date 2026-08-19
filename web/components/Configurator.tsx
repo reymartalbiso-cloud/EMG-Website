@@ -7,7 +7,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
-  MODELS, COLOURS, BENCHTOPS, FLOORS, HOT_WATER, AC_UNITS, KM_RATE, money,
+  MODELS, COLOURS, BENCHTOPS, FLOORS, DOORS, HOT_WATER, AC_UNITS, KM_RATE, money,
 } from "@/lib/configurator";
 import LayoutDesigner from "@/components/LayoutDesigner";
 import type { PlacedItem } from "@/lib/fixtures";
@@ -38,6 +38,8 @@ export default function Configurator({ initialModel }: { initialModel?: string }
   const [flooring, setFlooring] = useState("2208");
   const [bedrooms, setBedrooms] = useState("3 bedroom");
   const [hw, setHw] = useState(HOT_WATER[0]);
+  /* like the finishes, the door choice survives a model switch */
+  const [door, setDoor] = useState(DOORS[0]);
   const [km, setKm] = useState(0);
   const [setupOn, setSetupOn] = useState(false);
   const [customNeeds, setCustomNeeds] = useState("");
@@ -68,7 +70,7 @@ export default function Configurator({ initialModel }: { initialModel?: string }
   const acCost = ac.reduce((s, u) => s + u.qty * u.price, 0);
   const setupCost = model.setup && setupOn ? model.setup.price : 0;
   const delCost = show("delivery") ? km * KM_RATE : 0;
-  const total = model.base + hw.price + acCost + setupCost + delCost;
+  const total = model.base + hw.price + acCost + setupCost + delCost + door.price;
 
   /* price countTo: 250ms, direction in colour (design doc §4.5) */
   useEffect(() => {
@@ -95,13 +97,14 @@ export default function Configurator({ initialModel }: { initialModel?: string }
     if (show("bench")) parts.push("Benchtop " + benchtop);
     if (show("tap")) parts.push(tapware + " tapware");
     if (show("floor")) parts.push("Flooring " + flooring);
+    parts.push(door.price ? `${door.name} (${door.sub}, − $2,000)` : door.name);
     parts.push(hw.name === "None" ? "no hot water" : `${hw.name} (${hw.cap}) hot water`);
     const acP = ac.filter((u) => u.qty > 0).map((u) => `${u.qty}× ${u.kw}`);
     parts.push(acP.length ? acP.join(", ") + " aircon" : "no aircon");
     if (setupCost) parts.push(`${model.setup!.label} (${money(setupCost)})`);
     if (delCost) parts.push(`+${km}km delivery (${money(delCost)})`);
     return parts.join(" · ");
-  }, [model, colour, benchtop, tapware, flooring, bedrooms, hw, ac, setupCost, delCost, km]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [model, colour, benchtop, tapware, flooring, bedrooms, door, hw, ac, setupCost, delCost, km]); // eslint-disable-line react-hooks/exhaustive-deps
 
   function addToQuote() {
     /* gate on the plan text, not the fixture list — a layout can be nothing
@@ -316,6 +319,22 @@ export default function Configurator({ initialModel }: { initialModel?: string }
               colourHex={colourHex}
               onChange={(its, sum, pl) => { setLayoutItems(its); setLayoutSummary(sum); setLayoutPlan(pl); }}
             />
+          </div>
+
+          <div className="cfg-block">
+            <p className="cfg-lbl">External door</p>
+            <p className="cfg-hint">Glass sliding door is standard · the hinged door opens outwards and takes $2,000 off</p>
+            <div className="cfg-pills">
+              {DOORS.map((d) => (
+                <button
+                  key={d.id}
+                  className={`cfg-pill${door.id === d.id ? " sel" : ""}`}
+                  onClick={() => setDoor(d)}
+                >
+                  {d.name} · {d.price ? "− $2,000" : "included"}
+                </button>
+              ))}
+            </div>
           </div>
 
           <div className="cfg-block">

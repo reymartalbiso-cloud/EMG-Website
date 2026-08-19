@@ -18,7 +18,7 @@ const FAQS: [string, string][] = [
   ],
   [
     "Can you deliver to my block?",
-    "We deliver across the Northern Territory and Queensland, including remote sites, stations and island communities — and the first 100km of road transport from your local port is included free, with extra distance charged at $15/km. A 40-foot container arrives on a semi-trailer with a crane, so access is the real question — we assess your track, gates and overhead clearances as part of the quote.",
+    "We deliver Australia-wide, including remote sites, stations and island communities — and the first 100km of road transport from your local port is included free, with extra distance charged at $15/km. A 40-foot container arrives on a semi-trailer with a crane, so access is the real question — we assess your track, gates and overhead clearances as part of the quote.",
   ],
   [
     "What do I need to have ready on site?",

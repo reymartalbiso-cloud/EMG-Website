@@ -9,7 +9,7 @@ const TRUST = [
   ["Class 1A", "Certified habitable dwellings — legal to live in, not just to park"],
   ["Flat entry", "Threshold-free doorways and sunken shower bases, standard on every build"],
   ["High-cube", "Extra ceiling height on every unit; RAL 7035 finish as standard"],
-  ["NT & QLD", "Delivered and installed, including remote and island sites"],
+  ["Australia-wide", "Delivered and installed, including remote and island sites"],
 ];
 
 const STAGES = [
@@ -54,7 +54,7 @@ export default function Home() {
             ["Transportable homes & caravans", "Container homes, slide-outs and transportable dwellings — built to order."],
             ["Class 1A certified installs", "Habitable-standard dwellings, certified — legal to live in, not just to park."],
             ["Site works, start to finish", "Footings, septic, power, water and decking — sequenced while your build ships."],
-            ["Delivery & crane placement", "Trucked and craned onto your block, anywhere in the NT and Queensland."],
+            ["Delivery & crane placement", "Trucked and craned onto your block, anywhere in Australia."],
             ["Finance pathways", "Fixed, itemised, lender-ready quotes — and guidance on residential finance options."],
             ["After-sales support", "Warranty backed by the same local team that sold you the building."],
           ].map(([t, d]) => (

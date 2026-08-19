@@ -29,7 +29,7 @@ const img = (k: string) => `/cfg/${k}.jpg`;
 export const MODELS: Model[] = [
   {
     id: "ob20",
-    name: "The 20ft Outback",
+    name: "The Infinity Cube",
     base: 49900,
     ac: "single",
     show: ["hw", "ac", "setup"],
@@ -39,13 +39,13 @@ export const MODELS: Model[] = [
       incl: "Stumping, weatherproofing, slide-out + weld-off. Darwin only. Excludes service connections.",
     },
     spec: "20ft · 1 room double wide · kitchen + bathroom",
-    glass: "6m glass frontage",
+    glass: "6m infinity glass frontage",
     photo: img("img1"),
     carousel: ["img2", "img3", "img4", "img5", "img6"].map(img),
   },
   {
     id: "studio",
-    name: "The 20ft Studio",
+    name: "The Retreat",
     base: 36000,
     ac: "mix",
     show: ["colour", "bench", "tap", "floor", "hw", "ac", "delivery"],
@@ -55,7 +55,7 @@ export const MODELS: Model[] = [
   },
   {
     id: "one",
-    name: "The 40ft One",
+    name: "Deluxe 40ft Home",
     base: 57900,
     ac: "mix",
     show: ["colour", "bench", "tap", "floor", "hw", "ac", "delivery"],
@@ -65,7 +65,7 @@ export const MODELS: Model[] = [
   },
   {
     id: "family",
-    name: "The 40ft Family",
+    name: "40ft 2xBedroom Container Home",
     base: 59900,
     ac: "mix",
     show: ["colour", "bench", "tap", "floor", "hw", "ac", "delivery"],
@@ -75,7 +75,7 @@ export const MODELS: Model[] = [
   },
   {
     id: "ob40",
-    name: "The 40ft Outback",
+    name: "40ft Containerised Slide Out Home",
     base: 91000,
     ac: "mix",
     show: ["hw", "ac", "setup"],
@@ -85,13 +85,13 @@ export const MODELS: Model[] = [
       incl: "Stumping, weatherproofing, slide-out + weld-off. Excludes service connections.",
     },
     spec: "40ft · slide-out · multiple living areas",
-    glass: "12m glass frontage",
+    glass: "12m infinity glass frontage",
     photo: img("so_ext2"),
     carousel: ["so_ext1", "so_int1", "so_int2", "so_bed", "so_bath", "so_fp"].map(img),
   },
   {
     id: "workers",
-    name: "Workers Accommodation",
+    name: "Worker Accommodation",
     base: 64900,
     ac: "mix",
     show: ["bedrooms", "colour", "bench", "tap", "floor", "hw", "ac", "delivery"],
@@ -132,6 +132,13 @@ export const FLOORS = [
   "2205", "2208", "2026", "2203", "2021", "2206", "2022", "2025",
   "2209", "2822", "2825", "2821", "2827", "2829", "2823",
 ].map((c) => ({ c, img: `/cfg/floor_${c}.jpg` }));
+
+/* Ben, 18 Aug (twice): the glass sliding door is the standard door; a normal
+   hinged door — swinging OUTWARDS — is the option, and it takes $2,000 off. */
+export const DOORS = [
+  { id: "sliding", name: "Glass sliding door", sub: "standard on every build", price: 0 },
+  { id: "hinged", name: "Standard hinged door", sub: "opens outwards", price: -2000 },
+];
 
 export const HOT_WATER = [
   { name: "None", cap: "", sub: "building only", price: 0 },
