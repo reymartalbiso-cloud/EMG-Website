@@ -1412,6 +1412,21 @@ html:not(.js) .jr-cap { position: static; opacity: 1; visibility: visible; trans
    the portrait variant existed — it silently overrode every attempt to size
    the phone rail and is gone on purpose) */
 
+/* SHORT screens — old 320×568 phones and any phone held landscape. The
+   pinned stage must fit one screen or the caption is clipped for the whole
+   pin; everything here trades chrome for that guarantee. */
+@media (max-height: 700px) {
+  .jr-stage { padding: 4rem clamp(1.5rem, 6vw, 6rem) 1.5rem; gap: 0.8rem; }
+  .jr-sub { display: none; }
+  .jr-head h2 { font-size: clamp(1.5rem, 4vw, 2.2rem); }
+  .jr-caps { min-height: 8rem; }
+  .jr-cap h3 { font-size: 1.15rem; margin: 0.3rem 0 0.25rem; }
+  .jr-cap p { font-size: 0.85rem; }
+  /* intrinsic width/height attributes are on the svg, so height-driven
+     sizing scales it by its real aspect */
+  .jr-svg-wide { width: auto; height: min(32svh, 300px); margin: 0 auto; max-width: 100%; }
+}
+
 /* ---------- Shop grid upgrade ---------- */
 .card-grid .pcard-feature { grid-column: span 2; grid-row: span 2; }
 .card-grid .pcard-feature .pcard-media { aspect-ratio: auto; flex: 1; min-height: 320px; }
