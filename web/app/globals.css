@@ -926,6 +926,21 @@ html.js .chooser-skip { animation: chooserFade 0.8s var(--ease-out) 0.55s backwa
   min-width: 200px;
 }
 .shop-count { font-size: 0.78rem; color: var(--text-mid); margin-left: auto; }
+/* Phones: the filter stack ate 324px before the first product. One swipeable
+   strip instead — and the search stays ≥16px, or iOS zooms the page on focus. */
+@media (max-width: 720px) {
+  .shop-filters {
+    flex-wrap: nowrap; overflow-x: auto;
+    scrollbar-width: thin; scrollbar-color: var(--accent) var(--bg-1);
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 8px;
+  }
+  .shop-filters::-webkit-scrollbar { height: 5px; }
+  .shop-filters::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+  .shop-filters .cfg-pill { white-space: nowrap; flex: none; }
+  .shop-filters input[type="search"] { font-size: 16px; flex: none; min-width: 11rem; }
+  .shop-count { flex: none; white-space: nowrap; }
+}
 
 /* ---------- Colour live preview ---------- */
 .cfg-preview {
@@ -1336,6 +1351,20 @@ body::after {
 .jr-sub { color: #9A9A93; margin-top: 0.6rem; max-width: 40rem; }
 
 .jr-svg { width: 100%; height: auto; display: block; }
+/* one journey, two drawings: the wide rail for landscape, the portrait snake
+   for phones — where the wide one rendered as a 9px squiggle */
+.jr-svg-tall { display: none; }
+@media (max-width: 720px) {
+  .jr-svg-wide { display: none; }
+  /* size comes INLINE on the element (a cascade quirk kept re-inflating it);
+     this only flips visibility */
+  .jr-svg-tall { display: block; }
+  .jr-stage { padding-top: 5.5rem; gap: var(--space-3); }
+  /* 420-unit viewBox at ~350px rendered ≈ 1:1 — these are real pixel sizes */
+  .jr-svg-tall .jr-node-n { font-size: 15px; }
+  .jr-sub { font-size: 0.9rem; }
+  .jr-caps { min-height: 11rem; }
+}
 .jr-rail-ghost {
   fill: none; stroke: rgba(236, 236, 233, 0.14); stroke-width: 2;
   stroke-dasharray: 3 7; stroke-linecap: round;
@@ -1379,10 +1408,9 @@ html:not(.js) .jr-node .ring { stroke: var(--accent); }
 html:not(.js) .jr-caps { min-height: 0; }
 html:not(.js) .jr-cap { position: static; opacity: 1; visibility: visible; transform: none; margin-bottom: var(--space-3); }
 
-@media (max-width: 720px) {
-  .jr-svg { min-width: 640px; }
-  .jr-svg-wrap, .jr-stage { overflow-x: hidden; }
-}
+/* (a min-width: 640px rule for the wide rail used to live here from before
+   the portrait variant existed — it silently overrode every attempt to size
+   the phone rail and is gone on purpose) */
 
 /* ---------- Shop grid upgrade ---------- */
 .card-grid .pcard-feature { grid-column: span 2; grid-row: span 2; }
