@@ -21,6 +21,18 @@ export const metadata: Metadata = {
     "Completed container home and commercial building deliveries across Australia. Homes, camps, ablution blocks and domes, installed and handed over.",
 };
 
+/* "Us in action" (Ben, 18 Aug): crew photos from real delivery and install
+   days. Source folder at the repo root is gitignored on purpose; only the
+   §1.1-audited selection is published here. */
+const ACTION = [
+  { src: "/action/crane-lift.webp", alt: "Crane lifting a container building into place between mango trees" },
+  { src: "/action/slideout-install.webp", alt: "Slide-out container home opened out on its stumps during installation" },
+  { src: "/action/footings-pad.webp", alt: "Gravel footing pad with galvanised posts set out on a bush block" },
+  { src: "/action/footings-bearers.webp", alt: "Steel bearers levelled on engineered footings, ready for delivery day" },
+  { src: "/action/tight-access.webp", alt: "Container home rolled on skates through a tight side yard to its pad" },
+  { src: "/action/bore-test.webp", alt: "Flow-testing a new bore pump during site services work" },
+];
+
 const PROJECTS = [
   { t: "Slide-out container home", w: "Private block, rural Darwin region", k: "RESIDENTIAL" },
   { t: "Two-bedroom Class 1A home", w: "Private land, Northern Territory", k: "RESIDENTIAL" },
@@ -48,6 +60,23 @@ export default function Projects() {
       <section className="section" style={{ paddingTop: 0 }}>
         <Reveal>
           <Gallery photos={PHOTOS} />
+        </Reveal>
+      </section>
+      {/* delivery-day photos straight from the crew, Ben's "Us in Action" folder */}
+      <section className="section" style={{ paddingTop: 0 }} id="us-in-action">
+        <div className="section-head">
+          <Reveal>
+            <h2 className="display">Us, in action.</h2>
+            <p className="section-sub">
+              Straight from the crew&apos;s phones: cranes working between mango
+              trees, footings going down on red dirt, bore pumps flow-tested,
+              and a home wheeled through a side gate with centimetres to
+              spare. This is what delivery day really looks like.
+            </p>
+          </Reveal>
+        </div>
+        <Reveal>
+          <Gallery photos={ACTION} />
         </Reveal>
       </section>
       <section className="section" style={{ paddingTop: 0 }}>

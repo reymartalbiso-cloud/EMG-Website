@@ -37,3 +37,12 @@ Thumbs.db
 # Local QA artefacts
 .qa/
 shots/
+
+# Raw "Us in Action" drop from SharePoint, kept out on purpose.
+#
+# This folder holds Ben's unfiltered crew photos and videos. Two of them can
+# never be published (a factory-interior shot and one where a supplier's
+# window-film branding is readable), so the folder as a whole stays off the
+# public repo. The audited, optimized selection is committed under
+# web/public/action/ — that is what the site serves.
+us in action/
