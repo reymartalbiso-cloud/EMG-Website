@@ -1137,87 +1137,248 @@ html[data-theme="dark"] {
 .chooser-quad.tl { left: 8%; top: 34%; }
 .chooser-quad.br { right: 6%; top: 56%; }
 
-/* ---------- Testimonial map ---------- */
-.tmap { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: var(--space-4); align-items: center; }
-.tmap-map {
+/* ---------- Testimonial map, 3D ----------
+   A tilted, extruded plate with customers floating above their region. All of
+   the 3D maths hangs off two variables: --tilt and --spin. Anything that must
+   face the viewer counter-rotates by the negation of both, so the mobile
+   breakpoint can change the tilt without desynchronising a single pin.
+
+   The stage is deliberately dark in BOTH themes (same licence JourneyRail's
+   stage takes): a neon rim needs a night sky, and local ink variables replace
+   the theme tokens inside it so nothing turns invisible in light mode. */
+.tmap { display: grid; gap: var(--space-3); }
+.tmap-stage {
+  --tilt: 52deg;
+  --spin: -7deg;
+  --tm-ink: #EDEBE6;
+  --tm-dim: rgba(237, 235, 230, 0.5);
+  --tm-rim: color-mix(in srgb, var(--accent) 58%, #F6E4DC);
   position: relative;
-  border: 1px solid var(--line); border-radius: 8px;
-  background: var(--bg-2);
-  padding: clamp(0.8rem, 2vw, 1.6rem);
+  border-radius: 8px;
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 42%, #1c1a17 0%, #100f0e 62%, #0b0b0A 100%);
+  /* safe on the 3D: a perspective container composites to a flat layer, so
+     clipping here cannot flatten the plate's own children */
   overflow: hidden;
 }
-.tmap-map svg { width: 100%; height: auto; display: block; }
-.tmap-base { fill: var(--bg-1); }
-.tmap-dot { fill: color-mix(in srgb, var(--text-mid) 45%, transparent); }
-.tmap-outline { fill: none; stroke: var(--line); stroke-width: 1; stroke-linejoin: round; }
+/* ambient bloom, unrotated, so it reads as light in the room */
+.tmap-bloom {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 46% 40% at 50% 46%,
+    color-mix(in srgb, var(--accent) 26%, transparent) 0%, transparent 70%);
+  pointer-events: none;
+}
+.tmap-scene {
+  perspective: 1500px;
+  perspective-origin: 50% 34%;
+  padding: clamp(74px, 12vw, 128px) clamp(10px, 4vw, 54px) clamp(28px, 5vw, 60px);
+}
+.tmap-plate {
+  position: relative;
+  transform-style: preserve-3d;
+  transform: rotateX(var(--tilt)) rotateZ(var(--spin));
+}
+/* the surface gives the plate its height; everything else is absolute to it */
+.tmap-surface { position: relative; display: block; width: 100%; height: auto; }
+/* extruded side wall: stepped back along the plate normal, which after the
+   tilt appears below the southern coast. Static layers, so they rasterise
+   once and cost nothing per frame. */
+.tmap-wall {
+  position: absolute; inset: 0; width: 100%; height: auto;
+  fill: #0a0a09;
+  stroke: color-mix(in srgb, var(--accent) 26%, transparent);
+  stroke-width: 0.7;
+}
+.tmap-base { fill: #14120F; }
+.tmap-dot { fill: rgba(237, 235, 230, 0.16); }
+.tmap-outline {
+  fill: none; stroke: var(--tm-rim); stroke-width: 1.4; stroke-linejoin: round;
+  filter:
+    drop-shadow(0 0 2px var(--tm-rim))
+    drop-shadow(0 0 9px var(--accent))
+    drop-shadow(0 0 22px color-mix(in srgb, var(--accent) 55%, transparent));
+}
+.tmap-border {
+  fill: none; stroke: color-mix(in srgb, var(--tm-rim) 62%, transparent);
+  stroke-width: 1;
+  filter: drop-shadow(0 0 5px color-mix(in srgb, var(--accent) 70%, transparent));
+}
 .tmap-state {
   font-family: var(--font-plex-mono), monospace;
-  font-size: 12px; letter-spacing: 0.12em;
-  fill: var(--text-mid); opacity: 0.55;
+  font-size: 12.5px; letter-spacing: 0.14em; font-weight: 500;
+  fill: var(--tm-ink); opacity: 0.62;
+  text-anchor: middle;
   pointer-events: none;
 }
 .tmap-arc {
   fill: none; stroke: var(--accent); stroke-width: 1.6;
-  stroke-linecap: round; opacity: 0.8;
+  stroke-linecap: round; opacity: 0.75;
   pointer-events: none;
 }
-.tmap-hq-hex { fill: var(--accent); }
-.tmap-hq-ring {
-  fill: none; stroke: var(--accent); stroke-width: 1.2; opacity: 0;
-  animation: tmapRing 2.6s ease-out infinite;
-  transform-origin: center; transform-box: fill-box;
+
+/* ---- floating markers ---- */
+.tmap-pins { position: absolute; inset: 0; transform-style: preserve-3d; }
+/* zero-size anchors: the painted children carry the hit area */
+.tmap-pin3 {
+  position: absolute; width: 0; height: 0;
+  transform-style: preserve-3d;
+  background: none; border: 0; padding: 0;
+  font: inherit; color: inherit;
+  cursor: pointer;
 }
-.tmap-hq-ring.r2 { animation-delay: 1.3s; }
-@keyframes tmapRing {
-  0% { transform: scale(0.5); opacity: 0.7; }
-  80%, 100% { transform: scale(2.1); opacity: 0; }
+.tmap-hq3 { cursor: default; }
+/* contact shadow, left flat on the plate so the pin reads as airborne */
+.tmap-drop {
+  position: absolute; left: -11px; top: -5px; width: 22px; height: 10px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse,
+    color-mix(in srgb, var(--accent) 55%, transparent) 0%, transparent 72%);
 }
-.tmap-hq-leader { stroke: var(--text-mid); stroke-width: 1; opacity: 0.7; }
-.tmap-label {
-  font-family: var(--font-plex-mono), monospace;
-  font-size: 9.5px; letter-spacing: 0.1em;
-  fill: var(--text-hi);
+/* the stem stands along the plate normal: a flat strip hinged at its base */
+.tmap-stem {
+  position: absolute; left: -0.5px; width: 1px;
+  transform-origin: 50% 100%;
+  transform: rotateX(-90deg);
+  background: linear-gradient(to top,
+    color-mix(in srgb, var(--accent) 20%, transparent),
+    var(--tm-rim));
+  box-shadow: 0 0 6px color-mix(in srgb, var(--accent) 70%, transparent);
 }
-.tmap-pin { cursor: pointer; }
-.tmap-pin image { pointer-events: none; }
-.tmap-glow {
-  fill: color-mix(in srgb, var(--accent) 40%, transparent);
-  animation: tmapPulse 2.2s ease-in-out infinite;
-  transform-origin: center;
-  transform-box: fill-box;
+/* lift along the normal, then undo the plate's rotation so the chip faces us */
+.tmap-lift {
+  position: absolute; left: 0; top: 0;
+  transform-style: preserve-3d;
+  transform:
+    translateZ(var(--lift))
+    rotateZ(calc(-1 * var(--spin)))
+    rotateX(calc(-1 * var(--tilt)));
 }
-.tmap-pin.on .tmap-glow { fill: color-mix(in srgb, var(--accent) 75%, transparent); }
-.tmap-pin:focus-visible { outline: 2px solid var(--accent); border-radius: 50%; }
-@keyframes tmapPulse {
-  0%, 100% { transform: scale(1); opacity: 0.85; }
-  50% { transform: scale(1.35); opacity: 0.45; }
+/* CSS owns this transform (the idle bob); GSAP must never target it */
+.tmap-bob {
+  display: block;
+  animation: tmapBob 4.2s ease-in-out infinite;
 }
-/* ambient loops pause under reduced motion; scroll scrub stays (user-controlled) */
-@media (prefers-reduced-motion: reduce) {
-  .tmap-glow, .tmap-hq-ring { animation: none; }
-  .tmap-hq-ring { opacity: 0.35; transform: scale(1.4); }
+@keyframes tmapBob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
 }
-.tmap-pin-name {
-  font-family: var(--font-plex-mono), monospace;
-  font-size: 9px; letter-spacing: 0.12em;
-  fill: var(--text-hi);
-  opacity: 0; transition: opacity 0.4s ease 0.5s;
+/* --dxf scales the whole fan-out: a 104px nudge is elbow room on a 900px
+   plate and off the edge of a 350px one, so the phone halves it */
+.tmap-head {
+  position: absolute; left: 0; top: 0;
+  transform: translate(calc(-50% + var(--dx, 0px) * var(--dxf, 1)), -100%);
+  display: flex; flex-direction: column; align-items: center; gap: 5px;
+  white-space: nowrap;
 }
-svg.tmap-zoomed .tmap-pin-name { opacity: 0.9; }
+/* horizontal tie-back from the stem head to a nudged chip */
+.tmap-leader {
+  position: absolute; top: 0; height: 1px;
+  width: calc(var(--lw, 0px) * var(--dxf, 1));
+  left: calc(var(--ll, 0px) * var(--dxf, 1));
+  background: linear-gradient(to right,
+    color-mix(in srgb, var(--accent) 15%, transparent),
+    color-mix(in srgb, var(--tm-rim) 70%, transparent),
+    color-mix(in srgb, var(--accent) 15%, transparent));
+}
+.tmap-dotmark {
+  width: 11px; height: 11px; border-radius: 50%;
+  background: var(--tm-rim);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--accent) 60%, transparent),
+    0 0 10px var(--accent),
+    0 0 22px color-mix(in srgb, var(--accent) 60%, transparent);
+}
+.tmap-hex { width: 20px; height: 20px; display: block; filter: drop-shadow(0 0 9px var(--accent)); }
+.tmap-hex path { fill: var(--tm-rim); }
+.tmap-first {
+  font-size: 9px; letter-spacing: 0.14em; color: var(--tm-ink);
+  background: rgba(11, 11, 10, 0.72);
+  border: 1px solid color-mix(in srgb, var(--accent) 42%, transparent);
+  border-radius: 2px; padding: 3px 6px;
+}
+.tmap-role {
+  font-size: 7.5px; letter-spacing: 0.16em;
+  color: var(--tm-dim);
+}
+.tmap-pin3.on .tmap-dotmark { background: #FFF3EC; transform: scale(1.15); }
+.tmap-pin3.on .tmap-first {
+  background: var(--accent); color: #fff;
+  border-color: var(--accent);
+}
+.tmap-pin3:hover .tmap-first { border-color: var(--tm-rim); }
+.tmap-pin3:focus-visible .tmap-first { outline: 2px solid var(--tm-rim); outline-offset: 2px; }
+
+/* ---- the testimony ----
+   A flat overlay on the stage, not a child of the plate: inside the 3D context
+   the browser sorts by depth (shorter pins drew over it) and rasterised its
+   text short. JS anchors it to the chip's measured screen box instead. */
+.tmap-pop-card {
+  position: absolute; z-index: 3;
+  width: clamp(196px, 23vw, 268px);
+  transform: translate(-50%, 14px);
+  margin: 0; padding: 14px 15px 15px;
+  background: rgba(16, 15, 13, 0.94);
+  border: 1px solid color-mix(in srgb, var(--accent) 46%, transparent);
+  border-top: 2px solid var(--accent);
+  border-radius: 4px;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.55), 0 0 22px color-mix(in srgb, var(--accent) 22%, transparent);
+  animation: tmapPopIn 0.32s var(--ease-out);
+  text-align: left;
+}
+@keyframes tmapPopIn {
+  from { opacity: 0; transform: translate(-50%, 26px) scale(0.94); }
+  to { opacity: 1; transform: translate(-50%, 14px) scale(1); }
+}
+.tmap-pop-card blockquote {
+  margin: 0 0 10px; padding: 0; border: 0;
+  font-size: 0.86rem; line-height: 1.5; color: var(--tm-ink);
+}
+.tmap-pop-card figcaption { display: grid; gap: 2px; }
+.tmap-pop-card figcaption strong { font-size: 0.8rem; color: var(--tm-ink); }
+.tmap-pop-card figcaption .mono { font-size: 0.58rem; letter-spacing: 0.1em; color: var(--accent-text); }
+.tmap-pop-place { color: var(--tm-dim) !important; }
+.tmap-pop-x {
+  position: absolute; top: 4px; right: 4px;
+  width: 26px; height: 26px;
+  display: grid; place-items: center;
+  background: none; border: 0; cursor: pointer;
+  color: var(--tm-dim); font-size: 11px; line-height: 1;
+}
+.tmap-pop-x:hover { color: var(--tm-ink); }
+
 .tmap-legend {
   position: absolute; left: 16px; bottom: 12px;
   display: flex; gap: 16px; flex-wrap: wrap;
   font-size: 0.62rem; letter-spacing: 0.1em;
-  color: var(--text-mid);
+  color: var(--tm-dim);
+  pointer-events: none;
 }
 .tmap-legend i { color: var(--accent-text); font-style: normal; }
-.tmap-quote { margin-bottom: var(--space-3); animation: tmapQuoteIn 0.45s var(--ease-out); }
-@keyframes tmapQuoteIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: none; }
-}
+.tmap-hint { font-size: 0.6rem; letter-spacing: 0.16em; color: var(--text-mid); margin-bottom: 10px; }
 .tmap-names { display: flex; gap: 8px; flex-wrap: wrap; }
-@media (max-width: 900px) { .tmap { grid-template-columns: 1fr; } }
+
+/* ambient loops pause under reduced motion; the tilt is a look, not motion,
+   so it stays, and the scroll-linked intro stays (user-controlled) */
+@media (prefers-reduced-motion: reduce) {
+  .tmap-bob { animation: none; }
+  .tmap-pop-card { animation: none; }
+}
+
+/* Phones: flatten the tilt hard. At 52deg a 390px-wide plate is 200px of
+   usable map and the four Darwin pins collide; at 26deg everything reads,
+   and the card centres itself over the empty southern half. */
+@media (max-width: 720px) {
+  .tmap-stage { --tilt: 26deg; --spin: -3deg; --dxf: 0.5; }
+  /* the tallest chip needs more headroom than the fluid padding gives here */
+  .tmap-scene { padding-top: 100px; }
+  .tmap-pop-card { width: min(290px, 78vw); }
+  .tmap-first { font-size: 8.5px; padding: 3px 5px; }
+}
+/* the full state names stop being readable once the plate is this narrow */
+@media (max-width: 560px) {
+  .tmap-state { display: none; }
+  .tmap-legend { position: static; margin: 0 16px 12px; }
+}
 
 /* ---------- Design-doc round: odds and ends ---------- */
 .cfg-notincluded {
