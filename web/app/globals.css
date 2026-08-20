@@ -1228,7 +1228,7 @@ svg.tmap-zoomed .tmap-pin-name { opacity: 0.9; }
   padding: 10px 14px; border: 1px solid var(--line); border-radius: 2px;
   background: var(--bg-2);
 }
-.cfg-notincluded li::before { content: "— "; color: var(--accent-text); }
+.cfg-notincluded li::before { content: "· "; color: var(--accent-text); }
 .fab-top, .theme-toggle { display: inline-flex; align-items: center; justify-content: center; }
 
 

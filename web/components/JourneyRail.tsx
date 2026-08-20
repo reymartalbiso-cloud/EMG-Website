@@ -17,13 +17,13 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const LEGS = [
-  { n: "01", title: "Order locked", time: "WEEK 0", body: "Layout, fit-out and compliance agreed — the spec the whole journey follows." },
-  { n: "02", title: "Factory build", time: "TYPICALLY 8–12 WEEKS", body: "Built to our specification by our manufacturing partners, inspected before it ships." },
-  { n: "03", title: "At sea", time: "TYPICALLY 4–8 WEEKS", body: "The least predictable leg — which is why we own it, and why our dates are ranges." },
-  { n: "04", title: "Port & customs", time: "CLEARED WHILE IT SAILS", body: "Documents forwarded, clearance paid, delivery order issued — ready before the ship berths." },
-  { n: "05", title: "The highway", time: "AUSTRALIA-WIDE", body: "Trucked from the port to your block — stations, islands and mine sites included." },
+  { n: "01", title: "Order locked", time: "WEEK 0", body: "Layout, fit-out and compliance agreed: the spec the whole journey follows." },
+  { n: "02", title: "Factory build", time: "TYPICALLY 8-12 WEEKS", body: "Built to our specification by our manufacturing partners, inspected before it ships." },
+  { n: "03", title: "At sea", time: "TYPICALLY 4-8 WEEKS", body: "The least predictable leg, which is why we own it, and why our dates are ranges." },
+  { n: "04", title: "Port & customs", time: "CLEARED WHILE IT SAILS", body: "Documents forwarded, clearance paid, delivery order issued, ready before the ship berths." },
+  { n: "05", title: "The highway", time: "AUSTRALIA-WIDE", body: "Trucked from the port to your block. Stations, islands and mine sites included." },
   { n: "06", title: "Your site", time: "SEQUENCED IN ADVANCE", body: "Craned onto footings poured while it was at sea; services connected." },
-  { n: "07", title: "Handover", time: "TYPICALLY 4–6 MONTHS ALL UP", body: "Walk-through, keys, warranty — and the portal tracked every leg above, live." },
+  { n: "07", title: "Handover", time: "TYPICALLY 4-6 MONTHS ALL UP", body: "Walk-through, keys, warranty. And the portal tracked every leg above, live." },
 ];
 
 /* gentle rail across the stage with a rise and fall — reads as a journey */
@@ -126,7 +126,7 @@ export default function JourneyRail() {
       <div className="jr-stage">
         <div className="jr-head">
           <h2 className="display">Every leg of the journey.</h2>
-          <p className="jr-sub">One container, one accountable company — scroll to travel with it.</p>
+          <p className="jr-sub">One container, one accountable company. Scroll to travel with it.</p>
         </div>
 
         <RailSvg d={RAIL_WIDE} viewBox="0 0 1200 340" variant="wide" />
@@ -145,7 +145,7 @@ export default function JourneyRail() {
           {LEGS.map((leg, i) => (
             <div className={`jr-cap${i === 0 ? " on" : ""}`} key={leg.n}>
               <span className="mono jr-time">{leg.time}</span>
-              <h3 className="display">{leg.n} — {leg.title}</h3>
+              <h3 className="display">{leg.n} · {leg.title}</h3>
               <p>{leg.body}</p>
             </div>
           ))}

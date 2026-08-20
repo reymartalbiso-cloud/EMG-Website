@@ -16,10 +16,10 @@ const framePath = (i: number) =>
   `/frames/frame_${String(i + 1).padStart(3, "0")}.webp`;
 
 const PHASES = [
-  { until: 0.1, label: "PHASE 01 — RAW SHELL" },
-  { until: 0.25, label: "PHASE 02 — X-RAY SCAN" },
-  { until: 0.7, label: "PHASE 03 — ASSEMBLY" },
-  { until: 1.01, label: "PHASE 04 — HANDOVER" },
+  { until: 0.1, label: "PHASE 01 · RAW SHELL" },
+  { until: 0.25, label: "PHASE 02 · X-RAY SCAN" },
+  { until: 0.7, label: "PHASE 03 · ASSEMBLY" },
+  { until: 1.01, label: "PHASE 04 · HANDOVER" },
 ];
 const ACT_RANGES = [
   { from: 0.0, to: 0.1 },
@@ -202,15 +202,15 @@ export default function Hero() {
         <div className="hud mono" aria-hidden="true">
           <span className="hud-line" />
           <span className="hud-seq">SEQ 001/361</span>
-          <span className="hud-phase">PHASE 01 — RAW SHELL</span>
+          <span className="hud-phase">PHASE 01 · RAW SHELL</span>
         </div>
 
         <div className="act act-1">
-          <p className="eyebrow mono">ELITE MANUFACTURING GROUP — HERBERT, NT</p>
+          <p className="eyebrow mono">ELITE MANUFACTURING GROUP · HERBERT, NT</p>
           <h1>It starts as a steel box.</h1>
           <p className="act-sub">
             Ready for <span key={rotIdx} className="rot-word swap">{ROT_WORDS[rotIdx]}</span>.
-            Scroll — and watch it become a home.
+            Scroll, and watch it become a home.
           </p>
           <div className="scroll-cue" aria-hidden="true"><span /></div>
         </div>
@@ -218,7 +218,7 @@ export default function Hero() {
           <p className="eyebrow mono">ENGINEERED</p>
           <h2>Specified to the millimetre. Certified Class 1A.</h2>
           <p className="act-sub">
-            Habitable-standard dwellings — threshold-free doorways and sunken
+            Habitable-standard dwellings. Threshold-free doorways and sunken
             shower bases come standard, not as extras.
           </p>
         </div>
@@ -226,14 +226,14 @@ export default function Hero() {
           <p className="eyebrow mono">OWNED END-TO-END</p>
           <h2>One company, from factory floor to your floor.</h2>
           <p className="act-sub">
-            Shipping, customs, trucking, footings, septic, power and water —
-            we run every step, so you deal with one team.
+            Shipping, customs, trucking, footings, septic, power and water.
+            We run every step, so you deal with one team.
           </p>
         </div>
         <div className="act act-4">
           <p className="eyebrow mono">HANDOVER</p>
-          <h2>Order to move-in, typically 4–6 months.</h2>
-          <p className="act-sub">Honest timelines, tracked in the open — watch your build move stage by stage.</p>
+          <h2>Order to move-in, typically 4-6 months.</h2>
+          <p className="act-sub">Honest timelines, tracked in the open. Watch your build move stage by stage.</p>
           <div className="act-cta">
             <a className="btn btn-accent" href="/build-your-own">Build &amp; price</a>
             <a className="btn btn-ghost" href={PORTAL_URL}>Track your order</a>

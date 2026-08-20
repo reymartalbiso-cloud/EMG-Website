@@ -6,7 +6,7 @@ import { PRODUCTS } from "@/lib/products";
 import { PORTAL_URL } from "@/lib/links";
 
 const TRUST = [
-  ["Class 1A", "Certified habitable dwellings — legal to live in, not just to park"],
+  ["Class 1A", "Certified habitable dwellings, legal to live in, not just to park"],
   ["Flat entry", "Threshold-free doorways and sunken shower bases, standard on every build"],
   ["High-cube", "Extra ceiling height on every unit; RAL 7035 finish as standard"],
   ["Australia-wide", "Delivered and installed, including remote and island sites"],
@@ -16,7 +16,7 @@ const STAGES = [
   ["01", "Order & spec", "Layout, fit-out and compliance locked in before the build starts."],
   ["02", "Factory build", "Built to our specification, inspected before it ships."],
   ["03", "At sea & customs", "We run the shipping, the customs entry and the trucking."],
-  ["04", "Site & handover", "Footings, services, septic, install — then the keys."],
+  ["04", "Site & handover", "Footings, services, septic, install. Then the keys."],
 ];
 
 export default function Home() {
@@ -51,11 +51,11 @@ export default function Home() {
         </div>
         <div className="works-grid">
           {[
-            ["Transportable homes & caravans", "Container homes, slide-outs and transportable dwellings — built to order."],
-            ["Class 1A certified installs", "Habitable-standard dwellings, certified — legal to live in, not just to park."],
-            ["Site works, start to finish", "Footings, septic, power, water and decking — sequenced while your build ships."],
+            ["Transportable homes & caravans", "Container homes, slide-outs and transportable dwellings, built to order."],
+            ["Class 1A certified installs", "Habitable-standard dwellings, certified. Legal to live in, not just to park."],
+            ["Site works, start to finish", "Footings, septic, power, water and decking, sequenced while your build ships."],
             ["Delivery & crane placement", "Trucked and craned onto your block, anywhere in Australia."],
-            ["Finance pathways", "Fixed, itemised, lender-ready quotes — and guidance on residential finance options."],
+            ["Finance pathways", "Fixed, itemised, lender-ready quotes, and guidance on residential finance options."],
             ["After-sales support", "Warranty backed by the same local team that sold you the building."],
           ].map(([t, d]) => (
             <Reveal key={t}>
@@ -73,7 +73,7 @@ export default function Home() {
           <Reveal>
             <h2 className="display">A building for every block, camp and site.</h2>
             <p className="section-sub">
-              Transportable homes, caravans and Class 1A dwellings — with
+              Transportable homes, caravans and Class 1A dwellings, with
               finance pathways available for residential buyers.
             </p>
           </Reveal>
@@ -100,9 +100,9 @@ export default function Home() {
       <section className="section" id="process-teaser">
         <div className="section-head">
           <Reveal>
-            <h2 className="display">Order to move-in, typically 4–6 months.</h2>
+            <h2 className="display">Order to move-in, typically 4-6 months.</h2>
             <p className="section-sub">
-              We are not the factory — we are everything after it. Two proven
+              We are not the factory. We are everything after it. Two proven
               factories build to our spec; we own the shipping, customs,
               trucking, footings, services and handover. One company,
               accountable for the whole journey.
@@ -132,7 +132,7 @@ export default function Home() {
             <h2 className="display">Track your build.</h2>
             <p className="section-sub">
               See your stage, your shipping dates, your documents and your
-              payments — live, in the customer portal.
+              payments, live in the customer portal.
             </p>
           </div>
           <a className="btn btn-accent" href={PORTAL_URL}>

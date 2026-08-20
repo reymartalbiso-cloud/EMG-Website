@@ -5,9 +5,9 @@ import TourCinema from "@/components/TourCinema";
 import { PRODUCTS } from "@/lib/products";
 
 export const metadata: Metadata = {
-  title: "Container Homes — Class 1A Dwellings, Australia-Wide",
+  title: "Container Homes: Class 1A Dwellings, Australia-Wide",
   description:
-    "Slide-out, two-bedroom and expandable container homes — Class 1A certified dwellings delivered and installed on your block, Australia-wide.",
+    "Slide-out, two-bedroom and expandable container homes. Class 1A certified dwellings delivered and installed on your block, Australia-wide.",
 };
 
 export default function Homes() {
@@ -19,8 +19,8 @@ export default function Homes() {
           <p className="eyebrow mono">CONTAINER HOMES</p>
           <h1 className="display">A real home. On your land. This year.</h1>
           <p className="section-sub">
-            Class 1A certified dwellings — designed for remote Australian conditions,
-            delivered and installed on your block, typically 4–6 months from
+            Class 1A certified dwellings, designed for remote Australian conditions,
+            delivered and installed on your block, typically 4-6 months from
             order to keys.
           </p>
         </Reveal>
@@ -47,7 +47,7 @@ export default function Homes() {
           <Reveal>
             <h2 className="display">Take the tour.</h2>
             <p className="section-sub">
-              Step inside a 40ft one-bedroom home — it plays as you arrive.
+              Step inside a 40ft one-bedroom home. It plays as you arrive.
             </p>
           </Reveal>
         </div>

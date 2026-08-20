@@ -116,8 +116,8 @@ export default function LayoutDesigner({ len20, colourHex, onChange }: Props) {
     );
     const w = wl.map((x) =>
       x.o === "v"
-        ? `Partition across@${(x.c * CELL).toFixed(2)}m spanning ${(x.a * CELL).toFixed(2)}–${(x.b * CELL).toFixed(2)}m`
-        : `Partition along@${(x.c * CELL).toFixed(2)}m spanning ${(x.a * CELL).toFixed(2)}–${(x.b * CELL).toFixed(2)}m`
+        ? `Partition across@${(x.c * CELL).toFixed(2)}m spanning ${(x.a * CELL).toFixed(2)}-${(x.b * CELL).toFixed(2)}m`
+        : `Partition along@${(x.c * CELL).toFixed(2)}m spanning ${(x.a * CELL).toFixed(2)}-${(x.b * CELL).toFixed(2)}m`
     );
     return [...f, ...w].join("; ");
   };
@@ -726,7 +726,7 @@ export default function LayoutDesigner({ len20, colourHex, onChange }: Props) {
                 onFocus={() => setSel({ k: "i", id: it.id })}
                 onKeyDown={(e) => onItemKey(e, it)}
               >
-                <title>{`${f.name} — ${f.w}m × ${f.h}m${clash ? " (sits on a partition)" : ""}`}</title>
+                <title>{`${f.name}, ${f.w}m × ${f.h}m${clash ? " (sits on a partition)" : ""}`}</title>
                 <rect
                   x={x} y={y} width={bw} height={bh} rx={4}
                   fill={CAT_COLOURS[f.cat]}
@@ -780,7 +780,7 @@ export default function LayoutDesigner({ len20, colourHex, onChange }: Props) {
                 onFocus={() => setSel({ k: "w", id: w.id })}
                 onKeyDown={(e) => onWallKey(e, w)}
               >
-                <title>{`Partition — ${lenM}m long${(w.b - w.a) < (w.o === "v" ? innerH : innerW) ? " (leaves an opening)" : ""}`}</title>
+                <title>{`Partition, ${lenM}m long${(w.b - w.a) < (w.o === "v" ? innerH : innerW) ? " (leaves an opening)" : ""}`}</title>
                 <rect x={x} y={y} width={bw} height={bh} fill={PARTITION_C} />
                 <rect x={x} y={y} width={bw} height={bh} fill="url(#ldHatch)" opacity={0.3} />
                 <rect x={x} y={y} width={bw} height={bh} fill="none" stroke="rgba(24,22,20,0.75)" strokeWidth={1.5} />
@@ -889,13 +889,13 @@ export default function LayoutDesigner({ len20, colourHex, onChange }: Props) {
         </div>
       </div>
       <p className="cfg-hint" style={{ marginTop: "0.6rem" }}>
-        Tap a fixture to drop it in, then drag it into place — everything snaps
+        Tap a fixture to drop it in, then drag it into place. Everything snaps
         to a 5cm grid, nothing can overlap, and guides appear when edges line
         up. Add a partition to show us how you want the space divided: drag it
         along the container, then drag either round end handle to shorten it
         and leave a doorway. Keyboard works too: arrows move, Shift+arrows move
         faster, R rotates, Delete removes, Ctrl+Z undoes. The plan is
-        indicative only — we&apos;ll confirm the buildable version with you —
+        indicative only (we&apos;ll confirm the buildable version with you)
         and it travels with your quote.
       </p>
     </div>

@@ -16,9 +16,9 @@ const PHOTOS = [
 ];
 
 export const metadata: Metadata = {
-  title: "Projects — Delivered Across Australia",
+  title: "Projects Delivered Across Australia",
   description:
-    "Completed container home and commercial building deliveries across Australia — homes, camps, ablution blocks and domes, installed and handed over.",
+    "Completed container home and commercial building deliveries across Australia. Homes, camps, ablution blocks and domes, installed and handed over.",
 };
 
 const PROJECTS = [
@@ -38,7 +38,7 @@ export default function Projects() {
           <p className="eyebrow mono">DELIVERED, INSTALLED, HANDED OVER</p>
           <h1 className="display">Real buildings on real red dirt.</h1>
           <p className="section-sub">
-            A selection of completed deliveries, Australia-wide — homes on
+            A selection of completed deliveries, Australia-wide: homes on
             private blocks, camp accommodation,
             ablution facilities and domes. Every photo below is one of our
             real builds; descriptions come straight from the order book.

@@ -14,9 +14,9 @@ const UNIT_PHOTOS = ["/cfg/wa_ext.jpg", "/cfg/wa_row.jpg", "/cfg/st_ext.jpg", "/
 const CELLS = Array.from({ length: 20 }, (_, i) => UNIT_PHOTOS[i % UNIT_PHOTOS.length]);
 
 const CAPTIONS = [
-  { from: 0.0, to: 0.22, eyebrow: "COMMERCIAL · MINING · COMMUNITY · GOVERNMENT", title: "One building.", sub: "Specified, delivered and installed — anywhere your project is." },
-  { from: 0.3, to: 0.62, eyebrow: "PROGRAM DELIVERY", title: "Or fifty.", sub: "Rooms, ablutions, kitchens and offices — built out as a coordinated program, not a pile of containers." },
-  { from: 0.72, to: 1.01, eyebrow: "CAMP & VILLAGE SCALE", title: "We build villages.", sub: "Mine camps, gas plants, remote communities — housed on schedule." },
+  { from: 0.0, to: 0.22, eyebrow: "COMMERCIAL · MINING · COMMUNITY · GOVERNMENT", title: "One building.", sub: "Specified, delivered and installed, anywhere your project is." },
+  { from: 0.3, to: 0.62, eyebrow: "PROGRAM DELIVERY", title: "Or fifty.", sub: "Rooms, ablutions, kitchens and offices, built out as a coordinated program, not a pile of containers." },
+  { from: 0.72, to: 1.01, eyebrow: "CAMP & VILLAGE SCALE", title: "We build villages.", sub: "Mine camps, gas plants, remote communities, housed on schedule." },
 ];
 
 export default function CommercialHero() {

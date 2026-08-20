@@ -157,7 +157,7 @@ export default function Contact() {
     return (
       "mailto:admin@elitemanufacturing.com.au?subject=" +
       encodeURIComponent(
-        q ? `Order request — ${q.model ?? "configured build"}` : `Website enquiry — ${f.get("building") || "general"}`
+        q ? `Order request: ${q.model ?? "configured build"}` : `Website enquiry: ${f.get("building") || "general"}`
       ) +
       "&body=" + encodeURIComponent(body)
     );
@@ -177,7 +177,7 @@ export default function Contact() {
           </h1>
           <p className="section-sub">
             {orderMode
-              ? "Your build is below. Add your details and we'll confirm a firm quote, delivery access and dates — nothing is ordered until you've agreed it with us."
+              ? "Your build is below. Add your details and we'll confirm a firm quote, delivery access and dates. Nothing is ordered until you've agreed it with us."
               : "A block location and a rough idea is plenty to start. We'll come back with real answers about access, timing and cost."}
           </p>
         </Reveal>
@@ -242,7 +242,7 @@ export default function Contact() {
                     <dt className="mono">DELIVERY</dt>
                     <dd>
                       {quoteData.deliveryKm
-                        ? `${quoteData.deliveryKm} km from Herbert${quoteData.deliveryKm <= 100 ? " — included" : ""}`
+                        ? `${quoteData.deliveryKm} km from Herbert${quoteData.deliveryKm <= 100 ? " (included)" : ""}`
                         : "First 100 km included"}
                     </dd>
                   </div>
@@ -255,7 +255,7 @@ export default function Contact() {
                   </p>
                 )}
                 <p className="build-note">
-                  Indicative only — every job is quoted individually once we know
+                  Indicative only. Every job is quoted individually once we know
                   your site. <a href="/build-your-own">Change your build</a>.
                 </p>
               </div>
@@ -287,7 +287,7 @@ export default function Contact() {
             </button>
             {status === "sent" && (
               <p className="form-ok" role="status">
-                <strong>Thank you — that&apos;s with our team.</strong>
+                <strong>Thank you, that&apos;s with our team.</strong>
                 {ref ? ` Your reference is ${ref}.` : ""} We&apos;ll be in touch
                 shortly. If it&apos;s urgent, call 0420 251 550.
               </p>
@@ -309,7 +309,7 @@ export default function Contact() {
               <tr><th>PHONE</th><td><a href="tel:0420251550">0420 251 550</a></td></tr>
               <tr><th>EMAIL</th><td><a href="mailto:admin@elitemanufacturing.com.au">admin@elitemanufacturing.com.au</a></td></tr>
               <tr><th>YARD</th><td>Herbert, Northern Territory</td></tr>
-              <tr><th>HOURS</th><td>Mon–Sun · 11am–6pm</td></tr>
+              <tr><th>HOURS</th><td>Mon-Sun · 11am-6pm</td></tr>
               <tr><th>DELIVERY</th><td>Australia-wide, including remote sites</td></tr>
               <tr><th>ORDERED?</th><td><a href={PORTAL_URL}>Track your order in the portal</a></td></tr>
             </tbody>

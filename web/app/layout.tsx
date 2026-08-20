@@ -22,11 +22,11 @@ const plexMono = IBM_Plex_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://elitemanufacturing.com.au"),
   title: {
-    default: "Elite Manufacturing Group — Container Homes & Buildings, Australia-Wide",
-    template: "%s — Elite Manufacturing Group",
+    default: "Elite Manufacturing Group | Container Homes & Buildings, Australia-Wide",
+    template: "%s | Elite Manufacturing Group",
   },
   description:
-    "Class 1A container homes, commercial accommodation, ablution blocks and container domes — delivered and installed Australia-wide, owned end-to-end from factory to handover.",
+    "Class 1A container homes, commercial accommodation, ablution blocks and container domes, delivered and installed Australia-wide. Owned end-to-end from factory to handover.",
   icons: { icon: "/emg-logo.png", apple: "/emg-logo.png" },
 };
 

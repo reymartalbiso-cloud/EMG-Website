@@ -16,7 +16,7 @@ export default function Terms() {
       </div>
       <section className="section" style={{ paddingTop: 0 }}>
         <p className="legal-note">
-          Draft for review — to be confirmed by EMG management before launch.
+          Draft for review, to be confirmed by EMG management before launch.
           Last updated August 2026.
         </p>
         <div className="prose">

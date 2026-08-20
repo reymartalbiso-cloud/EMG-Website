@@ -16,10 +16,10 @@ const framePath = (i: number) =>
   `/campframes/frame_${String(i + 1).padStart(3, "0")}.webp`;
 
 const PHASES = [
-  { until: 0.14, label: "PHASE 01 — SITE" },
-  { until: 0.48, label: "PHASE 02 — ROWS" },
-  { until: 0.78, label: "PHASE 03 — STREET RUN" },
-  { until: 1.01, label: "PHASE 04 — VILLAGE" },
+  { until: 0.14, label: "PHASE 01 · SITE" },
+  { until: 0.48, label: "PHASE 02 · ROWS" },
+  { until: 0.78, label: "PHASE 03 · STREET RUN" },
+  { until: 1.01, label: "PHASE 04 · VILLAGE" },
 ];
 const ACT_RANGES = [
   { from: 0.0, to: 0.12 },
@@ -192,35 +192,35 @@ export default function CampHero() {
         <div className="hud mono" aria-hidden="true">
           <span className="hud-line" />
           <span className="hud-seq">SEQ 001/479</span>
-          <span className="hud-phase">PHASE 01 — SITE</span>
+          <span className="hud-phase">PHASE 01 · SITE</span>
         </div>
 
         <div className="act act-1">
           <p className="eyebrow mono">COMMERCIAL · MINING · COMMUNITY · GOVERNMENT</p>
           <h1>One building.</h1>
-          <p className="act-sub">Specified, delivered and installed — anywhere your project is. Scroll.</p>
+          <p className="act-sub">Specified, delivered and installed, anywhere your project is. Scroll.</p>
           <div className="scroll-cue" aria-hidden="true"><span /></div>
         </div>
         <div className="act act-2">
           <p className="eyebrow mono">PROGRAM DELIVERY</p>
           <h2>Or fifty.</h2>
           <p className="act-sub">
-            Rooms, ablutions, kitchens and offices — built out as a coordinated
+            Rooms, ablutions, kitchens and offices, built out as a coordinated
             program, not a pile of containers.
           </p>
         </div>
         <div className="act act-3">
           <p className="eyebrow mono">WALK THE CAMP</p>
-          <h2>Streets, walkways, services — planned as one.</h2>
+          <h2>Streets, walkways, services. Planned as one.</h2>
           <p className="act-sub">
             Covered walkways, lit paths, ablutions and mess at the right
-            distances — a village that works from day one.
+            distances. A village that works from day one.
           </p>
         </div>
         <div className="act act-4">
           <p className="eyebrow mono">CAMP & VILLAGE SCALE</p>
           <h2>We build villages.</h2>
-          <p className="act-sub">Mine camps, gas plants, remote communities — housed on schedule.</p>
+          <p className="act-sub">Mine camps, gas plants, remote communities, housed on schedule.</p>
           <div className="act-cta">
             <a className="btn btn-accent" href="/contact">Send an enquiry</a>
             <a className="btn btn-ghost" href="/shop">Shop all models</a>

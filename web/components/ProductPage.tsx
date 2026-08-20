@@ -42,7 +42,7 @@ export default function ProductPage({ product }: { product: Product }) {
         <Reveal>
           <h2 className="display">Every quote is per job. Tell us your site.</h2>
           <p className="section-sub" style={{ margin: "0 auto" }}>
-            Access, footings, services and distance all matter — so we quote
+            Access, footings, services and distance all matter, so we quote
             each build properly rather than guessing.
           </p>
           <div className="actions">

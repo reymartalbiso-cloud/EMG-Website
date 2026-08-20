@@ -58,9 +58,9 @@ export default function CampScoper() {
   const summary = `${c.accom}× accommodation (4 ensuite rooms each) · ${c.ablution}× ablution block · ${c.kitchen}× kitchen/mess · ${c.office}× site office`;
 
   function requestQuote() {
-    const msg = `Camp program enquiry — ${people} personnel. Indicative composition: ${summary} (${c.total} buildings). Please scope and quote as a program.`;
+    const msg = `Camp program enquiry for ${people} personnel. Indicative composition: ${summary} (${c.total} buildings). Please scope and quote as a program.`;
     const data = {
-      model: `Camp program — ${people} personnel`,
+      model: `Camp program, ${people} personnel`,
       modelId: "camp-program",
       size: "PROGRAM",
       spec: summary,
@@ -149,7 +149,7 @@ export default function CampScoper() {
           ))}
         </ul>
         <p className="scoper-note">
-          Indicative composition only — every camp is engineered to its
+          Indicative composition only. Every camp is engineered to its
           project, and programs are quoted per project.
         </p>
         <button className="btn btn-accent" onClick={requestQuote}>

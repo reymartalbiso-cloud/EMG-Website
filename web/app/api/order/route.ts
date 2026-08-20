@@ -32,7 +32,7 @@ const SB_SERVICE = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
 /* Belt and braces: the customer sees this if the phone line is the only way
    through. Never leave someone holding a configuration with nowhere to send it. */
-const FALLBACK = "Please call us on 0420 251 550 or email admin@elitemanufacturing.com.au — we'll pick it up straight away.";
+const FALLBACK = "Please call us on 0420 251 550 or email admin@elitemanufacturing.com.au and we'll pick it up straight away.";
 
 export async function POST(request: Request) {
   let body: unknown;

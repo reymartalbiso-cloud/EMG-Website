@@ -16,7 +16,7 @@ export default function Privacy() {
       </div>
       <section className="section" style={{ paddingTop: 0 }}>
         <p className="legal-note">
-          Draft for review — to be confirmed by EMG management before launch.
+          Draft for review, to be confirmed by EMG management before launch.
           Last updated August 2026.
         </p>
         <div className="prose">
@@ -33,8 +33,8 @@ export default function Privacy() {
             To answer your enquiry, prepare your quote, deliver and install
             your building, and support you afterwards. We do not sell or rent
             your information to anyone. We share it only with the people needed
-            to deliver your order — for example freight and installation
-            contractors — and only what they need.
+            to deliver your order (for example freight and installation
+            contractors), and only what they need.
           </p>
           <h3 className="display">Where it lives</h3>
           <p>

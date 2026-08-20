@@ -27,6 +27,10 @@ export default function TourCinema() {
   useEffect(() => {
     const v = videoRef.current!;
     v.muted = true;
+    /* preload="metadata" starts before hydration, so on a fast host the
+       loadedmetadata event can fire before React attaches its handler —
+       read what the element already knows or the timecode stays 0:00 */
+    if (v.readyState >= 1 && isFinite(v.duration)) setDur(v.duration);
     const io = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) v.play().catch(() => {});
@@ -83,7 +87,7 @@ export default function TourCinema() {
 
         <div className="tour-hud mono" aria-hidden="true">
           <span>WALKTHROUGH</span>
-          <span>DELUXE 40FT HOME — ONE BEDROOM</span>
+          <span>DELUXE 40FT HOME · ONE BEDROOM</span>
         </div>
 
         {!playing && (

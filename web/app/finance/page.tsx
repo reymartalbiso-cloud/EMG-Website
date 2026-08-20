@@ -3,16 +3,16 @@ import type { Metadata } from "next";
 import { Reveal } from "@/components/shared";
 
 export const metadata: Metadata = {
-  title: "Finance — Fund Your Container Home or Commercial Buildings",
+  title: "Finance: Fund Your Container Home or Commercial Buildings",
   description:
-    "Finance options for Elite Manufacturing container homes and commercial buildings — personal finance for residential customers, business finance for commercial and industrial projects.",
+    "Finance options for Elite Manufacturing container homes and commercial buildings. Personal finance for residential customers, business finance for commercial and industrial projects.",
 };
 
 const TERMS: [string, string][] = [
-  ["50%", "Deposit — locks in your build slot"],
-  ["30%", "Progress payment — during production"],
-  ["20%", "On notice of arrival — before delivery"],
-  ["4–6", "Months, typically, quote to keys"],
+  ["50%", "Deposit, locks in your build slot"],
+  ["30%", "Progress payment during production"],
+  ["20%", "On notice of arrival, before delivery"],
+  ["4-6", "Months, typically, quote to keys"],
 ];
 
 const PATHWAYS: [string, string][] = [
@@ -22,7 +22,7 @@ const PATHWAYS: [string, string][] = [
   ],
   [
     "Business & equipment finance",
-    "Site offices, ablution blocks and worker accommodation are business assets — equipment finance and chattel mortgage structures usually fit, through your own broker or accountant.",
+    "Site offices, ablution blocks and worker accommodation are business assets. Equipment finance and chattel mortgage structures usually fit, through your own broker or accountant.",
   ],
   [
     "Volume & project terms",
@@ -30,14 +30,14 @@ const PATHWAYS: [string, string][] = [
   ],
   [
     "Negotiated per contract",
-    "The 50/30/20 split is our standard, not a rule. Every contract is negotiated per job — if your funding needs a different shape, talk to us before you sign anything.",
+    "The 50/30/20 split is our standard, not a rule. Every contract is negotiated per job, so if your funding needs a different shape, talk to us before you sign anything.",
   ],
 ];
 
 const STEPS: [string, string, string][] = [
-  ["01", "Get a finance-ready quote", "Fixed and itemised — building, delivery and site works in one document your lender can read."],
+  ["01", "Get a finance-ready quote", "Fixed and itemised: building, delivery and site works in one document your lender can read."],
   ["02", "Deposit locks it in", "50% starts your build with our manufacturing partners and reserves your delivery window."],
-  ["03", "Progress while it builds", "30% during production — you'll see photos and updates through your order portal."],
+  ["03", "Progress while it builds", "30% during production, and you'll see photos and updates through your order portal."],
   ["04", "Final payment, then keys", "20% on notice of arrival at the port. We clear customs, deliver, install and hand over."],
 ];
 
@@ -50,7 +50,7 @@ export default function Finance() {
           <h1 className="display">Get building sooner.</h1>
           <p className="section-sub">
             You don&apos;t have to pay for your building outright on day one.
-            Our standard terms split payment across the build — and finance
+            Our standard terms split payment across the build, and finance
             can cover the rest.
           </p>
         </Reveal>
@@ -75,7 +75,7 @@ export default function Finance() {
             <h2 className="display">Two ways to fund it.</h2>
             <p className="section-sub">
               Residential buyers and commercial operators fund buildings
-              differently — we quote so both work.
+              differently. We quote so both work.
             </p>
           </Reveal>
         </div>
@@ -103,11 +103,11 @@ export default function Finance() {
         <Reveal>
           <table className="spec-table">
             <tbody>
-              <tr><th>Fixed price</th><td>One total, inc GST — no provisional sums waiting to blow out later.</td></tr>
+              <tr><th>Fixed price</th><td>One total, inc GST. No provisional sums waiting to blow out later.</td></tr>
               <tr><th>Itemised</th><td>Building, options, delivery and site works each priced on their own line.</td></tr>
-              <tr><th>Site works included</th><td>Footings, services and install in the same document — no second contractor to explain.</td></tr>
+              <tr><th>Site works included</th><td>Footings, services and install in the same document. No second contractor to explain.</td></tr>
               <tr><th>Payment schedule</th><td>The 50/30/20 structure in writing, tied to build milestones.</td></tr>
-              <tr><th>Timeline</th><td>An honest 4–6 month window, tracked live in your order portal.</td></tr>
+              <tr><th>Timeline</th><td>An honest 4-6 month window, tracked live in your order portal.</td></tr>
             </tbody>
           </table>
         </Reveal>

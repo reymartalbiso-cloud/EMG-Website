@@ -13,10 +13,10 @@ const framePath = (i: number) =>
   `/journeyframes/frame_${String(i + 1).padStart(3, "0")}.webp`;
 
 const PHASES = [
-  { until: 0.18, label: "LEG 01 — THE FACTORY" },
-  { until: 0.45, label: "LEG 02 — AT SEA" },
-  { until: 0.72, label: "LEG 03 — THE HIGHWAY" },
-  { until: 1.01, label: "LEG 04 — YOUR BLOCK" },
+  { until: 0.18, label: "LEG 01 · THE FACTORY" },
+  { until: 0.45, label: "LEG 02 · AT SEA" },
+  { until: 0.72, label: "LEG 03 · THE HIGHWAY" },
+  { until: 1.01, label: "LEG 04 · YOUR BLOCK" },
 ];
 const ACT_RANGES = [
   { from: 0.0, to: 0.13 },
@@ -189,7 +189,7 @@ export default function JourneySequence() {
         <div className="hud mono" aria-hidden="true">
           <span className="hud-line" />
           <span className="hud-seq">SEQ 001/361</span>
-          <span className="hud-phase">LEG 01 — THE FACTORY</span>
+          <span className="hud-phase">LEG 01 · THE FACTORY</span>
         </div>
 
         <div className="act act-1">
@@ -201,22 +201,22 @@ export default function JourneySequence() {
         <div className="act act-2">
           <h2>Across open water.</h2>
           <p className="act-sub">
-            The least predictable leg of the journey — so we own it: the
+            The least predictable leg of the journey, so we own it: the
             booking, the customs entry, the clearance, all handled while it sails.
           </p>
         </div>
         <div className="act act-3">
           <h2>Up the highway.</h2>
           <p className="act-sub">
-            From the port to anywhere Australia's roads reach —
-            stations, islands and mine sites included.
+            From the port to anywhere Australia's roads reach.
+            Stations, islands and mine sites included.
           </p>
         </div>
         <div className="act act-4">
           <h2>Onto your block.</h2>
           <p className="act-sub">
             Craned onto footings poured while it was at sea. One journey, one
-            accountable company — typically 4–6 months, order to keys.
+            accountable company, typically 4-6 months, order to keys.
           </p>
         </div>
       </div>

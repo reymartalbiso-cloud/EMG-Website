@@ -78,7 +78,7 @@ export default function Nav() {
 
   return (
     <header className={`nav${scrolled ? " scrolled" : ""}${overHero ? " over-hero" : ""}${menuOpen ? " menu-open" : ""}`}>
-      <Link className="nav-brand" href="/" aria-label="Elite Manufacturing Group — home">
+      <Link className="nav-brand" href="/" aria-label="Elite Manufacturing Group home">
         {/* the transparent mark, not the black-square logo — at this size the
            square's edge would show against the bar */}
         {/* eslint-disable-next-line @next/next/no-img-element */}

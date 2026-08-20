@@ -9,8 +9,8 @@ export default function Footer() {
           <p className="nav-brand-main">ELITE</p>
           <p className="nav-brand-sub">MANUFACTURING GROUP</p>
           <p className="footer-muted">
-            Container buildings delivered and installed Australia-wide —
-            owned end-to-end, from factory to handover.
+            Container buildings delivered and installed Australia-wide.
+            Owned end-to-end, from factory to handover.
           </p>
         </div>
         <div className="mono footer-meta">

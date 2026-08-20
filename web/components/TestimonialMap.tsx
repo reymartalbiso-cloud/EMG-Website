@@ -195,7 +195,7 @@ export default function TestimonialMap() {
             </g>
             <g className="tmap-hq-cap">
               <line x1="8" y1="-4" x2="46" y2="-22" className="tmap-hq-leader" />
-              <text x="50" y="-19" className="tmap-label">HERBERT — HOME BASE</text>
+              <text x="50" y="-19" className="tmap-label">HERBERT · HOME BASE</text>
             </g>
           </g>
 
@@ -228,7 +228,7 @@ export default function TestimonialMap() {
           ))}
         </svg>
         <div className="tmap-legend mono" aria-hidden="true">
-          <span><i>⬢</i> HOME BASE — HERBERT NT</span>
+          <span><i>⬢</i> HOME BASE · HERBERT NT</span>
           <span><i>●</i> CUSTOMER DELIVERY</span>
         </div>
       </div>

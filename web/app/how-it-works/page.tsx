@@ -7,23 +7,23 @@ import { SITE_WORKS } from "@/lib/products";
 import { PORTAL_URL } from "@/lib/links";
 
 export const metadata: Metadata = {
-  title: "How It Works — Container Home Delivery, Honestly Told",
+  title: "How It Works: Container Home Delivery, Honestly Told",
   description:
-    "How a container home actually gets from order to handover, anywhere in Australia: specification, factory build, shipping and customs, site works and installation. Typically 4–6 months, honestly tracked.",
+    "How a container home actually gets from order to handover, anywhere in Australia: specification, factory build, shipping and customs, site works and installation. Typically 4-6 months, honestly tracked.",
 };
 
 const STAGES = [
   {
     n: "01", t: "Specification & order",
-    d: "We lock the layout, fit-out, electrical spec and compliance path before anything is built. You see drawings of what you're getting — including our standard threshold-free access and sunken shower bases — and the factory builds to that spec, not to an interpretation of an email.",
+    d: "We lock the layout, fit-out, electrical spec and compliance path before anything is built. You see drawings of what you're getting, including our standard threshold-free access and sunken shower bases, and the factory builds to that spec, not to an interpretation of an email.",
   },
   {
     n: "02", t: "Factory build",
-    d: "Your building is constructed by one of the two established factories we work with, to our specification. We are not the factory — and that honesty matters, because what you are buying from us is everything the factory can't do: getting a finished building certified, shipped and standing on your block.",
+    d: "Your building is constructed by one of the two established factories we work with, to our specification. We are not the factory, and that honesty matters, because what you are buying from us is everything the factory can't do: getting a finished building certified, shipped and standing on your block.",
   },
   {
     n: "03", t: "Shipping & customs",
-    d: "We book the sailing, run the customs entry and quarantine, and manage the port handling. Ocean freight is the least predictable stage of the journey — which is exactly why we own it rather than leaving it to you, and why our public lead time is honest about the range.",
+    d: "We book the sailing, run the customs entry and quarantine, and manage the port handling. Ocean freight is the least predictable stage of the journey, which is exactly why we own it rather than leaving it to you, and why our public lead time is honest about the range.",
   },
   {
     n: "04", t: "Site works",
@@ -31,7 +31,7 @@ const STAGES = [
   },
   {
     n: "05", t: "Delivery & installation",
-    d: "Trucking, crane lift, placement, connection and commissioning. A 40-foot container on a truck needs real access — we assess that before you order, not on delivery morning.",
+    d: "Trucking, crane lift, placement, connection and commissioning. A 40-foot container on a truck needs real access, so we assess that before you order, not on delivery morning.",
   },
   {
     n: "06", t: "Handover",
@@ -47,10 +47,10 @@ export default function HowItWorks() {
       <div className="page-hero" style={{ paddingTop: "var(--space-6)" }}>
         <Reveal>
           <p className="eyebrow mono">THE WHOLE JOURNEY, HONESTLY TOLD</p>
-          <h2 className="display" style={{ fontSize: "clamp(2.4rem, 5.4vw, 4.6rem)" }}>Order to move-in, typically 4–6 months.</h2>
+          <h2 className="display" style={{ fontSize: "clamp(2.4rem, 5.4vw, 4.6rem)" }}>Order to move-in, typically 4-6 months.</h2>
           <p className="section-sub">
             Most container-building websites promise a delivery date. We&apos;d
-            rather explain the journey and give you a range we actually hit —
+            rather explain the journey and give you a range we actually hit,
             because the one thing that ruins this experience is a date that
             moves. Here is what really happens, stage by stage.
           </p>

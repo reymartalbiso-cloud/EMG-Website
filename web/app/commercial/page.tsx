@@ -7,9 +7,9 @@ import { Reveal } from "@/components/shared";
 import { PRODUCTS } from "@/lib/products";
 
 export const metadata: Metadata = {
-  title: "Commercial & Remote-Site Buildings — Mining, Community, Government",
+  title: "Commercial & Remote-Site Buildings for Mining, Community & Government",
   description:
-    "Site accommodation, ablution blocks and kitchen/mess units for mining, remote community and government projects — specified, delivered and installed Australia-wide.",
+    "Site accommodation, ablution blocks and kitchen/mess units for mining, remote community and government projects. Specified, delivered and installed Australia-wide.",
 };
 
 export default function Commercial() {
@@ -23,7 +23,7 @@ export default function Commercial() {
           <h2 className="display" style={{ fontSize: "clamp(2.4rem, 5.4vw, 4.6rem)" }}>Buildings for the places hotels don&apos;t exist.</h2>
           <p className="section-sub">
             Site offices, worker accommodation, ablutions, kitchens and mess
-            units — delivered as coordinated programs at camp and village
+            units, delivered as coordinated programs at camp and village
             scale, specified to National Construction Code requirements for
             your site class. Multiple buildings per shipping cycle, installed
             on schedule, supported after handover. We quote to specification,
@@ -62,7 +62,7 @@ export default function Commercial() {
           <Reveal>
             <h2 className="display">Size the camp to your crew.</h2>
             <p className="section-sub">
-              Drag your headcount and watch the program take shape —
+              Drag your headcount and watch the program take shape:
               accommodation rows, ablutions, kitchen and offices, planned and
               delivered as one village.
             </p>
@@ -80,19 +80,19 @@ export default function Commercial() {
             <h2 className="display">We are your people.</h2>
             <p className="section-sub">
               If you&apos;re housing a workforce, you don&apos;t need a
-              building — you need a program delivered. This is what we do for
+              building, you need a program delivered. This is what we do for
               business, mining, community and government clients:
             </p>
           </Reveal>
         </div>
         <div className="works-grid">
           {[
-            ["Site offices & worker accommodation", "Powered, insulated, secure — singles or ensuited rooms, ready to occupy."],
-            ["Full camps at 100-person scale", "Accommodation rows, ablutions, kitchen and mess — planned and delivered as one village."],
+            ["Site offices & worker accommodation", "Powered, insulated, secure. Singles or ensuited rooms, ready to occupy."],
+            ["Full camps at 100-person scale", "Accommodation rows, ablutions, kitchen and mess, planned and delivered as one village."],
             ["Volume on schedule", "Multiple buildings per shipping cycle, sequenced so your site is never waiting on us."],
             ["Specified to NCC requirements", "Documented to National Construction Code requirements for your site classification."],
             ["Remote-site delivery, Australia-wide", "Stations, island communities and mine sites most suppliers won't quote."],
-            ["One accountable contractor", "Footings, services, septic, install and after-sales — one team, one contract."],
+            ["One accountable contractor", "Footings, services, septic, install and after-sales. One team, one contract."],
           ].map(([t, d]) => (
             <Reveal key={t}>
               <div className="works-item">
@@ -114,7 +114,7 @@ export default function Commercial() {
         <Reveal>
           <table className="spec-table">
             <tbody>
-              <tr><th>DWELLINGS</th><td>Class 1A under the National Construction Code — habitable standard</td></tr>
+              <tr><th>DWELLINGS</th><td>Class 1A under the National Construction Code, habitable standard</td></tr>
               <tr><th>ELECTRICAL</th><td>AS/NZS 3000 &amp; AS/NZS 3001 transportable installations</td></tr>
               <tr><th>PLUMBING</th><td>WaterMark fittings to AS/NZS 3500, WELS-rated fixtures</td></tr>
               <tr><th>GLAZING</th><td>Windows to AS 2047, glass to AS 1288</td></tr>

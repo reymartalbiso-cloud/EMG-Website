@@ -113,8 +113,8 @@ export default function Configurator({ initialModel }: { initialModel?: string }
       ? ` My layout (${is20ft ? "20ft" : "40ft"} floor plan, positions from front-left corner): ${layoutPlan}.`
       : "";
     const msg = model.custom
-      ? `Custom build request. Requirements: ${customNeeds.trim() || "(add your details)"}. Options: ${specParts}.${layoutLine} From ${money(total)} inc GST — please confirm final price.`
-      : `${model.name} — ${specParts}.${layoutLine} Total ${money(total)} inc GST.`;
+      ? `Custom build request. Requirements: ${customNeeds.trim() || "(add your details)"}. Options: ${specParts}.${layoutLine} From ${money(total)} inc GST, please confirm final price.`
+      : `${model.name}: ${specParts}.${layoutLine} Total ${money(total)} inc GST.`;
     /* The same configuration, structured — WEBSITE-BRIEF §7.2 asks for the
        layout to reach the enquiry as JSON, not only as a sentence. The message
        above is what a human reads; this is what the dashboard stores. */
@@ -205,7 +205,7 @@ export default function Configurator({ initialModel }: { initialModel?: string }
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={model.carousel[carIdx]}
-                alt={`${model.name} — photo ${carIdx + 1}`}
+                alt={`${model.name}, photo ${carIdx + 1}`}
                 onClick={() => setLightbox(model.carousel[carIdx])}
               />
               <button className="cfg-carbtn prev" aria-label="Previous photo"
@@ -235,8 +235,8 @@ export default function Configurator({ initialModel }: { initialModel?: string }
 
           {show("colour") && (
             <div className="cfg-block">
-              <p className="cfg-lbl">External colour <span className="cfg-free">Any colour — no extra cost</span></p>
-              <p className="cfg-hint">Colorbond match — RAL approximate</p>
+              <p className="cfg-lbl">External colour <span className="cfg-free">Any colour, no extra cost</span></p>
+              <p className="cfg-hint">Colorbond match, RAL approximate</p>
               <div className="cfg-preview" aria-hidden="true">
                 <svg width="120" height="52" viewBox="0 0 120 52">
                   <rect x="2" y="6" width="116" height="42" rx="2" fill={COLOURS.find((c) => colour.startsWith(c.n))?.h || "#E4E2D5"} stroke="rgba(0,0,0,0.35)" />
@@ -269,7 +269,7 @@ export default function Configurator({ initialModel }: { initialModel?: string }
           {show("bench") && (
             <div className="cfg-block">
               <p className="cfg-lbl">Benchtop</p>
-              <p className="cfg-hint">Quartz stone — colour code shown</p>
+              <p className="cfg-hint">Quartz stone, colour code shown</p>
               <div className="cfg-swatches small">
                 {BENCHTOPS.map((b) => (
                   <button key={b.c} className={`cfg-sw${benchtop === b.c ? " sel" : ""}`} onClick={() => setBenchtop(b.c)}>
@@ -295,7 +295,7 @@ export default function Configurator({ initialModel }: { initialModel?: string }
           {show("floor") && (
             <div className="cfg-block">
               <p className="cfg-lbl">Flooring</p>
-              <p className="cfg-hint">SPC flooring — colour code shown</p>
+              <p className="cfg-hint">SPC flooring, colour code shown</p>
               <div className="cfg-swatches small">
                 {FLOORS.map((f) => (
                   <button key={f.c} className={`cfg-sw${flooring === f.c ? " sel" : ""}`} onClick={() => setFlooring(f.c)}>
@@ -308,10 +308,10 @@ export default function Configurator({ initialModel }: { initialModel?: string }
           )}
 
           <div className="cfg-block">
-            <p className="cfg-lbl">Design your layout <span className="cfg-free">Optional — included with your quote</span></p>
+            <p className="cfg-lbl">Design your layout <span className="cfg-free">Optional, included with your quote</span></p>
             <p className="cfg-hint">
               A to-scale {is20ft ? "20ft" : "40ft"} floor plan. Add fixtures,
-              drag them into place — the walls take your chosen colour.
+              drag them into place, and the walls take your chosen colour.
             </p>
             <LayoutDesigner
               key={is20ft ? "20" : "40"}
@@ -368,7 +368,7 @@ export default function Configurator({ initialModel }: { initialModel?: string }
                 </div>
                 <div className="right">
                   <button className="stp" aria-label={`Remove one ${u.kw} unit`}
-                    onClick={() => setAc((prev) => prev.map((x, j) => j === i ? { ...x, qty: Math.max(0, x.qty - 1) } : x))}>–</button>
+                    onClick={() => setAc((prev) => prev.map((x, j) => j === i ? { ...x, qty: Math.max(0, x.qty - 1) } : x))}>−</button>
                   <span className="qn">{u.qty}</span>
                   <button className="stp" aria-label={`Add one ${u.kw} unit`}
                     onClick={() => setAc((prev) => prev.map((x, j) => j === i ? { ...x, qty: Math.min(6, x.qty + 1) } : x))}>+</button>
@@ -410,11 +410,11 @@ export default function Configurator({ initialModel }: { initialModel?: string }
           {show("custom") && (
             <div className="cfg-block">
               <p className="cfg-lbl">Your custom build</p>
-              <p className="cfg-hint">From {money(model.base)} — final price confirmed once we have your details</p>
+              <p className="cfg-hint">From {money(model.base)}. Final price confirmed once we have your details</p>
               <textarea
                 className="cfg-textarea" value={customNeeds}
                 onChange={(e) => setCustomNeeds(e.target.value)}
-                placeholder="Describe what you're after — size, layout, number of rooms, anything specific. We'll confirm your price."
+                placeholder="Describe what you're after: size, layout, number of rooms, anything specific. We'll confirm your price."
               />
             </div>
           )}
@@ -428,16 +428,16 @@ export default function Configurator({ initialModel }: { initialModel?: string }
             </p>
             <ul className="cfg-notincluded">
               <li>Council or development approvals on your land</li>
-              <li>Special site access — e.g. side-loader or larger crane on constrained or remote sites</li>
+              <li>Special site access, e.g. side-loader or larger crane on constrained or remote sites</li>
               <li>Connection to mains services beyond the packages selected above</li>
-              <li>Abnormal ground works — rock breaking, deep-fill or engineered retaining</li>
+              <li>Abnormal ground works: rock breaking, deep-fill or engineered retaining</li>
             </ul>
           </div>
           </div>
 
           {/* Summary */}
           <div className="cfg-summary">
-            <p className="bl mono">{model.name.toUpperCase()} — FROM {money(model.base)} INC GST</p>
+            <p className="bl mono">{model.name.toUpperCase()} · FROM {money(model.base)} INC GST</p>
             <p className="spec">{specParts}</p>
             <div className="tot">
               <span className="lab">Total</span>
@@ -446,7 +446,7 @@ export default function Configurator({ initialModel }: { initialModel?: string }
             </div>
             <p className="note">
               {model.custom
-                ? "From price — final cost confirmed once we have your details."
+                ? "From price. Final cost confirmed once we have your details."
                 : "Colour, benchtop and flooring included at no extra cost."}
             </p>
             <button className="btn btn-accent" onClick={addToQuote}>

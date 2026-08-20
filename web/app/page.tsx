@@ -7,9 +7,9 @@ import { PORTAL_URL } from "@/lib/links";
    site office top-left, mining camp bottom-right. Still exactly two doors. */
 
 export const metadata: Metadata = {
-  title: "Elite Manufacturing Group — Container Homes & Commercial Buildings, Australia-Wide",
+  title: "Elite Manufacturing Group | Container Homes & Commercial Buildings, Australia-Wide",
   description:
-    "Container homes for your block, or worker accommodation at village scale. Choose your path — residential or commercial/industrial — and see buildings priced live.",
+    "Container homes for your block, or worker accommodation at village scale. Choose your path, residential or commercial/industrial, and see buildings priced live.",
 };
 
 export default function Chooser() {
@@ -26,7 +26,7 @@ export default function Chooser() {
           />
           <span className="chooser-body">
             <span className="chooser-sub">
-              A home on your land — container homes certified to live in,
+              A home on your land: container homes certified to live in,
               delivered and installed on your block.
             </span>
             <span className="mono chooser-cta">RESIDENTIAL →</span>
@@ -50,7 +50,7 @@ export default function Chooser() {
           <span className="chooser-quad br mono" aria-hidden="true">INDUSTRIAL</span>
           <span className="chooser-body">
             <span className="chooser-sub">
-              Site offices, worker accommodation and full camps — buildings at
+              Site offices, worker accommodation and full camps. Buildings at
               project and village scale.
             </span>
             <span className="mono chooser-cta">COMMERCIAL / INDUSTRIAL →</span>

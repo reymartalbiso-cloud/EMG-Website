@@ -18,16 +18,16 @@ const FACETS: Record<string, { beds: string; size: string }> = {
   one: { beds: "1", size: "40ft" },
   family: { beds: "2", size: "40ft" },
   ob40: { beds: "2", size: "40ft" },
-  workers: { beds: "3–4", size: "40ft" },
+  workers: { beds: "3-4", size: "40ft" },
   custom: { beds: "Any", size: "Any" },
 };
 
-const BED_FILTERS = ["All", "Studio/1", "2", "3–4"];
+const BED_FILTERS = ["All", "Studio/1", "2", "3-4"];
 const SIZE_FILTERS = ["All", "20ft", "40ft"];
 const PRICE_FILTERS = [
   { label: "Any price", test: () => true },
   { label: "Under $50k", test: (p: number) => p < 50000 },
-  { label: "$50k–$70k", test: (p: number) => p >= 50000 && p <= 70000 },
+  { label: "$50k-$70k", test: (p: number) => p >= 50000 && p <= 70000 },
   { label: "Over $70k", test: (p: number) => p > 70000 },
 ];
 const SORTS = [
@@ -161,7 +161,7 @@ export default function ShopGrid() {
       </div>
       {results.length === 0 && (
         <p className="section-sub">
-          No models match those filters — <Link href="/contact" style={{ color: "var(--accent-text)" }}>tell us what you need</Link> and we&apos;ll quote a custom build.
+          No models match those filters. <Link href="/contact" style={{ color: "var(--accent-text)" }}>Tell us what you need</Link> and we&apos;ll quote a custom build.
         </p>
       )}
     </>

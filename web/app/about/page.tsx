@@ -3,30 +3,30 @@ import type { Metadata } from "next";
 import { Reveal } from "@/components/shared";
 
 export const metadata: Metadata = {
-  title: "About — Elite Manufacturing Group, Herbert NT",
+  title: "About Elite Manufacturing Group, Herbert NT",
   description:
-    "Elite Manufacturing Group delivers and installs container homes and portable buildings Australia-wide from Herbert, Northern Territory — owning every step from factory to handover.",
+    "Elite Manufacturing Group delivers and installs container homes and portable buildings Australia-wide from Herbert, Northern Territory, owning every step from factory to handover.",
 };
 
 const NUMBERS: [string, string][] = [
   ["2", "Established factories building to our spec"],
   ["1", "Company accountable, end to end"],
   ["AUS-wide", "Delivered, craned and installed"],
-  ["4–6", "Months, typically, quote to keys"],
+  ["4-6", "Months, typically, quote to keys"],
 ];
 
 const VALUES: [string, string][] = [
   [
     "Exceptional craftsmanship",
-    "Every building is inspected before it ships and again before handover — the standard we've built our name on.",
+    "Every building is inspected before it ships and again before handover. That standard is what we've built our name on.",
   ],
   [
     "Honest dates",
-    "You get a range we actually hit, not a promise we can't — and a portal where you watch your build move, leg by leg.",
+    "You get a range we actually hit, not a promise we can't, and a portal where you watch your build move, leg by leg.",
   ],
   [
     "Certified for real living",
-    "Class 1A dwellings you can legally live in — with flat, threshold-free access as a standing rule of every spec we write.",
+    "Class 1A dwellings you can legally live in, with flat, threshold-free access as a standing rule of every spec we write.",
   ],
   [
     "Warranty & after-sales",
@@ -38,17 +38,17 @@ const VALUES: [string, string][] = [
   ],
   [
     "Built to move",
-    "Portable by nature — buildings that can be relocated, re-tasked and resold as your block, project or business changes.",
+    "Portable by nature: buildings that can be relocated, re-tasked and resold as your block, project or business changes.",
   ],
 ];
 
 const SECTORS: [string, string][] = [
-  ["Families & first homes", "Class 1A container homes on your own land — delivered, installed and ready to live in."],
+  ["Families & first homes", "Class 1A container homes on your own land, delivered, installed and ready to live in."],
   ["Mining, gas & resources", "Worker accommodation, ablutions and full camp facilities at project and village scale."],
   ["Business & site offices", "Temporary and permanent offices for remote sites, expansions and works depots."],
   ["Education", "Portable classrooms and facility buildings, delivered to schedule around term dates."],
   ["Healthcare", "Clinics and support facilities for remote and temporary health services."],
-  ["Communities & government", "Remote community and government projects — including the sites most suppliers won't quote."],
+  ["Communities & government", "Remote community and government projects, including the sites most suppliers won't quote."],
 ];
 
 export default function About() {
@@ -61,7 +61,7 @@ export default function About() {
           <p className="section-sub">
             Two established factories build our container buildings to our
             specification. What Elite Manufacturing Group owns is the rest of
-            the journey — and the rest of the journey is the hard part.
+            the journey. And the rest of the journey is the hard part.
           </p>
         </Reveal>
       </div>
@@ -95,7 +95,7 @@ export default function About() {
           <Reveal>
             <p>
               We run that whole journey from Herbert, in the rural area outside
-              Darwin — Territory-based, delivering Australia-wide, including
+              Darwin. Territory-based, delivering Australia-wide, including
               the remote sites most suppliers won&apos;t quote. Our
               customers range from families putting a first home on their own
               land to mining operators housing a crew, remote communities and
@@ -110,7 +110,7 @@ export default function About() {
           <Reveal>
             <h2 className="display">What we stand for.</h2>
             <p className="section-sub">
-              The standards that don&apos;t show up on a price list — and the
+              The standards that don&apos;t show up on a price list, and the
               reason customers recommend us to their neighbours.
             </p>
           </Reveal>
@@ -132,8 +132,8 @@ export default function About() {
           <Reveal>
             <h2 className="display">Who we build for.</h2>
             <p className="section-sub">
-              Portable buildings are quietly reshaping how Australia builds —
-              these are the people we do it for.
+              Portable buildings are changing how Australia builds.
+              These are the people we do it for.
             </p>
           </Reveal>
         </div>
@@ -162,10 +162,10 @@ export default function About() {
           <table className="spec-table">
             <tbody>
               <tr><th>Address</th><td>55 Sunter Road, Herbert NT 0836</td></tr>
-              <tr><th>Hours</th><td>Monday–Friday 9am–8pm · Saturday 10am–6pm · Sunday by appointment</td></tr>
+              <tr><th>Hours</th><td>Monday to Friday 9am-8pm · Saturday 10am-6pm · Sunday by appointment</td></tr>
               <tr><th>Phone</th><td><a href="tel:0420251550">0420 251 550</a></td></tr>
               <tr><th>Email</th><td><a href="mailto:admin@elitemanufacturing.com.au">admin@elitemanufacturing.com.au</a></td></tr>
-              <tr><th>Service area</th><td>Australia-wide — remote sites, islands and camps included</td></tr>
+              <tr><th>Service area</th><td>Australia-wide, remote sites, islands and camps included</td></tr>
               <tr><th>ABN</th><td>13 669 513 473</td></tr>
             </tbody>
           </table>

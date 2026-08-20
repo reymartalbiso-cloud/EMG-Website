@@ -4,9 +4,9 @@ import TestimonialMap from "@/components/TestimonialMap";
 import { Reveal } from "@/components/shared";
 
 export const metadata: Metadata = {
-  title: "Testimonials — Customers Across Australia",
+  title: "Testimonials from Customers Across Australia",
   description:
-    "Real customers, real buildings, real words — explore Elite Manufacturing testimonials across Australia.",
+    "Real customers, real buildings, real words. Explore Elite Manufacturing testimonials across Australia.",
 };
 
 export default function Testimonials() {
@@ -18,7 +18,7 @@ export default function Testimonials() {
           <h1 className="display">Real customers, on the map.</h1>
           <p className="section-sub">
             Every glowing mark is a customer who took delivery and had
-            something to say. Tap a pin to read their words — video stories
+            something to say. Tap a pin to read their words. Video stories
             and build photos are being added as customers share them.
           </p>
         </Reveal>

@@ -3,9 +3,9 @@ import ProductPage from "@/components/ProductPage";
 import { PRODUCTS } from "@/lib/products";
 
 export const metadata: Metadata = {
-  title: "Container Domes — C4040S & C4080S",
+  title: "Container Domes C4040S & C4080S",
   description:
-    "Large-span container-mounted fabric domes for workshops, machinery and storage — delivered and installed Australia-wide.",
+    "Large-span container-mounted fabric domes for workshops, machinery and storage. Delivered and installed Australia-wide.",
 };
 
 export default function Domes() {
