@@ -9,6 +9,7 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import PreloadVeil from "@/components/PreloadVeil";
 import { PORTAL_URL } from "@/lib/links";
 
 const FRAME_COUNT = 361;
@@ -110,6 +111,8 @@ export default function Hero() {
     }
 
     function startStatic() {
+      /* no sequence will stream — release the first-visit veil right away */
+      window.dispatchEvent(new CustomEvent("emg:preload", { detail: { loaded: 1, total: 1 } }));
       poster.src = framePath(FRAME_COUNT - 1);
       acts[3].classList.add("on");
       hud.classList.add("on");
@@ -173,6 +176,8 @@ export default function Hero() {
           img.onload = img.onerror = () => {
             inFlight--; loaded++;
             if (loaded === 1 || loaded === FRAME_COUNT) drawFrame(current);
+            /* the first-visit veil holds until the opening act is resident */
+            window.dispatchEvent(new CustomEvent("emg:preload", { detail: { loaded, total: FRAME_COUNT } }));
             pump();
           };
           img.src = framePath(i);
@@ -188,6 +193,9 @@ export default function Hero() {
 
   return (
     <section className="hero" ref={rootRef}>
+      {/* fixed overlay, outside .hero-stage: the pin transforms the stage,
+         and a transformed ancestor would re-anchor a fixed element */}
+      <PreloadVeil />
       <div className="hero-stage">
         {/* Poster carries the hero alone until the sequence is ready */}
         {/* eslint-disable-next-line @next/next/no-img-element */}

@@ -5,6 +5,7 @@
    transformations. Same poster-first pipeline as the other heroes. */
 
 import { useEffect, useRef } from "react";
+import PreloadVeil from "@/components/PreloadVeil";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -99,6 +100,8 @@ export default function JourneySequence() {
     }
 
     function startStatic() {
+      /* no sequence will stream — release the first-visit veil right away */
+      window.dispatchEvent(new CustomEvent("emg:preload", { detail: { loaded: 1, total: 1 } }));
       poster.src = framePath(FRAME_COUNT - 1);
       acts[3].classList.add("on");
       hud.classList.add("on");
@@ -161,6 +164,8 @@ export default function JourneySequence() {
           img.onload = img.onerror = () => {
             inFlight--; loaded++;
             if (loaded === 1 || loaded === FRAME_COUNT) drawFrame(current);
+            /* the first-visit veil holds until the opening act is resident */
+            window.dispatchEvent(new CustomEvent("emg:preload", { detail: { loaded, total: FRAME_COUNT } }));
             pump();
           };
           img.src = framePath(i);
@@ -176,6 +181,9 @@ export default function JourneySequence() {
 
   return (
     <section className="hero" ref={rootRef}>
+      {/* fixed overlay, outside .hero-stage: the pin transforms the stage,
+         and a transformed ancestor would re-anchor a fixed element */}
+      <PreloadVeil />
       <div className="hero-stage">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img className="hero-poster" src={framePath(0)} alt="" fetchPriority="high" />

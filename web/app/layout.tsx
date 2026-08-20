@@ -4,6 +4,7 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import ScrollFX from "@/components/ScrollFX";
 import PageWipe from "@/components/PageWipe";
+import Prefetch from "@/components/Prefetch";
 import Fabs from "@/components/Fabs";
 import "./globals.css";
 
@@ -30,7 +31,10 @@ export const metadata: Metadata = {
   icons: { icon: "/emg-logo.png", apple: "/emg-logo.png" },
 };
 
-const themeInit = `(function(){document.documentElement.classList.add("js");try{var t=localStorage.getItem("emg-theme");if(!t){t=window.matchMedia&&window.matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}document.documentElement.dataset.theme=t}catch(e){document.documentElement.dataset.theme="dark"}})();`;
+/* first-load: stamped before paint on the first hard load of a visit only —
+   it lets the preload veil cover from the very first frame, and it is what
+   keeps the veil away from reloads and every later page of the session */
+const themeInit = `(function(){document.documentElement.classList.add("js");try{var t=localStorage.getItem("emg-theme");if(!t){t=window.matchMedia&&window.matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}document.documentElement.dataset.theme=t}catch(e){document.documentElement.dataset.theme="dark"}try{if(!sessionStorage.getItem("emg-visit")){sessionStorage.setItem("emg-visit","1");document.documentElement.classList.add("first-load")}}catch(e){}})();`;
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -54,6 +58,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en-AU" suppressHydrationWarning>
       <head>
+        {/* the preload veil and the nav both open on this mark — it must be
+           on screen before anything else, whatever the connection */}
+        <link rel="preload" href="/emg-mark.png" as="image" fetchPriority="high" />
         <script dangerouslySetInnerHTML={{ __html: themeInit }} />
         <script
           type="application/ld+json"
@@ -64,6 +71,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <a href="#main" className="skip-link">Skip to content</a>
         <div className="scroll-progress" id="scrollProgress" aria-hidden="true" />
         <ScrollFX />
+        <Prefetch />
         <PageWipe />
         <Nav />
         <main id="main">{children}</main>

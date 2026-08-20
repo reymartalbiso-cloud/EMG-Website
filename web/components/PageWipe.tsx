@@ -45,6 +45,9 @@ export default function PageWipe() {
       e.preventDefault();
       if (covering.current) return;
       covering.current = true;
+      /* the first-visit preload veil is a landing-only device: once the
+         visitor navigates, the wipe owns every cover from here on */
+      document.documentElement.classList.remove("first-load");
       /* black first, then the mark on the black — never anything moving over
          the still-visible page */
       gsap.timeline({ onComplete: () => router.push(href) })

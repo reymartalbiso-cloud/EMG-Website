@@ -1579,6 +1579,41 @@ html:not(.js) .jr-cap { position: static; opacity: 1; visibility: visible; trans
 
 /* Route-change wipe (Ben's order, 18 Aug): black fades in over the page, the
    mark pops on the black, then the orange bar sweeps up and takes it all away */
+/* First-visit preload veil: covers from the very first paint (server-rendered,
+   shown only under html.js.first-load, which the head script stamps once per
+   visit) and fades once the hero's opening frames are cached. Same ground as
+   the wipe so landing and navigating share one brand language. Sits under the
+   wipe's 240 — they never overlap, but the wipe wins on principle. */
+.preload-veil {
+  display: none; position: fixed; inset: 0; z-index: 230;
+  background: #171715;
+  place-items: center;
+  opacity: 1;
+  transition: opacity 0.55s var(--ease-out), visibility 0s 0.55s;
+}
+html.js.first-load .preload-veil { display: grid; }
+.preload-veil.off { opacity: 0; visibility: hidden; pointer-events: none; }
+.veil-inner { display: grid; justify-items: center; gap: 14px; }
+.veil-inner img {
+  width: clamp(56px, 9vmin, 84px); height: auto; display: block;
+  opacity: 0; transition: opacity 0.4s var(--ease-out);
+}
+.veil-inner img.in { opacity: 1; }
+.veil-brand { font-size: 11px; letter-spacing: 0.22em; color: rgba(246, 228, 220, 0.65); }
+.veil-pct {
+  font-size: clamp(2.6rem, 7vmin, 4.2rem); font-weight: 700; line-height: 1;
+  color: #EDEBE6; font-variant-numeric: tabular-nums;
+}
+.veil-bar {
+  width: clamp(160px, 30vmin, 260px); height: 2px;
+  background: rgba(246, 228, 220, 0.16); border-radius: 2px; overflow: hidden;
+}
+.veil-bar span {
+  display: block; width: 0; height: 100%;
+  background: var(--accent);
+  transition: width 0.25s var(--ease-out);
+}
+
 .page-wipe { position: fixed; inset: 0; z-index: 240; visibility: hidden; pointer-events: none; }
 .wipe-black { position: absolute; inset: 0; background: #171715; opacity: 0; }
 .wipe-orange { position: absolute; inset: -2% 0; background: var(--accent); transform: translateY(103%); }
