@@ -77,7 +77,8 @@ export default function PageWipe() {
          wordmark beside it — at this size a second one would just crowd it. */}
       <div className="wipe-badge">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/emg-mark.png" alt="" width={800} height={800} />
+        {/* the full-size mark: this is the one moment it gets the whole screen */}
+        <img src="/emg-mark.webp" alt="" width={800} height={800} />
       </div>
       <div className="wipe-orange" />
     </div>

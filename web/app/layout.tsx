@@ -58,9 +58,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en-AU" suppressHydrationWarning>
       <head>
-        {/* the preload veil and the nav both open on this mark — it must be
-           on screen before anything else, whatever the connection */}
-        <link rel="preload" href="/emg-mark.png" as="image" fetchPriority="high" />
+        {/* The preload veil and the nav both open on this mark, so it must be
+           on screen before anything else, whatever the connection. Only the
+           256px copy is needed here; the full-size one is for the page-wipe
+           badge and is warmed at idle instead. */}
+        <link rel="preload" href="/emg-mark-sm.webp" as="image" fetchPriority="high" />
         <script dangerouslySetInnerHTML={{ __html: themeInit }} />
         <script
           type="application/ld+json"

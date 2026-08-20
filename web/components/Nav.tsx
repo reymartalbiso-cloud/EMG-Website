@@ -83,7 +83,7 @@ export default function Nav() {
            square's edge would show against the bar */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         {/* Ben, 18 Aug, second ask: bigger again — "they need to see you" */}
-        <img className="nav-logo" src="/emg-mark.png" alt="" width={58} height={58} />
+        <img className="nav-logo" src="/emg-mark-sm.webp" alt="" width={58} height={58} />
         <div>
           <span className="nav-brand-main">ELITE</span>
           <span className="nav-brand-sub">MANUFACTURING GROUP</span>

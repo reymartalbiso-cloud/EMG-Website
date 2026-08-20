@@ -27,6 +27,9 @@ export default function Prefetch() {
     let cancelled = false;
     const run = async () => {
       try { sessionStorage.setItem("emg-prefetched", "1"); } catch {}
+      /* the page-wipe badge shows the mark at up to 460px and is needed the
+         first time someone navigates, so warm it before that happens */
+      try { await fetch("/emg-mark.webp", { priority: "low" } as RequestInit); } catch {}
       for (const [route, base] of SEQS) {
         if (pathname.startsWith(route)) continue; /* its own hero streams itself */
         for (let i = 1; i <= COUNT && !cancelled; i++) {

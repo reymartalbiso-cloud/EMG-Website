@@ -77,7 +77,7 @@ export default function PreloadVeil() {
     <div className="preload-veil" ref={ref} role="status" aria-label="Loading Elite Manufacturing">
       <div className="veil-inner">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/emg-mark.png" alt="" width={76} height={76} fetchPriority="high" />
+        <img src="/emg-mark-sm.webp" alt="" width={76} height={76} fetchPriority="high" />
         <p className="mono veil-brand">ELITE MANUFACTURING GROUP</p>
         <p className="display veil-pct">0%</p>
         <div className="veil-bar" aria-hidden="true"><span /></div>
