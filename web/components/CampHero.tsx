@@ -8,7 +8,10 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-const FRAME_COUNT = 241;
+/* 479 frames: the 24fps source motion-interpolated to 48fps, so each
+   scrolled pixel steps half as far through the build-out — the smoothness ask
+   from the 18 Aug call */
+const FRAME_COUNT = 479;
 const framePath = (i: number) =>
   `/campframes/frame_${String(i + 1).padStart(3, "0")}.webp`;
 
@@ -188,7 +191,7 @@ export default function CampHero() {
 
         <div className="hud mono" aria-hidden="true">
           <span className="hud-line" />
-          <span className="hud-seq">SEQ 001/241</span>
+          <span className="hud-seq">SEQ 001/479</span>
           <span className="hud-phase">PHASE 01 — SITE</span>
         </div>
 
