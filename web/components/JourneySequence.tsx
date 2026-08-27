@@ -8,10 +8,14 @@ import { useEffect, useRef } from "react";
 import PreloadVeil from "@/components/PreloadVeil";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { loadSequence, wantsSmallFrames } from "@/lib/frameLoader";
 
 const FRAME_COUNT = 361;
-const framePath = (i: number) =>
-  `/journeyframes/frame_${String(i + 1).padStart(3, "0")}.webp`;
+const FRAME_DIR = "/journeyframes/";
+const FRAME_DIR_SM = "/journeyframes-sm/";
+const frameName = (i: number) =>
+  `frame_${String(i + 1).padStart(3, "0")}.webp`;
+const framePath = (i: number) => `${FRAME_DIR}${frameName(i)}`;
 
 const PHASES = [
   { until: 0.18, label: "LEG 01 · THE FACTORY" },
@@ -46,9 +50,7 @@ export default function JourneySequence() {
     const ctx = canvas.getContext("2d")!;
 
     const images: (HTMLImageElement | undefined)[] = new Array(FRAME_COUNT);
-    let loaded = 0;
     let current = 0;
-    let started = false;
     let killed = false;
     const cleanups: (() => void)[] = [];
 
@@ -102,6 +104,7 @@ export default function JourneySequence() {
     function startStatic() {
       /* no sequence will stream — release the first-visit veil right away */
       window.dispatchEvent(new CustomEvent("emg:preload", { detail: { loaded: 1, total: 1 } }));
+      poster.srcset = ""; // a live srcset would override the src below
       poster.src = framePath(FRAME_COUNT - 1);
       acts[3].classList.add("on");
       hud.classList.add("on");
@@ -153,27 +156,20 @@ export default function JourneySequence() {
       /* create the pin EAGERLY at mount — pins created late invalidate other
          triggers' cached positions (the rail-over-video bug). The poster
          covers the stage until frames arrive. */
-      started = true;
       start();
-      let inFlight = 0, next = 0;
-      const pump = () => {
-        while (inFlight < 8 && next < FRAME_COUNT && !killed) {
-          const i = next++;
-          const img = new Image();
-          img.decoding = "async";
-          img.onload = img.onerror = () => {
-            inFlight--; loaded++;
-            if (loaded === 1 || loaded === FRAME_COUNT) drawFrame(current);
-            /* the first-visit veil holds until the opening act is resident */
-            window.dispatchEvent(new CustomEvent("emg:preload", { detail: { loaded, total: FRAME_COUNT } }));
-            pump();
-          };
-          img.src = framePath(i);
-          images[i] = img;
-          inFlight++;
-        }
-      };
-      pump();
+      /* Interleaved passes, so the reader can scrub the whole sequence
+         almost immediately and it sharpens as the rest arrives. Phones
+         pull a smaller set: same picture, a third of the bytes. */
+      const dir = wantsSmallFrames() ? FRAME_DIR_SM : FRAME_DIR;
+      const seq = loadSequence({
+        count: FRAME_COUNT,
+        src: (i) => `${dir}${frameName(i)}`,
+        images,
+        onFrame: (i, n) => {
+          if (n === 1 || Math.abs(i - current) <= 8) drawFrame(current);
+        },
+      });
+      cleanups.push(() => seq.cancel());
     }
 
     return () => { killed = true; cleanups.forEach((fn) => fn()); };
@@ -186,7 +182,16 @@ export default function JourneySequence() {
       <PreloadVeil />
       <div className="hero-stage">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img className="hero-poster" src={framePath(0)} alt="" fetchPriority="high" />
+        <img
+          className="hero-poster"
+          src={framePath(0)}
+          /* the browser picks by viewport x DPR, so a phone takes the
+             900px poster and a desktop the full one */
+          srcSet={`${FRAME_DIR_SM}${frameName(0)} 900w, ${FRAME_DIR}${frameName(0)} 1600w`}
+          sizes="100vw"
+          alt=""
+          fetchPriority="high"
+        />
         <canvas
           className="hero-canvas"
           role="img"

@@ -13,7 +13,10 @@
 
 import { useEffect, useRef } from "react";
 
-const GATE = 48;       /* frames that carry the opening act of every sequence */
+/* The heroes now load interleaved, so `ready` means the WHOLE sequence can be
+   scrubbed end to end rather than just its opening. That is the honest gate:
+   lift the veil when the reader can actually play the film, not when an
+   arbitrary number of images happen to have arrived. */
 const MAX_WAIT = 4000;
 const MIN_SHOW = 450;  /* long enough to read as a beat, not a flicker */
 
@@ -50,9 +53,11 @@ export default function PreloadVeil() {
     };
 
     const onProgress = (e: Event) => {
-      const { loaded, total } = (e as CustomEvent).detail as { loaded: number; total: number };
-      const gate = Math.min(GATE, total);
-      if (loaded >= gate) { finish(); return; }
+      const { loaded, total, ready } = (e as CustomEvent).detail as
+        { loaded: number; total: number; ready?: boolean };
+      /* total === 1 is the save-data path saying "no sequence is coming" */
+      const gate = Math.max(1, Math.ceil(total / 16));
+      if (ready || loaded >= gate) { finish(); return; }
       const p = Math.min(1, loaded / gate);
       pct.textContent = `${Math.round(p * 100)}%`;
       bar.style.width = `${p * 100}%`;
