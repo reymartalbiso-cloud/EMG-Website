@@ -269,7 +269,9 @@ html:not(.js) .act > * { transform: none; }
   padding: 0 clamp(1.5rem, 7vw, 8rem);
   max-width: 64rem;
   /* fade in over the first fifth of the window, out over the last fifth */
-  opacity: min(calc(var(--act-t) * 5), calc((1 - var(--act-t)) * 5), 1);
+  /* --exit dissolves the whole caption layer as the section scrolls away, so
+     the closing line never slides up through the wordmark */
+  opacity: calc(min(calc(var(--act-t) * 5), calc((1 - var(--act-t)) * 5), 1) * var(--exit, 1));
   visibility: hidden;
   transform: translateX(calc((0.5 - var(--act-t)) * 2 * var(--act-drift)));
   pointer-events: none;
@@ -279,8 +281,8 @@ html:not(.js) .act > * { transform: none; }
 /* the opening act is already on screen at rest; the closing act must still be
    there when the scrub parks at the end. (Explicit classes — :first-of-type
    fails here because another div precedes the acts in the stage.) */
-.act.act-1 { opacity: min(calc((1 - var(--act-t)) * 5), 1); }
-.act.act-4 { opacity: min(calc(var(--act-t) * 5), 1); }
+.act.act-1 { opacity: calc(min(calc((1 - var(--act-t)) * 5), 1) * var(--exit, 1)); }
+.act.act-4 { opacity: calc(min(calc(var(--act-t) * 5), 1) * var(--exit, 1)); }
 
 /* depth: each line drifts at its own rate on top of the block's travel, so
    the caption reads as layers in space rather than a flat card */
@@ -355,8 +357,19 @@ html:not(.js) .act > * { transform: none; }
   transition: background 0.35s, border-color 0.35s;
 }
 .nav.scrolled { border-bottom-color: var(--line); padding-top: 0.55rem; padding-bottom: 0.55rem; }
-/* over the dark hero the nav must read light regardless of theme */
-.nav.over-hero { background: linear-gradient(rgba(18, 16, 14, 0.72), rgba(18, 16, 14, 0)); border-bottom-color: transparent; }
+/* Over the dark hero the nav must read light regardless of theme. The scrim
+   used to fall to fully transparent across the bar, which is exactly where the
+   wordmark sits: as the pinned hero scrolled away, its closing caption slid up
+   THROUGH the logo and both sets of large white type tangled together. Hold
+   the scrim through the wordmark's band, then fade as before. */
+.nav.over-hero {
+  background: linear-gradient(
+    rgba(18, 16, 14, 0.88),
+    rgba(18, 16, 14, 0.66) 62%,
+    rgba(18, 16, 14, 0)
+  );
+  border-bottom-color: transparent;
+}
 .nav.over-hero .nav-links a, .nav.over-hero .nav-brand-main { color: #f7f5f2; }
 .nav.over-hero .nav-links a:hover { color: #fff; }
 
@@ -465,6 +478,13 @@ html.pinned .fab { opacity: 0; pointer-events: none; }
 @media (max-width: 560px) {
   .nav-links .nav-track { display: none; }
 }
+/* Folded phones and the like: the mark, ELITE, the subtitle and the burger
+   together measured 291px on a 280px screen. The subtitle is the one piece
+   the brand can spare. */
+@media (max-width: 340px) {
+  .nav-brand-sub { display: none; }
+  .nav-logo { width: 40px; height: 40px; }
+}
 /* Labels must never break: "Build Your Own" wrapping to two lines made the
    whole bar 48px tall between 960 and 1199px. Tighten the gap through that
    band instead of letting the words fold. */
@@ -488,7 +508,11 @@ html.pinned .fab { opacity: 0; pointer-events: none; }
 .footer-muted { color: var(--text-mid); font-size: 0.85rem; margin-top: var(--space-2); }
 .footer-meta { color: var(--text-mid); display: flex; flex-direction: column; gap: 0.4rem; font-size: 0.68rem; }
 .footer-links { display: flex; flex-direction: column; gap: 0.5rem; }
-.footer-links a { color: var(--text-mid); font-size: 0.88rem; transition: color 0.2s; }
+/* 24px is the WCAG 2.2 minimum target; these measured 23px */
+.footer-links a {
+  color: var(--text-mid); font-size: 0.88rem; transition: color 0.2s;
+  padding: 2px 0; min-height: 24px; display: flex; align-items: center;
+}
 .footer-links a:hover { color: var(--accent-text); }
 @media (max-width: 720px) { .footer-grid { grid-template-columns: 1fr; } }
 
@@ -568,6 +592,12 @@ html.pinned .fab { opacity: 0; pointer-events: none; }
   max-width: 88rem; margin: 0 auto;
 }
 .contact-form { display: grid; gap: var(--space-2); }
+/* A grid item's min-content width is its longest unbreakable content, and a
+   <select>'s is its longest OPTION ("Site accommodation / offices"). On a
+   280px screen that forced the whole column to 286px and the page scrolled
+   sideways. Let them shrink and clip instead. */
+.contact-form label, .contact-form input, .contact-form select, .contact-form textarea { min-width: 0; }
+.contact-form select { width: 100%; text-overflow: ellipsis; }
 .contact-form label { display: grid; gap: 0.35rem; font-size: 0.85rem; font-weight: 500; }
 /* 16px minimum: iOS Safari zooms the whole page when a focused field is
    smaller, which throws a phone reader out of the form mid-enquiry. */
@@ -950,7 +980,18 @@ html.js .chooser-skip { animation: chooserFade 0.8s var(--ease-out) 0.55s backwa
 .chooser-panel:hover .chooser-cta { letter-spacing: 0.24em; }
 .chooser-skip { font-size: 0.85rem; color: var(--text-mid); }
 .chooser-skip a { color: var(--accent-text); }
-@media (max-width: 780px) { .chooser-panels { grid-template-columns: 1fr; } }
+/* The doors stack on a phone. This rule used to say grid-template-columns on
+   a flex container, which is a no-op, so both doors squeezed side by side and
+   "RESIDENTIAL" (178px of unbreakable word) was clipped inside a 161px box on
+   a 390px screen, and worse below that. Stacked, each label has the full
+   width. */
+@media (max-width: 780px) {
+  .chooser-panels { flex-direction: column; }
+  .chooser-panel { min-height: clamp(210px, 30vh, 330px); }
+  /* the grow-on-hover choreography is a pointer affordance; on a stacked
+     touch layout it just makes one door jump */
+  .chooser-panel:hover { flex-grow: 1; }
+}
 
 /* ---------- Commercial hero (village build) ---------- */
 .commercial-hero { background: #12100e; color: #f7f5f2; }

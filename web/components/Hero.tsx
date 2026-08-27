@@ -155,6 +155,19 @@ export default function Hero() {
       hud.classList.add("on");
       updateOverlays(0);
 
+      /* The film ends, the captions dissolve. Without this the closing caption
+         held at full opacity while the section scrolled away, sliding up
+         through the fixed wordmark: two sets of large white type tangled for
+         about half a second on every phone. */
+      const exit = ScrollTrigger.create({
+        trigger: root,
+        start: "bottom bottom",
+        end: "bottom 72%",
+        onUpdate: (self) => root.style.setProperty("--exit", String(1 - self.progress)),
+        onLeaveBack: () => root.style.setProperty("--exit", "1"),
+      });
+      cleanups.push(() => exit.kill());
+
       /* this pin is created late (after frames load) — other triggers on the
          page computed their positions without our spacer, so refresh all */
       requestAnimationFrame(() => ScrollTrigger.refresh());
