@@ -333,7 +333,20 @@ html:not(.js) .act > * { transform: none; }
    produces unmissable motion, the type gets bigger, and the SEQ counter stays
    on screen as a live progress read-out instead of being hidden. */
 @media (max-width: 720px) {
-  .act { --act-drift: 11vw; }
+  /* The drift swings the caption +drift to -drift around its padded position.
+     At 11vw the LEFT extreme was 40px on a 360px phone against 25px of
+     padding, so the first letter of every line slid off the screen and the
+     stage clipped it: "Or fifty." read as "r fifty.". Cap the swing and give
+     the block enough left padding to absorb it. */
+  .act {
+    --act-drift: min(6vw, 22px);
+    padding-left: 2.5rem;
+    padding-right: 1.25rem;
+  }
+  /* Each line also drifts by its own --act-depth ON TOP of the block's, and
+     the heading's is the one that pushes further LEFT. Block 22 + heading 8
+     against 40px of padding leaves a 10px margin at the extreme. */
+  .act h1, .act h2 { --act-depth: 0.5rem; }
   .hero .act h1 { font-size: clamp(2.9rem, 11.5vw, 4rem); }
   .hero .act h2 { font-size: clamp(2.3rem, 9.5vw, 3.4rem); }
   .act-sub { font-size: 1.02rem; max-width: 30ch; }
