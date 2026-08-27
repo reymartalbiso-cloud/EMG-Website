@@ -45,7 +45,7 @@ export default function Chooser() {
           {/* bottom-right triangle: mining camp (final frame of the camp video) */}
           <span
             className="chooser-bg br"
-            style={{ backgroundImage: "url(/cfg/camp.jpg)" }}
+            style={{ backgroundImage: "url(/cfg/camp.webp)" }}
             aria-hidden="true"
           />
           <span className="chooser-quad tl mono" aria-hidden="true">COMMERCIAL</span>

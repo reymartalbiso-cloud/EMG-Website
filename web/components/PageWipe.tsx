@@ -80,8 +80,13 @@ export default function PageWipe() {
          wordmark beside it — at this size a second one would just crowd it. */}
       <div className="wipe-badge">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        {/* the full-size mark: this is the one moment it gets the whole screen */}
-        <img src="/emg-mark.webp" alt="" width={800} height={800} />
+        {/* This is the one moment the mark gets the whole screen, but the CSS
+            caps it at 460px, so 512px lossless is the right file: pixel-exact
+            for every ordinary display and at worst a 1.2x upscale on a very
+            high-density phone, for a geometric logo shown over black for half
+            a second. The 800px copy used to load on EVERY page whether the
+            reader navigated or not, 303KB of a logo nobody had asked for. */}
+        <img src="/emg-mark-md.webp" alt="" width={512} height={512} />
       </div>
       <div className="wipe-orange" />
     </div>

@@ -25,12 +25,12 @@ export const metadata: Metadata = {
    days. Source folder at the repo root is gitignored on purpose; only the
    §1.1-audited selection is published here. */
 const ACTION = [
-  { src: "/action/crane-lift.webp", alt: "Crane lifting a container building into place between mango trees" },
-  { src: "/action/slideout-install.webp", alt: "Slide-out container home opened out on its stumps during installation" },
-  { src: "/action/footings-pad.webp", alt: "Gravel footing pad with galvanised posts set out on a bush block" },
-  { src: "/action/footings-bearers.webp", alt: "Steel bearers levelled on engineered footings, ready for delivery day" },
-  { src: "/action/tight-access.webp", alt: "Container home rolled on skates through a tight side yard to its pad" },
-  { src: "/action/bore-test.webp", alt: "Flow-testing a new bore pump during site services work" },
+  { src: "/action/crane-lift.webp", thumb: "/action/crane-lift-sm.webp", alt: "Crane lifting a container building into place between mango trees" },
+  { src: "/action/slideout-install.webp", thumb: "/action/slideout-install-sm.webp", alt: "Slide-out container home opened out on its stumps during installation" },
+  { src: "/action/footings-pad.webp", thumb: "/action/footings-pad-sm.webp", alt: "Gravel footing pad with galvanised posts set out on a bush block" },
+  { src: "/action/footings-bearers.webp", thumb: "/action/footings-bearers-sm.webp", alt: "Steel bearers levelled on engineered footings, ready for delivery day" },
+  { src: "/action/tight-access.webp", thumb: "/action/tight-access-sm.webp", alt: "Container home rolled on skates through a tight side yard to its pad" },
+  { src: "/action/bore-test.webp", thumb: "/action/bore-test-sm.webp", alt: "Flow-testing a new bore pump during site services work" },
 ];
 
 const PROJECTS = [

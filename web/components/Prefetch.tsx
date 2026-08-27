@@ -23,6 +23,12 @@ const SEQS: { route: string; big: string; small: string; count: number }[] = [
 
 const frameName = (i: number) => `frame_${String(i + 1).padStart(3, "0")}.webp`;
 
+/* Warming a sequence only pays off if the reader is plausibly one click from a
+   page that HAS one. Measured on /contact, prefetching both other sequences
+   cost 1.3MB and 76 requests for a form nobody scrubs. The chooser is the real
+   gateway; the hero pages lead to each other. Everywhere else, skip it. */
+const GATEWAYS = ["/", "/residential", "/commercial", "/how-it-works"];
+
 export default function Prefetch() {
   const pathname = usePathname();
 
@@ -34,9 +40,9 @@ export default function Prefetch() {
     let cancelled = false;
     const run = async () => {
       try { sessionStorage.setItem("emg-prefetched", "1"); } catch {}
-      /* the page-wipe badge shows the mark at up to 460px and is needed the
-         first time someone navigates, so warm it before that happens */
-      try { await fetch("/emg-mark.webp", { priority: "low" } as RequestInit); } catch {}
+      /* a page transition can happen from anywhere, so the badge is always
+         worth warming; the sequences are not */
+      if (!GATEWAYS.includes(pathname)) return;
 
       const small = wantsSmallFrames();
       for (const seq of SEQS) {
