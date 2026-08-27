@@ -76,7 +76,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Prefetch />
         <PageWipe />
         <Nav />
-        <main id="main">{children}</main>
+        {/* tabIndex -1 so the skip link actually MOVES focus here, not
+            just the URL fragment */}
+        <main id="main" tabIndex={-1}>{children}</main>
         <Fabs />
         <Footer />
       </body>

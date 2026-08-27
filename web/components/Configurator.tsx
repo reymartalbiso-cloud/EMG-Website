@@ -41,6 +41,8 @@ export default function Configurator({ initialModel }: { initialModel?: string }
   /* like the finishes, the door choice survives a model switch */
   const [door, setDoor] = useState(DOORS[0]);
   const [km, setKm] = useState(0);
+  /* the longest road delivery in the country, with room to spare */
+  const KM_MAX = 5000;
   const [setupOn, setSetupOn] = useState(false);
   const [customNeeds, setCustomNeeds] = useState("");
   const [ac, setAc] = useState<AcSel[]>([]);
@@ -396,9 +398,14 @@ export default function Configurator({ initialModel }: { initialModel?: string }
                 <p>Further than 100km from your local port? Add the extra distance:</p>
                 <div className="row">
                   <input
-                    type="number" min={0} step={1} placeholder="0" value={km || ""}
+                    type="number" min={0} max={KM_MAX} step={1} placeholder="0" value={km || ""}
                     aria-label="Extra kilometres beyond the free 100km"
-                    onChange={(e) => setKm(Math.max(0, parseInt(e.target.value, 10) || 0))}
+                    /* capped: an uncapped field produced a $15m indicative
+                       total, which the server then refused and stored as no
+                       price at all. Darwin to Perth is about 4,000km. */
+                    onChange={(e) =>
+                      setKm(Math.min(KM_MAX, Math.max(0, parseInt(e.target.value, 10) || 0)))
+                    }
                   />
                   <span>extra km × {money(KM_RATE)}/km =</span>
                   <strong>{money(delCost)}</strong>

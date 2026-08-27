@@ -40,7 +40,10 @@ export default function PageWipe() {
       const href = a.getAttribute("href") || "";
       if (!href.startsWith("/") || href.startsWith("//")) return;
       if ((a.target && a.target !== "_self") || a.hasAttribute("download")) return;
-      const [path] = href.split("#");
+      /* strip BOTH the hash and the query: /build-your-own?model=x from
+         /build-your-own never changes the pathname, so the cover would play
+         and then sit there until the failsafe */
+      const path = href.split("#")[0].split("?")[0];
       if (!path || path === window.location.pathname) return; // hash/same-page: default
       e.preventDefault();
       if (covering.current) return;

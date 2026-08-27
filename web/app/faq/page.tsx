@@ -68,7 +68,7 @@ export default function Faq() {
             <Reveal key={q}>
               <div className="faq-item">
                 <details>
-                  <summary><h3 className="display">{q}</h3></summary>
+                  <summary><h2 className="display">{q}</h2></summary>
                   <p>{a}</p>
                 </details>
               </div>

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { lockScroll, unlockScroll } from "@/lib/scrollLock";
 import { useEffect, useState } from "react";
 import { PORTAL_URL } from "@/lib/links";
 
@@ -68,11 +69,10 @@ export default function Nav() {
     if (!menuOpen) return;
     const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setMenuOpen(false); };
     window.addEventListener("keydown", onKey);
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+    lockScroll();
     return () => {
       window.removeEventListener("keydown", onKey);
-      document.body.style.overflow = prev;
+      unlockScroll();
     };
   }, [menuOpen]);
 
@@ -116,10 +116,15 @@ export default function Nav() {
         <span /><span /><span />
       </button>
 
+      {/* A tap on any blank part of the panel closes it. On a phone there is
+          no Escape key, so this and the burger are the only ways out. */}
       <div
         id="mobile-menu"
         className={`nav-panel${menuOpen ? " open" : ""}`}
         hidden={!menuOpen}
+        onClick={(e) => {
+          if (!(e.target as Element).closest("a, button")) setMenuOpen(false);
+        }}
       >
         <nav aria-label="Primary, mobile">
           {LINKS.map((l) => (

@@ -15,6 +15,7 @@ import { usePathname } from "next/navigation";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
+import { registerScroller } from "@/lib/scrollLock";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -65,11 +66,14 @@ export default function ScrollFX() {
   /* Smooth scroll — once for the whole app */
   useEffect(() => {
     const lenis = new Lenis({ lerp: 0.08, wheelMultiplier: 1 });
+    /* so a modal (the mobile menu) can actually stop the page: body overflow
+       is inert against a programmatic scroller */
+    registerScroller(lenis);
     lenis.on("scroll", ScrollTrigger.update);
     const raf = (t: number) => lenis.raf(t * 1000);
     gsap.ticker.add(raf);
     gsap.ticker.lagSmoothing(0);
-    return () => { gsap.ticker.remove(raf); lenis.destroy(); };
+    return () => { registerScroller(null); gsap.ticker.remove(raf); lenis.destroy(); };
   }, []);
 
   /* Per-page effects — rebuilt on navigation */
@@ -297,6 +301,21 @@ export default function ScrollFX() {
       }
 
       requestAnimationFrame(() => ScrollTrigger.refresh());
+
+      /* A pinned hero adds thousands of pixels to the page, but only once its
+         trigger has measured — which is AFTER the browser has already jumped
+         to the hash. That is why /commercial#camp-scoper landed 3,400px short
+         on a hard load and from the floating button. Re-aim after the refresh. */
+      const hash = window.location.hash.slice(1);
+      if (hash) {
+        const settle = () => {
+          const el = document.getElementById(hash);
+          if (el) el.scrollIntoView({ block: "start" });
+        };
+        requestAnimationFrame(() => requestAnimationFrame(settle));
+        /* fonts and images can move things again a beat later */
+        cleanupFns.push((() => { const t = setTimeout(settle, 700); return () => clearTimeout(t); })());
+      }
     });
 
     return () => {

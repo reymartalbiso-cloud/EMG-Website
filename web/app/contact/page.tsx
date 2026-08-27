@@ -84,6 +84,22 @@ export default function Contact() {
     e.preventDefault();
     if (status === "sending") return;
     const f = new FormData(e.currentTarget);
+    /* Native `required` counts a run of spaces as filled, and blur validation
+       alone let someone submit with an error already on screen. Re-check here
+       so the page answers immediately instead of after a round trip. */
+    const nameV = String(f.get("name") ?? "");
+    const emailV = String(f.get("email") ?? "");
+    const nameBad = !nameV.trim();
+    const emailBad = !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailV.trim());
+    if (nameBad || emailBad) {
+      setErrors({
+        name: nameBad ? "Please tell us your name." : undefined,
+        email: emailBad ? "That email address doesn't look right." : undefined,
+      });
+      const form = e.currentTarget;
+      form.querySelector<HTMLInputElement>(nameBad ? 'input[name="name"]' : 'input[name="email"]')?.focus();
+      return;
+    }
     setStatus("sending");
     setSendError("");
     const q: QuoteData = quoteData ?? {};
@@ -147,7 +163,7 @@ export default function Contact() {
             `Options: ${q.spec ?? ""}`,
             q.layoutSummary ? `Layout: ${q.layoutSummary}` : "",
             q.layoutPlan ? `Layout positions: ${q.layoutPlan}` : "",
-            q.deliveryKm != null ? `Delivery: ${q.deliveryKm} km` : "",
+            q.deliveryKm != null ? `Delivery: ${q.deliveryKm} km beyond the included 100 km` : "",
             q.totalAud != null ? `Indicative total: ${money(q.totalAud)} inc GST` : "",
           ].filter(Boolean)
         : [`Building: ${f.get("building")}`]),
@@ -238,14 +254,19 @@ export default function Contact() {
                   {quoteData.custom && (
                     <div><dt className="mono">YOUR BRIEF</dt><dd>{quoteData.custom}</dd></div>
                   )}
-                  <div>
-                    <dt className="mono">DELIVERY</dt>
-                    <dd>
-                      {quoteData.deliveryKm
-                        ? `${quoteData.deliveryKm} km from Herbert${quoteData.deliveryKm <= 100 ? " (included)" : ""}`
-                        : "First 100 km included"}
-                    </dd>
-                  </div>
+                  {/* deliveryKm is the distance BEYOND the free 100km, not the
+                      total, so it is always charged when it is non-zero. A camp
+                      program is quoted per project and has no retail delivery. */}
+                  {quoteData.modelId !== "camp-program" && (
+                    <div>
+                      <dt className="mono">DELIVERY</dt>
+                      <dd>
+                        {quoteData.deliveryKm
+                          ? `${quoteData.deliveryKm} km past the included 100 km`
+                          : "First 100 km included"}
+                      </dd>
+                    </div>
+                  )}
                 </dl>
                 {quoteData.totalAud != null && (
                   <p className="build-total">

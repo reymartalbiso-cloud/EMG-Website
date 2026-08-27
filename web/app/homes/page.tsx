@@ -26,6 +26,9 @@ export default function Homes() {
         </Reveal>
       </div>
       <section className="section" style={{ paddingTop: 0 }}>
+        {/* the cards are a section in their own right; without a heading the
+            page jumped from h1 straight to the card titles */}
+        <h2 className="sr-only">The range</h2>
         <div className="card-grid">
           {homes.map((p) => (
             <Reveal key={p.slug}>

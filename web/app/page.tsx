@@ -15,10 +15,12 @@ export const metadata: Metadata = {
 export default function Chooser() {
   return (
     <div className="chooser">
-      <p className="chooser-ask mono">WHAT ARE YOU BUILDING?</p>
+      {/* the page's only heading: it was a <p>, leaving the site's
+          front door with no heading structure at all */}
+      <h1 className="chooser-ask mono">WHAT ARE YOU BUILDING?</h1>
       <div className="chooser-panels">
         <Link href="/residential" className="chooser-panel">
-          <span className="chooser-big display">Residential</span>
+          <h2 className="chooser-big display">Residential</h2>
           <span
             className="chooser-bg"
             style={{ backgroundImage: "url(/cfg/ch_front.jpg)" }}
@@ -33,7 +35,7 @@ export default function Chooser() {
           </span>
         </Link>
         <Link href="/commercial" className="chooser-panel split">
-          <span className="chooser-big display">Commercial / Industrial</span>
+          <h2 className="chooser-big display">Commercial / Industrial</h2>
           {/* top-left triangle: site office / worker accommodation */}
           <span
             className="chooser-bg tl"

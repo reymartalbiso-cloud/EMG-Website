@@ -26,7 +26,7 @@ export default function Quality() {
       <section className="section" style={{ paddingTop: 0 }}>
         <div className="prose">
           <Reveal>
-            <h3 className="display">Class 1A: a dwelling, not a shed</h3>
+            <h2 className="display">Class 1A: a dwelling, not a shed</h2>
             <p>
               Class 1A is the National Construction Code classification for a
               habitable dwelling, the same class as a house. Our residential
@@ -39,7 +39,7 @@ export default function Quality() {
             </p>
           </Reveal>
           <Reveal>
-            <h3 className="display">Accessible by default</h3>
+            <h2 className="display">Accessible by default</h2>
             <p>
               Every container building we deliver is specified with a sunken
               shower base and threshold-free doorways: flat all the way
@@ -50,7 +50,7 @@ export default function Quality() {
             </p>
           </Reveal>
           <Reveal>
-            <h3 className="display">High-cube, RAL 7035, every time</h3>
+            <h2 className="display">High-cube, RAL 7035, every time</h2>
             <p>
               All our container units are high-cube, roughly 30&nbsp;cm more
               ceiling height than a standard container, and the difference
@@ -61,7 +61,7 @@ export default function Quality() {
             </p>
           </Reveal>
           <Reveal>
-            <h3 className="display">Permits: what we do, what you do</h3>
+            <h2 className="display">Permits: what we do, what you do</h2>
             <p>
               We handle the building itself: certification, engineering
               documentation and the delivery. Development approval on your land
@@ -72,7 +72,7 @@ export default function Quality() {
             </p>
           </Reveal>
           <Reveal>
-            <h3 className="display">Site access and preparation</h3>
+            <h2 className="display">Site access and preparation</h2>
             <p>
               A 40-foot container arrives on a semi with a crane. Your track,
               gates, trees and power lines matter. We assess access as part of
@@ -81,7 +81,7 @@ export default function Quality() {
             </p>
           </Reveal>
           <Reveal>
-            <h3 className="display">Warranty and after-sales</h3>
+            <h2 className="display">Warranty and after-sales</h2>
             <p>
               Buildings are covered by warranty and we support them after
               handover, including shipping warranty parts with subsequent

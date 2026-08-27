@@ -20,7 +20,7 @@ export default function Terms() {
           Last updated August 2026.
         </p>
         <div className="prose">
-          <h3 className="display">Prices and configurations</h3>
+          <h2 className="display">Prices and configurations</h2>
           <p>
             Prices shown on this site, including totals produced by Build Your
             Own, are indicative and include GST. Every order is confirmed with
@@ -28,19 +28,19 @@ export default function Terms() {
             distance. A website configuration is not a contract and does not
             reserve stock or pricing.
           </p>
-          <h3 className="display">Lead times</h3>
+          <h2 className="display">Lead times</h2>
           <p>
             Published lead times are typical ranges, not guarantees. Ocean
             freight and customs timing vary; your order confirmation and the
             customer portal are the authoritative record for your build.
           </p>
-          <h3 className="display">Content</h3>
+          <h2 className="display">Content</h2>
           <p>
             Building images and floor plans on this site are representative.
             Specifications for your building are the ones documented in your
             quote and order paperwork.
           </p>
-          <h3 className="display">Payment terms</h3>
+          <h2 className="display">Payment terms</h2>
           <p>
             Our standard structure is a 50% deposit, a 30% progress payment,
             and 20% on notice of arrival at the port, as set out in your

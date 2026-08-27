@@ -74,7 +74,15 @@ export function loadSequence(opts: SequenceOpts): { cancel: () => void } {
 }
 
 /* Phones get their own smaller frame set. A 390px screen at 2x needs 780px of
-   picture; sending 1600px costs roughly three times the bytes to draw the same
-   thing, and bytes are exactly what these sequences are short of. */
-export const wantsSmallFrames = () =>
-  typeof window !== "undefined" && window.matchMedia("(max-width: 820px)").matches;
+   picture; sending 1600px costs roughly twice the bytes to draw the same thing,
+   and bytes are exactly what these sequences are short of.
+
+   The test has to be in DEVICE pixels, not CSS pixels. The canvas is sized
+   clientWidth x dpr (capped at 2), so a 768px tablet at 2x is really asking for
+   1536px of picture and must get the full set; judging by CSS width alone would
+   hand it the 900px frames and visibly soften them. */
+export const wantsSmallFrames = () => {
+  if (typeof window === "undefined") return false;
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  return window.innerWidth * dpr <= 1000;
+};

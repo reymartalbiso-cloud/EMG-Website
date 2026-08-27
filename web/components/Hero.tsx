@@ -9,6 +9,7 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { setPinned } from "@/lib/pinState";
 import { loadSequence, wantsSmallFrames } from "@/lib/frameLoader";
 import PreloadVeil from "@/components/PreloadVeil";
 import { PORTAL_URL } from "@/lib/links";
@@ -138,6 +139,8 @@ export default function Hero() {
              so the picture visibly answers every scroll */
           end: window.matchMedia("(max-width: 720px)").matches ? "+=340%" : "+=500%",
           pin: ".hero-stage",
+          /* the floating buttons stand down while this owns the screen */
+          onToggle: (self) => setPinned(self.isActive),
           scrub: 1,
           anticipatePin: 1,
           onUpdate: (self) => updateOverlays(self.progress),

@@ -15,6 +15,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { setPinned } from "@/lib/pinState";
 
 const LEGS = [
   { n: "01", title: "Order locked", time: "WEEK 0", body: "Layout, fit-out and compliance agreed: the spec the whole journey follows." },
@@ -112,6 +113,9 @@ export default function JourneyRail() {
           pin: ".jr-stage",
           scrub: 1,
           anticipatePin: 1,
+          /* the floating buttons stand down while this owns the screen: the
+             caption below was being cut mid-sentence by the CTA */
+          onToggle: (self) => setPinned(self.isActive),
         },
         onUpdate: () => setProgress(state.p),
       });

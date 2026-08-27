@@ -109,6 +109,19 @@ export default function LayoutDesigner({ len20, colourHex, onChange }: Props) {
     if (wl.length) parts.push(`${wl.length}× internal partition`);
     return parts.join(", ");
   };
+  /* A finger drag used to die after a few events: the browser handed the
+     gesture to the canvas pan instead. `touch-action` cannot fix it because it
+     is ignored on SVG child elements, and changing it mid-gesture is too late.
+     A non-passive touchmove listener that only cancels WHILE a drag is live
+     stops the pan without costing the 40ft plan its sideways scroll. */
+  useEffect(() => {
+    const el = svgRef.current;
+    if (!el) return;
+    const block = (ev: TouchEvent) => { if (dragRef.current) ev.preventDefault(); };
+    el.addEventListener("touchmove", block, { passive: false });
+    return () => el.removeEventListener("touchmove", block);
+  }, []);
+
   /* human-readable plan with positions in metres — this reaches the enquiry */
   const plan = (list: PlacedItem[], wl: Wall[]) => {
     const f = list.map(
@@ -242,6 +255,9 @@ export default function LayoutDesigner({ len20, colourHex, onChange }: Props) {
     if (dragRef.current) return; // one drag at a time — a second pointer can't hijack
     e.preventDefault();
     (e.currentTarget as Element).setPointerCapture(e.pointerId);
+    /* preventDefault stops the click focusing this node, so the documented
+       keyboard shortcuts would never reach it. Focus it by hand. */
+    (e.currentTarget as SVGGElement).focus?.();
     setSel({ k: "i", id: it.id });
     setDragSel({ k: "i", id: it.id });
     const m = toCells(e);
@@ -252,6 +268,7 @@ export default function LayoutDesigner({ len20, colourHex, onChange }: Props) {
     if (dragRef.current) return;
     e.preventDefault();
     (e.currentTarget as Element).setPointerCapture(e.pointerId);
+    (e.currentTarget as SVGGElement).focus?.();
     setSel({ k: "w", id: w.id });
     setDragSel({ k: "w", id: w.id });
     const m = toCells(e);
@@ -845,7 +862,7 @@ export default function LayoutDesigner({ len20, colourHex, onChange }: Props) {
       <div className="ld-palette" role="group" aria-label="Add fixtures and partitions">
         {CAT_ORDER.map((cat) => (
           <div className="ld-cat" key={cat}>
-            <p className="ld-cat-lbl mono" style={{ color: CAT_COLOURS[cat] }}>{CAT_LABELS[cat].toUpperCase()}</p>
+            <p className="ld-cat-lbl mono" style={{ ["--swatch" as string]: CAT_COLOURS[cat] }}>{CAT_LABELS[cat].toUpperCase()}</p>
             <div className="ld-cat-chips">
               {FIXTURES.filter((f) => f.cat === cat).map((f) => (
                 <button
@@ -865,7 +882,7 @@ export default function LayoutDesigner({ len20, colourHex, onChange }: Props) {
           </div>
         ))}
         <div className="ld-cat">
-          <p className="ld-cat-lbl mono" style={{ color: PARTITION_C }}>PARTITIONS</p>
+          <p className="ld-cat-lbl mono" style={{ ["--swatch" as string]: PARTITION_C }}>PARTITIONS</p>
           <div className="ld-cat-chips">
             <button className="ld-chip" onClick={() => addWall("v")} style={{ color: PARTITION_C }}>
               <svg className="ld-glyph" width={26} height={17} viewBox="0 0 26 17" aria-hidden="true">

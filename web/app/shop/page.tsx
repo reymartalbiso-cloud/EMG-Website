@@ -23,6 +23,7 @@ export default function Shop() {
         </Reveal>
       </div>
       <section className="section" style={{ paddingTop: 0 }}>
+        <h2 className="sr-only">All models</h2>
         <ShopGrid />
       </section>
     </>

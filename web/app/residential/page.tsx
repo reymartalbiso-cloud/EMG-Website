@@ -1,9 +1,16 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Hero from "@/components/Hero";
 import Marquee from "@/components/Marquee";
 import { Reveal } from "@/components/shared";
 import { PRODUCTS } from "@/lib/products";
 import { PORTAL_URL } from "@/lib/links";
+
+export const metadata: Metadata = {
+  title: "Container Homes for Your Block, Delivered Australia-Wide",
+  description:
+    "Class 1A container homes delivered and installed on your own land, with footings, services and septic handled by one team. Typically 4-6 months, order to keys.",
+};
 
 const TRUST = [
   ["Class 1A", "Certified habitable dwellings, legal to live in, not just to park"],

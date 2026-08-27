@@ -8,6 +8,7 @@ import { useEffect, useRef } from "react";
 import PreloadVeil from "@/components/PreloadVeil";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { setPinned } from "@/lib/pinState";
 import { loadSequence, wantsSmallFrames } from "@/lib/frameLoader";
 
 /* 479 frames: the 24fps source motion-interpolated to 48fps, so each
@@ -130,6 +131,8 @@ export default function CampHero() {
              so the picture visibly answers every scroll */
           end: window.matchMedia("(max-width: 720px)").matches ? "+=280%" : "+=380%",
           pin: ".hero-stage",
+          /* the floating buttons stand down while this owns the screen */
+          onToggle: (self) => setPinned(self.isActive),
           scrub: 1,
           anticipatePin: 1,
           onUpdate: (self) => updateOverlays(self.progress),
