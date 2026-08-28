@@ -8,7 +8,7 @@ import Link from "next/link";
 import { useLayoutEffect, useMemo, useRef, useState } from "react";
 import gsap from "gsap";
 import { Flip } from "gsap/Flip";
-import { MODELS, money } from "@/lib/configurator";
+import { MODELS, money, thumb } from "@/lib/configurator";
 
 gsap.registerPlugin(Flip);
 
@@ -137,9 +137,9 @@ export default function ShopGrid() {
             <div className={`pcard${idx === 0 ? " pcard-feature" : ""}`} key={m.id} data-flip-id={m.id}>
               <div className="pcard-media">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={m.photo} alt={m.name} loading="lazy" />
+                <img src={thumb(m.photo)} alt={m.name} loading="lazy" />
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img className="img-alt" src={altPhoto} alt="" loading="lazy" aria-hidden="true" />
+                <img className="img-alt" src={thumb(altPhoto)} alt="" loading="lazy" aria-hidden="true" />
               </div>
               <div className="pcard-body">
                 <h3 className="display">{m.name}</h3>

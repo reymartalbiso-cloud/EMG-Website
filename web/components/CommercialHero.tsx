@@ -10,7 +10,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const UNIT_PHOTOS = ["/cfg/wa_ext.jpg", "/cfg/wa_row.jpg", "/cfg/st_ext.jpg", "/cfg/img1.jpg"];
+const UNIT_PHOTOS = ["/cfg/wk_ext-sm.webp", "/cfg/wk_row-sm.webp", "/cfg/rt_ext-sm.webp", "/cfg/ic_ext-sm.webp"];
 const CELLS = Array.from({ length: 20 }, (_, i) => UNIT_PHOTOS[i % UNIT_PHOTOS.length]);
 
 const CAPTIONS = [

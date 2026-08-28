@@ -19,7 +19,7 @@ export const PRODUCTS: Product[] = [
     name: "Slide-Out Container Home",
     short:
       "A 40 ft high-cube that arrives as one container and expands on site into a full-width home. The most impressive thing we deliver.",
-    image: "/cfg/so_ext2.jpg",
+    image: "/cfg/sl_ext.webp",
     audience: "residential",
     specs: [
       ["FORMAT", "40 ft high-cube, slide-out expansion"],
@@ -40,7 +40,7 @@ export const PRODUCTS: Product[] = [
     name: "Two-Bedroom Container Home",
     short:
       "The core residential build: a 40 ft high-cube, one or two bedrooms, certified Class 1A. A real home, not a converted shed.",
-    image: "/cfg/ch_front.jpg",
+    image: "/cfg/fam_ext.webp",
     audience: "residential",
     specs: [
       ["FORMAT", "40 ft high-cube, 1-2 bedrooms"],
@@ -61,7 +61,7 @@ export const PRODUCTS: Product[] = [
     name: "Expandable Container Home",
     short:
       "A 20 ft high-cube Type A that unfolds on site: the compact, budget-conscious way into a container home.",
-    image: "/cfg/img1.jpg",
+    image: "/cfg/ic_ext.webp",
     audience: "residential",
     specs: [
       ["FORMAT", "20 ft high-cube, Type A expandable"],
@@ -80,7 +80,7 @@ export const PRODUCTS: Product[] = [
     name: "Site Accommodation",
     short:
       "Accommodation blocks and site offices for mining, remote community and government work. Specified, delivered and installed.",
-    image: "/cfg/wa_ext.jpg",
+    image: "/cfg/wk_ext.webp",
     audience: "commercial",
     specs: [
       ["FORMAT", "20 ft & 40 ft high-cube units"],
@@ -99,7 +99,7 @@ export const PRODUCTS: Product[] = [
     name: "Ablution Blocks",
     short:
       "Toilet and shower blocks built to the same standard as our homes, because your crew deserves better than a portaloo.",
-    image: "/cfg/ch_bath.jpg",
+    image: "/cfg/fam_bath.webp",
     audience: "commercial",
     specs: [
       ["FORMAT", "Type-01A shower/toilet units"],
@@ -118,7 +118,7 @@ export const PRODUCTS: Product[] = [
     name: "Kitchen & Mess Units",
     short:
       "20 ft Type-D open-plan units with kitchenette and bathroom: the working heart of a camp or event site.",
-    image: "/cfg/wa_k.jpg",
+    image: "/cfg/wk_k.webp",
     audience: "commercial",
     specs: [
       ["FORMAT", "20 ft Type-D open plan"],

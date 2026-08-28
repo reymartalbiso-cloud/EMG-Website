@@ -1824,6 +1824,13 @@ html:not(.js) .jr-cap { position: static; opacity: 1; visibility: visible; trans
   .card-grid .pcard-feature { grid-column: span 1; }
 }
 
+/* The 2x2 feature tile: .shop-price is a <p>, so the generic `.pcard-body p
+   { flex: 1 }` was stretching it into a black gap between the price and the
+   button. Pin the body to its content and let the photo take the slack —
+   that is what a hero tile is for. */
+.card-grid .pcard-feature .pcard-body { flex: 0 0 auto; }
+.pcard-body .shop-price { flex: none; }
+
 /* hover reveals the interior shot */
 .pcard-media { position: relative; }
 .pcard-media .img-alt {

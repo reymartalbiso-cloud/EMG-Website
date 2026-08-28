@@ -3,16 +3,18 @@ import type { Metadata } from "next";
 import { Reveal } from "@/components/shared";
 import Gallery from "@/components/Gallery";
 
+/* Delivered-work photos, re-shot from the live shop galleries on 28 Aug so
+   each one is the model it claims to be. Grid loads the 700px copy. */
 const PHOTOS = [
-  { src: "/cfg/ch_front.jpg", alt: "40ft container home on a bush block" },
-  { src: "/cfg/so_ext2.jpg", alt: "40ft Containerised Slide Out Home with full glass frontage" },
-  { src: "/cfg/img1.jpg", alt: "The Infinity Cube 20ft slide-out unit" },
-  { src: "/cfg/wa_ext.jpg", alt: "Workers accommodation unit" },
-  { src: "/cfg/st_ext.jpg", alt: "The Retreat exterior" },
-  { src: "/cfg/ch_front2.jpg", alt: "Container home with sliding glass doors" },
-  { src: "/cfg/so_ext1.jpg", alt: "Slide-out home under roof-over" },
-  { src: "/cfg/ch_k.jpg", alt: "Full kitchen inside a container home" },
-  { src: "/cfg/so_int1.jpg", alt: "Open-plan living inside the 40ft Containerised Slide Out Home" },
+  { src: "/cfg/sl_ext.webp", thumb: "/cfg/sl_ext-sm.webp", alt: "40ft Containerised Slide Out Home opened out, full glass frontage onto lawn" },
+  { src: "/cfg/fam_ext.webp", thumb: "/cfg/fam_ext-sm.webp", alt: "40ft two-bedroom container home finished in the yard before delivery" },
+  { src: "/cfg/ic_ext.webp", thumb: "/cfg/ic_ext-sm.webp", alt: "The Infinity Cube expanded on site with its glass frontage open to the garden" },
+  { src: "/cfg/wk_row.webp", thumb: "/cfg/wk_row-sm.webp", alt: "Worker accommodation blocks installed on a cleared bush site" },
+  { src: "/cfg/rt_ext.webp", thumb: "/cfg/rt_ext-sm.webp", alt: "The Retreat installed in a Darwin backyard on galvanised stumps" },
+  { src: "/cfg/dl_lawn.webp", thumb: "/cfg/dl_lawn-sm.webp", alt: "40ft container home set up on a suburban lawn" },
+  { src: "/cfg/sl_liv.webp", thumb: "/cfg/sl_liv-sm.webp", alt: "Open-plan living inside the 40ft Containerised Slide Out Home" },
+  { src: "/cfg/ic_liv.webp", thumb: "/cfg/ic_liv-sm.webp", alt: "Furnished living and kitchen space inside The Infinity Cube" },
+  { src: "/cfg/fam_k.webp", thumb: "/cfg/fam_k-sm.webp", alt: "Kitchen and living area inside a 40ft two-bedroom container home" },
 ];
 
 export const metadata: Metadata = {

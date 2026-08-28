@@ -24,7 +24,17 @@ export type Model = {
   ntOnly?: boolean;
 };
 
-const img = (k: string) => `/cfg/${k}.jpg`;
+/* Photography pulled from the live elitemanufacturing.com.au shop, 28 Aug,
+   after Ben spotted the old set showing Louise's custom build on models it
+   isn't. Every shot is audited against brief §1.1 before it lands here.
+   Schematics that predate the shop galleries are still .jpg. */
+const img = (k: string) => `/cfg/${k}.webp`;
+const plan = (k: string) => `/cfg/${k}.jpg`;
+
+/* Card grids show the 700px copy, the carousel and lightbox the full 1400px
+   file. Only the shot library carries -sm copies; schematics pass through. */
+export const thumb = (src: string) =>
+  src.endsWith(".webp") ? src.replace(/\.webp$/, "-sm.webp") : src;
 
 export const MODELS: Model[] = [
   {
@@ -40,8 +50,8 @@ export const MODELS: Model[] = [
     },
     spec: "20ft · 1 room double wide · kitchen + bathroom",
     glass: "6m infinity glass frontage",
-    photo: img("img1"),
-    carousel: ["img2", "img3", "img4", "img5", "img6"].map(img),
+    photo: img("ic_ext"),
+    carousel: ["ic_ext", "ic_liv", "ic_open", "ic_bed", "ic_int", "ic_bath", "ic_ext2", "ic_closed"].map(img),
   },
   {
     id: "studio",
@@ -50,8 +60,8 @@ export const MODELS: Model[] = [
     ac: "mix",
     show: ["colour", "bench", "tap", "floor", "hw", "ac", "delivery"],
     spec: "20ft · 1 room · kitchen · ensuite",
-    photo: img("st_ext"),
-    carousel: ["st_ext", "st_room", "st_k", "st_bath", "st_bath2", "st_fp"].map(img),
+    photo: img("rt_ext"),
+    carousel: [...["rt_ext", "rt_int", "rt_bath", "rt_bath2", "rt_ext2", "rt_yard"].map(img), plan("st_fp")],
   },
   {
     id: "one",
@@ -60,8 +70,11 @@ export const MODELS: Model[] = [
     ac: "mix",
     show: ["colour", "bench", "tap", "floor", "hw", "ac", "delivery"],
     spec: "40ft · 1 bed · kitchen + living + bathroom",
-    photo: img("ch_front"),
-    carousel: ["ch_front2", "ch_k", "ch_bed1", "ch_bath", "ch_bath2", "fp1"].map(img),
+    /* the live shop has no clean exterior for this one — its own listing leads
+       with a service-side shot — so the card leads with the interior and the
+       exteriors follow. Replace when Ben's 3D renders land. */
+    photo: img("dl_liv"),
+    carousel: ["dl_liv", "dl_lawn", "dl_int", "dl_bath", "dl_ext", "dl_fp"].map(img),
   },
   {
     id: "family",
@@ -70,8 +83,8 @@ export const MODELS: Model[] = [
     ac: "mix",
     show: ["colour", "bench", "tap", "floor", "hw", "ac", "delivery"],
     spec: "40ft · 2 bed · kitchen, bathroom + living",
-    photo: img("ch_front"),
-    carousel: ["ch_front2", "ch_k", "ch_bed1", "ch_bath", "ch_bath2", "fp2bed"].map(img),
+    photo: img("fam_front"),
+    carousel: [...["fam_front", "fam_ext", "fam_k", "fam_bath", "fam_int", "fam_grass2"].map(img), plan("fp2bed")],
   },
   {
     id: "ob40",
@@ -86,8 +99,8 @@ export const MODELS: Model[] = [
     },
     spec: "40ft · slide-out · multiple living areas",
     glass: "12m infinity glass frontage",
-    photo: img("so_ext2"),
-    carousel: ["so_ext1", "so_int1", "so_int2", "so_bed", "so_bath", "so_fp"].map(img),
+    photo: img("sl_ext"),
+    carousel: [...["sl_ext", "sl_liv", "sl_k", "sl_room", "sl_desk", "sl_bath", "sl_ext2", "sl_closed"].map(img), plan("so_fp")],
   },
   {
     id: "workers",
@@ -96,8 +109,8 @@ export const MODELS: Model[] = [
     ac: "mix",
     show: ["bedrooms", "colour", "bench", "tap", "floor", "hw", "ac", "delivery"],
     spec: "40ft · 3 or 4 bedroom · ensuite per room",
-    photo: img("wa_ext"),
-    carousel: ["wa_row", "wa_k", "wa_kb", "wa_3d", "wa_fp3", "wa_fp4"].map(img),
+    photo: img("wk_row"),
+    carousel: ["wk_row", "wk_ext", "wk_k", "wk_bath", "wk_entry", "wk_fp"].map(img),
   },
   {
     id: "custom",
@@ -107,8 +120,8 @@ export const MODELS: Model[] = [
     show: ["colour", "bench", "tap", "floor", "hw", "ac", "delivery", "custom"],
     custom: true,
     spec: "Built to your plan · add-ons selectable",
-    photo: img("ch_front"),
-    carousel: ["ch_front2", "ch_k", "ch_bed1", "ch_bed2", "ch_bath", "ch_bath2", "fp1", "fp2bed"].map(img),
+    photo: img("ic_liv"),
+    carousel: ["ic_liv", "sl_ext", "fam_ext", "rt_ext", "dl_liv", "wk_row"].map(img),
   },
 ];
 

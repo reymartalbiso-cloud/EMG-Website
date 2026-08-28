@@ -23,7 +23,7 @@ export default function Chooser() {
           <h2 className="chooser-big display">Residential</h2>
           <span
             className="chooser-bg"
-            style={{ backgroundImage: "url(/cfg/ch_front.jpg)" }}
+            style={{ backgroundImage: "url(/cfg/fam_ext.webp)" }}
             aria-hidden="true"
           />
           <span className="chooser-body">
@@ -39,7 +39,7 @@ export default function Chooser() {
           {/* top-left triangle: site office / worker accommodation */}
           <span
             className="chooser-bg tl"
-            style={{ backgroundImage: "url(/cfg/wa_ext.jpg)" }}
+            style={{ backgroundImage: "url(/cfg/wk_row.webp)" }}
             aria-hidden="true"
           />
           {/* bottom-right triangle: mining camp (final frame of the camp video) */}

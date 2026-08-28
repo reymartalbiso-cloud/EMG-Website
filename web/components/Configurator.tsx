@@ -7,7 +7,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
-  MODELS, COLOURS, BENCHTOPS, FLOORS, DOORS, HOT_WATER, AC_UNITS, KM_RATE, money,
+  MODELS, COLOURS, BENCHTOPS, FLOORS, DOORS, HOT_WATER, AC_UNITS, KM_RATE, money, thumb,
 } from "@/lib/configurator";
 import LayoutDesigner from "@/components/LayoutDesigner";
 import type { PlacedItem } from "@/lib/fixtures";
@@ -158,7 +158,7 @@ export default function Configurator({ initialModel }: { initialModel?: string }
             <div className="pcard" key={m.id}>
               <div className="pcard-media">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={m.photo} alt={m.name} loading="lazy" />
+                <img src={thumb(m.photo)} alt={m.name} loading="lazy" />
               </div>
               <div className="pcard-body">
                 <h3 className="display">{m.name}</h3>
