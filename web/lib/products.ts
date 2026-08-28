@@ -61,7 +61,9 @@ export const PRODUCTS: Product[] = [
     name: "Expandable Container Home",
     short:
       "A 20 ft high-cube Type A that unfolds on site: the compact, budget-conscious way into a container home.",
-    image: "/cfg/ic_ext.webp",
+    /* the copy says this one unfolds; the Infinity Cube slides out and costs
+       $54,900. The 20ft Foldout is the building being described. */
+    image: "/shop/20ft-foldout-home/00.webp",
     audience: "residential",
     specs: [
       ["FORMAT", "20 ft high-cube, Type A expandable"],
@@ -80,7 +82,7 @@ export const PRODUCTS: Product[] = [
     name: "Site Accommodation",
     short:
       "Accommodation blocks and site offices for mining, remote community and government work. Specified, delivered and installed.",
-    image: "/cfg/wk_ext.webp",
+    image: "/cfg/wk_row.webp",
     audience: "commercial",
     specs: [
       ["FORMAT", "20 ft & 40 ft high-cube units"],
@@ -99,7 +101,9 @@ export const PRODUCTS: Product[] = [
     name: "Ablution Blocks",
     short:
       "Toilet and shower blocks built to the same standard as our homes, because your crew deserves better than a portaloo.",
-    image: "/cfg/fam_bath.webp",
+    /* was fam_bath, which is the ensuite inside a two-bedroom home — an odd
+       thing to sell an ablution block with. This is the real product. */
+    image: "/shop/deluxe-toilet-and-shower/00.webp",
     audience: "commercial",
     specs: [
       ["FORMAT", "Type-01A shower/toilet units"],
