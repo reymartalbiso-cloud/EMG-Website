@@ -84,7 +84,7 @@ export const MODELS: Model[] = [
     show: ["colour", "bench", "tap", "floor", "hw", "ac", "delivery"],
     spec: "40ft · 2 bed · kitchen, bathroom + living",
     photo: img("fam_front"),
-    carousel: [...["fam_front", "fam_ext", "fam_k", "fam_bath", "fam_int", "fam_grass2"].map(img), plan("fp2bed")],
+    carousel: [...["fam_front", "fam_ext", "fam_k", "fam_bath", "fam_int", "fam_grass2"].map(img), img("fam_fp")],
   },
   {
     id: "ob40",
@@ -100,7 +100,7 @@ export const MODELS: Model[] = [
     spec: "40ft · slide-out · multiple living areas",
     glass: "12m infinity glass frontage",
     photo: img("sl_ext"),
-    carousel: [...["sl_ext", "sl_liv", "sl_k", "sl_room", "sl_desk", "sl_bath", "sl_ext2", "sl_closed"].map(img), plan("so_fp")],
+    carousel: [...["sl_ext", "sl_liv", "sl_k", "sl_room", "sl_desk", "sl_bath", "sl_ext2", "sl_closed"].map(img), img("sl_fp")],
   },
   {
     id: "workers",

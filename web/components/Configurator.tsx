@@ -205,9 +205,16 @@ export default function Configurator({ initialModel }: { initialModel?: string }
             <p className="cfg-lbl">A closer look</p>
             <div className="cfg-car">
               {/* eslint-disable-next-line @next/next/no-img-element */}
+              {/* the last carousel slot is the dimensioned drawing on most
+                  models; black line art needs paper, not the dark plate */}
               <img
+                className={/_fp\.(webp|jpg)$/.test(model.carousel[carIdx]) ? "cfg-car-plan" : undefined}
                 src={model.carousel[carIdx]}
-                alt={`${model.name}, photo ${carIdx + 1}`}
+                alt={
+                  /_fp\.(webp|jpg)$/.test(model.carousel[carIdx])
+                    ? `${model.name} floor plan and elevations`
+                    : `${model.name}, photo ${carIdx + 1}`
+                }
                 onClick={() => setLightbox(model.carousel[carIdx])}
               />
               <button className="cfg-carbtn prev" aria-label="Previous photo"
