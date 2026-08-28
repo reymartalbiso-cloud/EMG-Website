@@ -23,7 +23,9 @@ export default function Chooser() {
           <h2 className="chooser-big display">Residential</h2>
           <span
             className="chooser-bg"
-            style={{ backgroundImage: "url(/cfg/fam_ext.webp)" }}
+            /* Ben, 28 Aug: the residential door was showing the yard shot of
+               the 2-bedroom. This is the photo he wants on the front page. */
+            style={{ backgroundImage: "url(/cfg/res_home.webp)" }}
             aria-hidden="true"
           />
           <span className="chooser-body">
