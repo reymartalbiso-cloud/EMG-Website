@@ -30,7 +30,7 @@ export const MODELS: Model[] = [
   {
     id: "ob20",
     name: "The Infinity Cube",
-    base: 49900,
+    base: 54900,
     ac: "single",
     show: ["hw", "ac", "setup"],
     setup: {
@@ -56,7 +56,7 @@ export const MODELS: Model[] = [
   {
     id: "one",
     name: "Deluxe 40ft Home",
-    base: 57900,
+    base: 69900,
     ac: "mix",
     show: ["colour", "bench", "tap", "floor", "hw", "ac", "delivery"],
     spec: "40ft · 1 bed · kitchen + living + bathroom",
@@ -66,7 +66,7 @@ export const MODELS: Model[] = [
   {
     id: "family",
     name: "40ft 2xBedroom Container Home",
-    base: 59900,
+    base: 64000,
     ac: "mix",
     show: ["colour", "bench", "tap", "floor", "hw", "ac", "delivery"],
     spec: "40ft · 2 bed · kitchen, bathroom + living",
@@ -76,7 +76,7 @@ export const MODELS: Model[] = [
   {
     id: "ob40",
     name: "40ft Containerised Slide Out Home",
-    base: 91000,
+    base: 99000,
     ac: "mix",
     show: ["hw", "ac", "setup"],
     setup: {
@@ -92,7 +92,7 @@ export const MODELS: Model[] = [
   {
     id: "workers",
     name: "Worker Accommodation",
-    base: 64900,
+    base: 69500,
     ac: "mix",
     show: ["bedrooms", "colour", "bench", "tap", "floor", "hw", "ac", "delivery"],
     spec: "40ft · 3 or 4 bedroom · ensuite per room",

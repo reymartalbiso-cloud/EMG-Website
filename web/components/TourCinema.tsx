@@ -143,7 +143,7 @@ export default function TourCinema() {
       </div>
 
       <figcaption className="tour-caption">
-        <span className="mono">DELUXE 40FT HOME · 1 BED · FROM $57,900 INC GST</span>
+        <span className="mono">DELUXE 40FT HOME · 1 BED · FROM $69,900 INC GST</span>
         <Link className="btn btn-accent" href="/build-your-own?model=one" onClick={(e) => e.stopPropagation()}>
           Build &amp; price ↗
         </Link>

@@ -26,9 +26,11 @@ const BED_FILTERS = ["All", "Studio/1", "2", "3-4"];
 const SIZE_FILTERS = ["All", "20ft", "40ft"];
 const PRICE_FILTERS = [
   { label: "Any price", test: () => true },
-  { label: "Under $50k", test: (p: number) => p < 50000 },
-  { label: "$50k-$70k", test: (p: number) => p >= 50000 && p <= 70000 },
-  { label: "Over $70k", test: (p: number) => p > 70000 },
+  /* rebanded after Ben's price update: the old bands put five of seven models
+     in one bucket, which is not a filter */
+  { label: "Under $60k", test: (p: number) => p < 60000 },
+  { label: "$60k-$80k", test: (p: number) => p >= 60000 && p <= 80000 },
+  { label: "Over $80k", test: (p: number) => p > 80000 },
 ];
 const SORTS = [
   { label: "Featured", cmp: () => 0 },
