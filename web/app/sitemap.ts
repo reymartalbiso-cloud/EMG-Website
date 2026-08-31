@@ -14,5 +14,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/domes", "/shop", "/build-your-own", "/finance", "/how-it-works", "/projects", "/testimonials", "/about",
     "/quality", "/faq", "/contact", "/privacy", "/terms",
     ...catalogue,
-  ].map((p) => ({ url: `${base}${p}`, lastModified: new Date() }));
+  /* F-12: this was `new Date()`, so all 48 URLs claimed to change on every
+     deploy. A crawler learns to discount a field that is always "just now",
+     and then you have lost it for the pages that genuinely did change.
+     Omitting it is more honest than lying, until there is a real per-page
+     date to publish. */
+  ].map((p) => ({ url: `${base}${p}` }));
 }

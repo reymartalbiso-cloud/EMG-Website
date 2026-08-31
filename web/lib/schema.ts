@@ -15,6 +15,7 @@
 import { CATALOGUE, gallery, type CatalogueItem } from "@/lib/catalogue";
 import { MODELS, type Model } from "@/lib/configurator";
 import { abs, SITE_URL } from "@/lib/site";
+import { PINS } from "@/lib/testimonials";
 
 const ORG_ID = `${SITE_URL}/#organization`;
 
@@ -160,3 +161,27 @@ export function howTo(stages: { n: string; t: string; d: string }[]) {
 
 /** one <script> tag's worth of JSON-LD */
 export const ld = (obj: object) => JSON.stringify(obj);
+
+/* F-06. Four named customers at real Darwin businesses, and until now not one
+   of their words reached a crawler.
+
+   No aggregateRating: nobody gave a star rating, and inventing one to earn a
+   rich result would be inventing customer opinion. Ben can decide whether to
+   collect ratings properly — four is a thin base to publish an average from
+   either way. */
+export function reviews() {
+  return PINS.map((t) =>
+    withContext({
+      "@type": "Review",
+      itemReviewed: { "@type": "LocalBusiness", "@id": ORG_ID, name: "Elite Manufacturing Group" },
+      author: {
+        "@type": "Person",
+        name: t.name,
+        ...(t.org && t.org !== "Homeowner" ? { worksFor: { "@type": "Organization", name: t.org } } : {}),
+      },
+      reviewBody: t.quote,
+      locationCreated: { "@type": "Place", name: t.place },
+      url: abs("/testimonials"),
+    })
+  );
+}

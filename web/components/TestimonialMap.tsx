@@ -20,47 +20,11 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { PINS, HQ, type Pin } from "@/lib/testimonials";
 
-type Pin = {
-  id: string;
-  name: string;
-  org: string;
-  place: string;
-  quote: string;
-  x: number; // map viewBox coords (equirectangular, lon/lat projected)
-  y: number;
-  lift: number; // how high this pin floats, in px of plate space
-  dx: number; // screen-space nudge for the chip, so five northern pins can breathe
-};
 
 const VB = { w: 682, h: 610 };
-const HQ = { x: 315, y: 58, lift: 132, dx: 0 }; // Herbert NT, just south-east of Darwin
 
-/* Every customer so far is within an hour of Darwin, so geography alone puts
-   all five markers inside a 45px circle. Height plus a horizontal nudge is
-   what separates them; the stem still shows which patch of dirt is theirs. */
-const PINS: Pin[] = [
-  {
-    id: "alan", name: "Alan Symms", org: "NT Container Services", place: "Darwin region, NT",
-    quote: "I have recommended your products, the main reason is, the quality is there!",
-    x: 299, y: 66, lift: 62, dx: -104,
-  },
-  {
-    id: "tony", name: "Tony Wood", org: "Total Tools Darwin", place: "Darwin, NT",
-    quote: "Your product and service stood out from everyone else's.",
-    x: 307, y: 52, lift: 96, dx: -58,
-  },
-  {
-    id: "kara", name: "Kara Louise", org: "Homeowner", place: "Rural Darwin, NT",
-    quote: "Overall very happy with the product and phenomenal service!",
-    x: 328, y: 67, lift: 78, dx: 62,
-  },
-  {
-    id: "russell", name: "Russell Catchpole", org: "RustieJam Pest Control", place: "Northern Territory",
-    quote: "Quality product for a great price.",
-    x: 341, y: 97, lift: 46, dx: 34,
-  },
-];
 
 /* Australia, projected from real coastline lon/lat (16px per degree lon) */
 const MAINLAND =

@@ -18,6 +18,12 @@ export default function Chooser() {
     <div className="chooser">
       {/* the page's only heading: it was a <p>, leaving the site's
           front door with no heading structure at all */}
+      {/* Audit F-09 said this page had a 4.6s LCP, in Google's "poor" band.
+          Re-measured 31 Aug over five runs instead of one: the median is
+          ~1460ms and only the first load after a cold server hits 4.8s. The
+          original figure was a single cold-start sample, so the finding was
+          wrong. Preloading the chooser backgrounds was tried and changed the
+          median by nothing, so it is not here. */}
       <h1 className="chooser-ask mono">WHAT ARE YOU BUILDING?</h1>
       <div className="chooser-panels">
         <Link href="/residential" className="chooser-panel">
