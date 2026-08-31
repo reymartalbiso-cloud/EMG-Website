@@ -69,17 +69,21 @@ const nextConfig: NextConfig = {
 
   async headers() {
     return [
-      /* Audit F-01. The preview host is a complete copy of this site on a
-         different domain, fully crawlable, and it will compete with
-         elitemanufacturing.com.au for every page. VERCEL_ENV is "production"
-         only for the real deployment, so previews and the *.vercel.app URL
-         get told to stay out of the index while production is untouched. */
-      ...(process.env.VERCEL_ENV && process.env.VERCEL_ENV !== "production"
-        ? [{
-            source: "/:path*",
-            headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
-          }]
-        : []),
+      /* Audit F-01. Every *.vercel.app host is a complete, crawlable copy of
+         this site on a different domain, competing with
+         elitemanufacturing.com.au for every page.
+
+         Keyed on the HOST, not on VERCEL_ENV. emg-website-au.vercel.app is not
+         a preview — it is the production deployment's own default domain, so
+         VERCEL_ENV is "production" there too and an env check never fires. The
+         canonical tags already point every one of those pages at the real
+         domain, which is what actually consolidates them; this is the belt to
+         that pair of braces, and it also covers every preview URL. */
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "(.*)\.vercel\.app" }],
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
+      },
       ...IMMUTABLE.map((source) => ({
         source,
         headers: [
