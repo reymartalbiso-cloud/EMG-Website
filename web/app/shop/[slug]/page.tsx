@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { Reveal } from "@/components/shared";
 import Gallery from "@/components/Gallery";
 import { CATALOGUE, bySlug, gallery } from "@/lib/catalogue";
+import { COPY } from "@/lib/catalogueCopy";
 import { money } from "@/lib/configurator";
 import { productSchema, breadcrumbs, ld } from "@/lib/schema";
 import { OG_BASE } from "@/lib/site";
@@ -113,6 +114,15 @@ export default async function CatalogueProduct(
           )}
 
           <Gallery photos={shots} />
+
+          {/* F-14: these pages were a headline, a price and photos — about 110
+              words. Nothing for a reader to weigh up and nothing for an answer
+              engine to quote. */}
+          {COPY[c.slug] && (
+            <div className="cat-prose">
+              {COPY[c.slug].map((para, i) => <p key={i}>{para}</p>)}
+            </div>
+          )}
 
           <div className="cat-actions">
             {/* the contact form already prefills its message box from ?q=, so

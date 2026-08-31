@@ -41,8 +41,30 @@ export const organisation = {
     addressRegion: "NT",
     addressCountry: "AU",
   },
-  areaServed: { "@type": "Country", name: "Australia" },
+  /* "Australia" alone is too vague to place a business. The Territory is where
+     the yard is and where most jobs are; the states are where we genuinely
+     deliver, and saying so is what lets a local search resolve to us. */
+  areaServed: [
+    { "@type": "State", name: "Northern Territory" },
+    { "@type": "State", name: "Western Australia" },
+    { "@type": "State", name: "Queensland" },
+    { "@type": "State", name: "South Australia" },
+    { "@type": "State", name: "New South Wales" },
+    { "@type": "State", name: "Victoria" },
+    { "@type": "Country", name: "Australia" },
+  ],
+  /* Herbert, in the rural area south-east of Darwin. Locality-level, not a
+     surveyed address — enough to place the business on a map, which is what a
+     local search needs. Replace with the yard's real coordinates when Ben
+     confirms the street address. */
+  geo: { "@type": "GeoCoordinates", latitude: -12.5167, longitude: 131.1333 },
+  /* the published range, so a "how much" query can be answered before a click */
+  priceRange: "$7,490 - $149,900",
   currenciesAccepted: "AUD",
+  /* No openingHoursSpecification. Nobody has told me what the hours are, and a
+     guess here is a customer turning up to a closed gate. Ask Ben and add it —
+     it is a real local-search signal, just not one worth inventing. */
+  knowsLanguage: "en-AU",
   /* F-13: how a machine ties the business on this page to the same business on
      Facebook and Instagram. Entity disambiguation is most of what decides
      whether you get cited by name rather than described vaguely. */

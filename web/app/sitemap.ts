@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { CATALOGUE } from "@/lib/catalogue";
+import { AREAS } from "@/lib/areas";
 import { SITE_URL } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -8,6 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   /* the twenty-five catalogue builds each have their own page; leaving them
      out of the sitemap is how a shop this size stays invisible */
   const catalogue = CATALOGUE.map((c) => `/shop/${c.slug}`);
+  const areas = AREAS.map((a) => `/areas/${a.slug}`);
   return [
     "", "/residential", "/homes", "/homes/slide-out", "/homes/two-bedroom", "/homes/expandable",
     "/commercial", "/commercial/accommodation", "/commercial/ablution", "/commercial/kitchen",

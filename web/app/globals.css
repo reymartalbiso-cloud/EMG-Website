@@ -2025,3 +2025,36 @@ input:focus-visible, select:focus-visible, textarea:focus-visible {
   font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase;
   color: var(--text-mid);
 }
+
+/* ---------- Where we deliver ---------- */
+.area-grid {
+  display: grid; gap: var(--space-3);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+}
+.area-item, .area-card {
+  background: var(--bg-2); border: 1px solid var(--line); border-radius: 4px;
+  padding: var(--space-3); display: flex; flex-direction: column; gap: 0.7rem;
+}
+.area-item h2, .area-card h2 { font-size: 1.15rem; margin: 0; }
+.area-item p, .area-card p {
+  margin: 0; color: var(--text-mid); font-size: 0.95rem; line-height: 1.6;
+  text-wrap: pretty;
+}
+.area-card {
+  text-decoration: none; color: inherit;
+  transition: border-color 0.35s, transform 0.35s var(--ease-out);
+}
+.area-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+.area-cta {
+  font-size: 0.68rem; letter-spacing: 0.14em; color: var(--accent-text);
+  margin-top: auto; transition: letter-spacing 0.3s var(--ease-out);
+}
+.area-card:hover .area-cta { letter-spacing: 0.2em; }
+
+/* ---------- Catalogue prose ---------- */
+.cat-prose { max-width: 42rem; margin-top: var(--space-4); display: grid; gap: 1rem; }
+.cat-prose p {
+  margin: 0; color: var(--text-mid); font-size: 1rem; line-height: 1.7;
+  text-wrap: pretty;
+}
+.cat-prose p:first-child { color: var(--text-hi); font-size: 1.06rem; }

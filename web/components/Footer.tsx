@@ -24,6 +24,7 @@ export default function Footer() {
           <Link href="/commercial">Commercial</Link>
           <Link href="/domes">Domes</Link>
           <Link href="/projects">Projects</Link>
+          <Link href="/areas">Where we deliver</Link>
           <Link href="/testimonials">Testimonials</Link>
           <Link href="/quality">Quality &amp; compliance</Link>
         </div>
