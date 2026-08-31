@@ -39,8 +39,21 @@ const CRAWL = 1.35;
     instead — that is the thing the viewer actually feels. Above ~22ms the
     device is already under 45fps and has nothing spare to give a second draw. */
 const SLOW_PAINT_MS = 22;
-/** consecutive slow paints before blending switches off for good */
+/** consecutive slow paints before blending backs off */
 const STRIKES = 6;
+/** Ignore the first stretch of draws. The guard used to judge the device
+    during start-up, when hydration and frame decoding make paints slow for
+    reasons that have nothing to do with blending. On production that was
+    enough to condemn a desktop that then held 60fps all day: crawl came out
+    63% -> 57% with fps 59.2 -> 50.3, against 63% -> 9% with fps held locally,
+    where start-up is never slow enough to trip it. */
+const WARMUP_PAINTS = 45;
+/** A latching switch cannot recover from a transient stall, so back off for a
+    while and try again instead. A genuinely slow device simply re-trips, at a
+    cost of one extra draw every couple of seconds. */
+const BACKOFF_MS = 2500;
+/** A gap this long is a background tab or an unrelated long task, not us. */
+const NOT_OUR_FAULT_MS = 200;
 
 export function makeFrameRenderer(
   canvas: HTMLCanvasElement,
@@ -74,9 +87,11 @@ export function makeFrameRenderer(
   let last = 0;
   /* ?blend=0 gives a true A/B against the old draw-on-integer-change
      behaviour. Read once here rather than per paint. */
-  let allowBlend = blendFromUrl();
+  const blendWanted = blendFromUrl();
   let strikes = 0;
   let lastPaintAt = 0;
+  let paintCount = 0;
+  let blendPausedUntil = 0;
   let painted = false;
 
   function draw(exact: number) {
@@ -90,19 +105,24 @@ export function makeFrameRenderer(
        a second draw would cost a paint and change nothing on screen */
     const crawling = Math.abs(clamped - last) <= CRAWL;
     const next = lo + 1;
-    const wantBlend =
-      allowBlend && crawling && t > 0.02 && base === lo && next < count && loaded(next);
-
     const now = performance.now();
+    const wantBlend =
+      blendWanted && now >= blendPausedUntil &&
+      crawling && t > 0.02 && base === lo && next < count && loaded(next);
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     paint(images[base]!, 1);
     if (wantBlend) paint(images[next]!, t);
 
     /* self-tuning: a device that cannot hold ~45fps has nothing spare for the
-       second draw, and blending there costs more pictures than it adds */
-    if (allowBlend && lastPaintAt) {
-      if (now - lastPaintAt > SLOW_PAINT_MS) {
-        if (++strikes >= STRIKES) allowBlend = false;
+       second draw. Judged only once past warm-up, and only while we are
+       actually blending — otherwise we would blame the blend for stalls it
+       had no part in. */
+    paintCount++;
+    if (wantBlend && paintCount > WARMUP_PAINTS && lastPaintAt) {
+      const gap = now - lastPaintAt;
+      if (gap > SLOW_PAINT_MS && gap < NOT_OUR_FAULT_MS) {
+        if (++strikes >= STRIKES) { blendPausedUntil = now + BACKOFF_MS; strikes = 0; }
       } else if (strikes > 0) strikes--;
     }
     lastPaintAt = now;
@@ -113,7 +133,7 @@ export function makeFrameRenderer(
   return {
     draw,
     redraw: () => draw(last),
-    blending: () => allowBlend,
+    blending: () => blendWanted && performance.now() >= blendPausedUntil,
   };
 }
 
