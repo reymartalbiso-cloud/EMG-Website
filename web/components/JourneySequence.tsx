@@ -112,7 +112,11 @@ export default function JourneySequence() {
           pin: ".hero-stage",
           /* the floating buttons stand down while this owns the screen */
           onToggle: (self) => setPinned(self.isActive),
-          scrub: scrubFromUrl(1),
+          /* Reymart picked 0.3 over 1 after trying both on the live site, 31 Aug.
+             One second of easing meant the picture arrived a beat after the
+             finger, which read as the sequence being slow rather than smooth —
+             the opposite of what a shorter pin would have fixed. */
+          scrub: scrubFromUrl(0.3),
           anticipatePin: 1,
           onUpdate: (self) => updateOverlays(self.progress),
         },
