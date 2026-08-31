@@ -10,7 +10,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { setPinned } from "@/lib/pinState";
 import { loadSequence, wantsSmallFrames } from "@/lib/frameLoader";
-import { makeFrameRenderer, scrubFromUrl } from "@/lib/scrubDraw";
+import { makeFrameRenderer, scrubFromUrl, pinFromUrl } from "@/lib/scrubDraw";
 
 /* 479 frames: the 24fps source motion-interpolated to 48fps, so each
    scrolled pixel steps half as far through the build-out — the smoothness ask
@@ -111,7 +111,7 @@ export default function CampHero() {
           start: "top top",
           /* phones get a shorter pin: the same frames in fewer swipes,
              so the picture visibly answers every scroll */
-          end: window.matchMedia("(max-width: 720px)").matches ? "+=280%" : "+=380%",
+          end: pinFromUrl(380, 280),
           pin: ".hero-stage",
           /* the floating buttons stand down while this owns the screen */
           onToggle: (self) => setPinned(self.isActive),

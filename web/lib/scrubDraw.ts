@@ -184,3 +184,32 @@ export function blendFromUrl(): boolean {
   if (typeof window === "undefined") return true;
   return new URLSearchParams(window.location.search).get("blend") !== "0";
 }
+
+/* How far the hero pins, as a percentage of viewport height, overridable per
+   visit the same way `scrub` is.
+ *
+ * The source film is 24fps and the sequence already uses every frame it has,
+ * so there is no more temporal detail to extract. What decides whether it
+ * reads as motion or as steps is how fast the scroll traverses those frames:
+ * at the shipped 500%, a normal five-second scroll covers the whole sequence
+ * in about a third of the film's real running time, so you are watching 24fps
+ * footage at 3x speed and it strobes.
+ *
+ * Measured over a fixed 4,000px gesture, mean pixel change between paints:
+ *
+ *   500% pin   20.8   p95 44.3
+ *   900% pin   14.2   p95 29.3
+ *
+ * A third less jump for nothing, and the cost is that the hero takes almost
+ * twice as much scrolling to get past. That is a feel decision rather than a
+ * correct answer, so it stays where Ben can try it. */
+export function pinFromUrl(fallbackDesktop: number, fallbackMobile: number): string {
+  const mobile = typeof window !== "undefined" && window.matchMedia("(max-width: 720px)").matches;
+  const fallback = mobile ? fallbackMobile : fallbackDesktop;
+  if (typeof window === "undefined") return `+=${fallback}%`;
+  const v = Number(new URLSearchParams(window.location.search).get("pin"));
+  const pct = Number.isFinite(v) && v >= 200 && v <= 1600
+    ? (mobile ? Math.round(v * (fallbackMobile / fallbackDesktop)) : v)
+    : fallback;
+  return `+=${pct}%`;
+}

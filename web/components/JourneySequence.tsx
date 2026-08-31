@@ -10,7 +10,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { setPinned } from "@/lib/pinState";
 import { loadSequence, wantsSmallFrames } from "@/lib/frameLoader";
-import { makeFrameRenderer, scrubFromUrl } from "@/lib/scrubDraw";
+import { makeFrameRenderer, scrubFromUrl, pinFromUrl } from "@/lib/scrubDraw";
 
 const FRAME_COUNT = 361;
 const FRAME_DIR = "/journeyframes/";
@@ -108,7 +108,7 @@ export default function JourneySequence() {
           start: "top top",
           /* phones get a shorter pin: the same frames in fewer swipes,
              so the picture visibly answers every scroll */
-          end: window.matchMedia("(max-width: 720px)").matches ? "+=320%" : "+=450%",
+          end: pinFromUrl(450, 320),
           pin: ".hero-stage",
           /* the floating buttons stand down while this owns the screen */
           onToggle: (self) => setPinned(self.isActive),

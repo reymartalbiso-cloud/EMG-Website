@@ -11,7 +11,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { setPinned } from "@/lib/pinState";
 import { loadSequence, wantsSmallFrames } from "@/lib/frameLoader";
-import { makeFrameRenderer, scrubFromUrl } from "@/lib/scrubDraw";
+import { makeFrameRenderer, scrubFromUrl, pinFromUrl } from "@/lib/scrubDraw";
 import PreloadVeil from "@/components/PreloadVeil";
 import { PORTAL_URL } from "@/lib/links";
 
@@ -119,7 +119,7 @@ export default function Hero() {
           start: "top top",
           /* phones get a shorter pin: the same frames in fewer swipes,
              so the picture visibly answers every scroll */
-          end: window.matchMedia("(max-width: 720px)").matches ? "+=340%" : "+=500%",
+          end: pinFromUrl(500, 340),
           pin: ".hero-stage",
           /* the floating buttons stand down while this owns the screen */
           onToggle: (self) => setPinned(self.isActive),
