@@ -7,6 +7,7 @@ import { PORTAL_URL } from "@/lib/links";
    site office top-left, mining camp bottom-right. Still exactly two doors. */
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/" },
   title: "Elite Manufacturing Group | Container Homes & Commercial Buildings, Australia-Wide",
   description:
     "Container homes for your block, or worker accommodation at village scale. Choose your path, residential or commercial/industrial, and see buildings priced live.",

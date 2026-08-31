@@ -7,6 +7,7 @@ import { PRODUCTS } from "@/lib/products";
 import { PORTAL_URL } from "@/lib/links";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/residential" },
   title: "Container Homes for Your Block, Delivered Australia-Wide",
   description:
     "Class 1A container homes delivered and installed on your own land, with footings, services and septic handled by one team. Typically 4-6 months, order to keys.",

@@ -3,6 +3,7 @@ import Configurator from "@/components/Configurator";
 import { Reveal } from "@/components/shared";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/build-your-own" },
   title: "Build Your Own: Live-Priced Container Building Configurator",
   description:
     "Pick a model, choose your colours, benchtop, flooring, hot water and air conditioning, and watch the price update live. All prices inc GST. Delivery included for the first 100km.",

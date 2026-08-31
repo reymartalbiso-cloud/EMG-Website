@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SITE_URL } from "@/lib/site";
 import { Archivo, Inter, IBM_Plex_Mono } from "next/font/google";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
@@ -21,7 +22,11 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://elitemanufacturing.com.au"),
+  metadataBase: new URL(SITE_URL),
+  /* Audit F-02: no page carried a canonical. Deliberately NOT set here —
+     `alternates` is inherited, so a canonical on the layout would make every
+     page in the site declare itself the homepage, which is worse than having
+     none. Each page sets its own. */
   title: {
     default: "Elite Manufacturing Group | Container Homes & Buildings, Australia-Wide",
     template: "%s | Elite Manufacturing Group",

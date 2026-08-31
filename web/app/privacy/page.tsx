@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Reveal } from "@/components/shared";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/privacy" },
   title: "Privacy Policy",
   description: "How Elite Manufacturing Group collects, uses and protects your personal information.",
 };

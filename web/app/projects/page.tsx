@@ -18,6 +18,7 @@ const PHOTOS = [
 ];
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/projects" },
   title: "Projects Delivered Across Australia",
   description:
     "Completed container home and commercial building deliveries across Australia. Homes, camps, ablution blocks and domes, installed and handed over.",

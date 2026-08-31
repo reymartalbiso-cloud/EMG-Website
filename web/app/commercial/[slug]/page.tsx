@@ -16,7 +16,7 @@ export async function generateMetadata(
   const { slug } = await params;
   const p = commercial().find((x) => x.slug === slug);
   if (!p) return {};
-  return { title: p.name, description: p.short };
+  return { title: p.name, description: p.short, alternates: { canonical: `/commercial/${p.slug}` } };
 }
 
 export default async function CommercialProduct(

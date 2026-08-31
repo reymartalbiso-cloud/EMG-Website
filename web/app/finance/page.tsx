@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Reveal } from "@/components/shared";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/finance" },
   title: "Finance: Fund Your Container Home or Commercial Buildings",
   description:
     "Finance options for Elite Manufacturing container homes and commercial buildings. Personal finance for residential customers, business finance for commercial and industrial projects.",

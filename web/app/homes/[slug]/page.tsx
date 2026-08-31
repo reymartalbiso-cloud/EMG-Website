@@ -15,7 +15,7 @@ export async function generateMetadata(
   const { slug } = await params;
   const p = homes().find((x) => x.slug === slug);
   if (!p) return {};
-  return { title: p.name, description: p.short };
+  return { title: p.name, description: p.short, alternates: { canonical: `/homes/${p.slug}` } };
 }
 
 export default async function HomeProduct(

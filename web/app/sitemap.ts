@@ -1,8 +1,10 @@
 import type { MetadataRoute } from "next";
 import { CATALOGUE } from "@/lib/catalogue";
+import { SITE_URL } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = "https://elitemanufacturing.com.au";
+  /* was hardcoded, so the preview host advertised production URLs */
+  const base = SITE_URL;
   /* the twenty-five catalogue builds each have their own page; leaving them
      out of the sitemap is how a shop this size stays invisible */
   const catalogue = CATALOGUE.map((c) => `/shop/${c.slug}`);

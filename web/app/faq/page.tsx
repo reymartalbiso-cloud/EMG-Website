@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Reveal } from "@/components/shared";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/faq" },
   title: "FAQ: Lead Times, Permits, Delivery & Site Prep",
   description:
     "Straight answers on container home lead times (typically 4-6 months), permits and approvals, delivery access, site preparation, and warranty, Australia-wide.",

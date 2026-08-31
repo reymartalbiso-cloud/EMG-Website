@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Reveal } from "@/components/shared";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/terms" },
   title: "Terms of Use",
   description: "Terms of use for the Elite Manufacturing Group website, quotes and configurations.",
 };

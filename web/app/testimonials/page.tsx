@@ -4,6 +4,7 @@ import TestimonialMap from "@/components/TestimonialMap";
 import { Reveal } from "@/components/shared";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/testimonials" },
   title: "Testimonials from Customers Across Australia",
   description:
     "Real customers, real buildings, real words. Explore Elite Manufacturing testimonials across Australia.",

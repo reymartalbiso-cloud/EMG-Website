@@ -7,6 +7,7 @@ import { Reveal } from "@/components/shared";
 import { PRODUCTS } from "@/lib/products";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/commercial" },
   title: "Commercial & Remote-Site Buildings for Mining, Community & Government",
   description:
     "Site accommodation, ablution blocks and kitchen/mess units for mining, remote community and government projects. Specified, delivered and installed Australia-wide.",

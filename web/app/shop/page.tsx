@@ -3,6 +3,7 @@ import ShopGrid from "@/components/ShopGrid";
 import { Reveal } from "@/components/shared";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/shop" },
   title: "Shop All Models: Container Homes & Buildings with Prices",
   description:
     "Every Elite Manufacturing model in one place. Filter by bedrooms, size and price. All prices inc GST, configured and quoted live in Build Your Own.",

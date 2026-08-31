@@ -19,6 +19,7 @@ export async function generateMetadata(
   return {
     title: `${c.name} — ${c.from ? "from " : ""}${money(c.price)} inc GST`,
     description: c.blurb,
+    alternates: { canonical: `/shop/${c.slug}` },
   };
 }
 

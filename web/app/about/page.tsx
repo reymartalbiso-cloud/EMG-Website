@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Reveal } from "@/components/shared";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/about" },
   title: "About Elite Manufacturing Group, Herbert NT",
   description:
     "Elite Manufacturing Group delivers and installs container homes and portable buildings Australia-wide from Herbert, Northern Territory, owning every step from factory to handover.",
