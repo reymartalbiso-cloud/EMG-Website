@@ -11,6 +11,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { setPinned } from "@/lib/pinState";
 import { loadSequence, wantsSmallFrames } from "@/lib/frameLoader";
+import { makeFrameRenderer, scrubFromUrl } from "@/lib/scrubDraw";
 import PreloadVeil from "@/components/PreloadVeil";
 import { PORTAL_URL } from "@/lib/links";
 
@@ -59,7 +60,6 @@ export default function Hero() {
     const hudSeq = root.querySelector<HTMLElement>(".hud-seq")!;
     const hudPhase = root.querySelector<HTMLElement>(".hud-phase")!;
     const acts = Array.from(root.querySelectorAll<HTMLElement>(".act"));
-    const ctx = canvas.getContext("2d")!;
 
     const images: (HTMLImageElement | undefined)[] = new Array(FRAME_COUNT);
     let current = 0;
@@ -70,33 +70,15 @@ export default function Hero() {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
       canvas.width = canvas.clientWidth * dpr;
       canvas.height = canvas.clientHeight * dpr;
-      drawFrame(current);
+      renderer.redraw();
     }
 
-    function nearestLoaded(index: number): number {
-      const ok = (i: number) => {
-        const im = images[i];
-        return !!im && im.complete && im.naturalWidth > 0;
-      };
-      if (ok(index)) return index;
-      for (let d = 1; d < FRAME_COUNT; d++) {
-        if (index - d >= 0 && ok(index - d)) return index - d;
-        if (index + d < FRAME_COUNT && ok(index + d)) return index + d;
-      }
-      return -1;
-    }
-
-    function drawFrame(index: number) {
-      const i = nearestLoaded(Math.round(index));
-      if (i < 0) return;
-      const img = images[i]!;
-      const cw = canvas.width, ch = canvas.height;
-      const s = Math.max(cw / img.naturalWidth, ch / img.naturalHeight);
-      const w = img.naturalWidth * s, h = img.naturalHeight * s;
-      ctx.clearRect(0, 0, cw, ch);
-      ctx.drawImage(img, (cw - w) / 2, (ch - h) / 2, w, h);
+    /* the renderer owns nearest-loaded fallback and the sub-frame blend that
+       stops the picture standing still through a slow scrub */
+    const renderer = makeFrameRenderer(canvas, images, FRAME_COUNT, () => {
       poster.style.opacity = "0";
-    }
+    });
+    function drawFrame(index: number) { renderer.draw(index); }
 
     function updateOverlays(p: number) {
       acts.forEach((el, n) => {
@@ -141,13 +123,15 @@ export default function Hero() {
           pin: ".hero-stage",
           /* the floating buttons stand down while this owns the screen */
           onToggle: (self) => setPinned(self.isActive),
-          scrub: 1,
+          scrub: scrubFromUrl(1),
           anticipatePin: 1,
           onUpdate: (self) => updateOverlays(self.progress),
         },
         onUpdate: () => {
-          const f = Math.round(playhead.frame);
-          if (f !== current) { current = f; drawFrame(f); }
+          /* the float, not the rounded integer: the blend lives between the
+             two frames either side of it, and rounding threw that away */
+          const f = playhead.frame;
+          if (Math.abs(f - current) > 0.008) { current = f; drawFrame(f); }
         },
       });
       cleanups.push(() => { tween.scrollTrigger?.kill(); tween.kill(); });
