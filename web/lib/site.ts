@@ -21,3 +21,12 @@ export const SITE_URL =
 
 /** absolute URL for a path, for canonical tags and the sitemap */
 export const abs = (path: string) => new URL(path || "/", SITE_URL).toString();
+
+/* Next does not deep-merge `openGraph`: a page that sets its own replaces the
+   root's entirely, which silently dropped og:site_name and og:locale from
+   every product page. Spread this into each override. */
+export const OG_BASE = {
+  type: "website" as const,
+  siteName: "Elite Manufacturing Group",
+  locale: "en_AU",
+};

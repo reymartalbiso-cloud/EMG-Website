@@ -4,7 +4,7 @@ import { PRODUCTS } from "@/lib/products";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/domes" },
-  title: "Container Domes C4040S & C4080S",
+  title: "Container Domes",
   description:
     "Large-span container-mounted fabric domes for workshops, machinery and storage. Delivered and installed Australia-wide.",
 };

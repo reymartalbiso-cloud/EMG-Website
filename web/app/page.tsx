@@ -8,7 +8,7 @@ import { PORTAL_URL } from "@/lib/links";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
-  title: "Elite Manufacturing Group | Container Homes & Commercial Buildings, Australia-Wide",
+  title: "Container Homes & Buildings, Australia-Wide",
   description:
     "Container homes for your block, or worker accommodation at village scale. Choose your path, residential or commercial/industrial, and see buildings priced live.",
 };

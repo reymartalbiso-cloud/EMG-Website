@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import ShopGrid from "@/components/ShopGrid";
 import { Reveal } from "@/components/shared";
+import { shopItemList, breadcrumbs, ld } from "@/lib/schema";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/shop" },
-  title: "Shop All Models: Container Homes & Buildings with Prices",
+  title: "Shop All Models & Prices",
   description:
     "Every Elite Manufacturing model in one place. Filter by bedrooms, size and price. All prices inc GST, configured and quoted live in Build Your Own.",
 };
@@ -12,6 +13,11 @@ export const metadata: Metadata = {
 export default function Shop() {
   return (
     <>
+      {/* F-17: 32 products enumerable rather than scrapeable */}
+      <script type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: ld(shopItemList()) }} />
+      <script type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: ld(breadcrumbs([["Home", "/"], ["Shop all models", "/shop"]])) }} />
       <div className="page-hero">
         <Reveal>
           <p className="eyebrow mono">SHOP ALL MODELS</p>

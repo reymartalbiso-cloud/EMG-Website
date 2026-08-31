@@ -4,9 +4,9 @@ import { Reveal } from "@/components/shared";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/quality" },
-  title: "Quality & Compliance: Class 1A Container Homes",
+  title: "Quality & Compliance",
   description:
-    "What Class 1A certification means, EMG's accessibility standard (threshold-free doorways, sunken shower bases), high-cube builds, RAL 7035 finish, permits and warranty.",
+    "Class 1A certification, engineering for your soil and wind region, threshold-free access and sunken shower bases as standard on every build.",
 };
 
 export default function Quality() {

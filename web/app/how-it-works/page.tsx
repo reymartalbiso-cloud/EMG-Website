@@ -3,14 +3,15 @@ import type { Metadata } from "next";
 import JourneyRail from "@/components/JourneyRail";
 import JourneySequence from "@/components/JourneySequence";
 import { Reveal } from "@/components/shared";
+import { howTo, breadcrumbs, ld } from "@/lib/schema";
 import { SITE_WORKS } from "@/lib/products";
 import { PORTAL_URL } from "@/lib/links";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/how-it-works" },
-  title: "How It Works: Container Home Delivery, Honestly Told",
+  title: "How It Works: Order to Handover",
   description:
-    "How a container home actually gets from order to handover, anywhere in Australia: specification, factory build, shipping and customs, site works and installation. Typically 4-6 months, honestly tracked.",
+    "The six stages from order to handover: specification, factory build, shipping and customs, site works, delivery and installation. Typically 4-6 months.",
 };
 
 const STAGES = [
@@ -43,6 +44,12 @@ const STAGES = [
 export default function HowItWorks() {
   return (
     <>
+      {/* F-17: one of the few types that reliably reaches AI answers, and this
+          page was already written as an ordered process */}
+      <script type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: ld(howTo(STAGES)) }} />
+      <script type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: ld(breadcrumbs([["Home", "/"], ["How it works", "/how-it-works"]])) }} />
       <JourneySequence />
 
       <div className="page-hero" style={{ paddingTop: "var(--space-6)" }}>
@@ -70,7 +77,7 @@ export default function HowItWorks() {
           {STAGES.map((s) => (
             <Reveal key={s.n}>
               <div className="faq-item">
-                <span className="mono step-n">{s.n}</span>
+                <span className="mono step-n" id={`step-${s.n}`}>{s.n}</span>
                 <h3 className="display">{s.t}</h3>
                 <p>{s.d}</p>
               </div>

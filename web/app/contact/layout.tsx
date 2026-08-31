@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   /* the quote handoff appends ?q=..., so this page has as many URLs as there
      are enquiries. They are all the same page. */
   alternates: { canonical: "/contact" },
-  title: "Contact Elite Manufacturing Group",
+  title: "Contact Us",
   description:
     "Tell us where you're building and what you need. Real answers on access, timing and cost from the team that delivers and installs the building.",
 };

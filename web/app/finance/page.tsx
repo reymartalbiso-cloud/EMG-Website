@@ -4,9 +4,9 @@ import { Reveal } from "@/components/shared";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/finance" },
-  title: "Finance: Fund Your Container Home or Commercial Buildings",
+  title: "Finance Your Container Building",
   description:
-    "Finance options for Elite Manufacturing container homes and commercial buildings. Personal finance for residential customers, business finance for commercial and industrial projects.",
+    "Finance options for container homes and commercial buildings, including chattel mortgage and rent-to-own. Payment terms are 50/30/20 across the build.",
 };
 
 const TERMS: [string, string][] = [

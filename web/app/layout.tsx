@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { SITE_URL } from "@/lib/site";
+import { organisation, ld } from "@/lib/schema";
 import { Archivo, Inter, IBM_Plex_Mono } from "next/font/google";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
@@ -34,6 +35,32 @@ export const metadata: Metadata = {
   description:
     "Class 1A container homes, commercial accommodation, ablution blocks and container domes, delivered and installed Australia-wide. Owned end-to-end from factory to handover.",
   icons: { icon: "/emg-logo.png", apple: "/emg-logo.png" },
+  /* Audit F-05: not one page carried OpenGraph, so every link anyone shared —
+     Ben posting to the EMG Facebook page, Joel sending a product to a customer
+     on WhatsApp — arrived as a naked URL with no picture, title or blurb. On
+     the channels this business actually sells through, that is a straight hit
+     to click-through. Pages override `openGraph.images` with their own hero. */
+  openGraph: {
+    type: "website",
+    siteName: "Elite Manufacturing Group",
+    locale: "en_AU",
+    url: SITE_URL,
+    title: "Container Homes & Buildings, Australia-Wide",
+    description:
+      "Class 1A container homes, commercial accommodation, ablution blocks and domes, delivered and installed Australia-wide.",
+    images: [{
+      url: "/cfg/res_home.webp",
+      width: 1200, height: 900,
+      alt: "A 40ft container home on gravel under mango trees, black-framed sliding doors open to the kitchen",
+    }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Container Homes & Buildings, Australia-Wide",
+    description:
+      "Class 1A container homes, commercial accommodation, ablution blocks and domes, delivered and installed Australia-wide.",
+    images: ["/cfg/res_home.webp"],
+  },
 };
 
 /* first-load: stamped before paint on the first hard load of a visit only —
@@ -41,23 +68,6 @@ export const metadata: Metadata = {
    keeps the veil away from reloads and every later page of the session */
 const themeInit = `(function(){document.documentElement.classList.add("js");try{var t=localStorage.getItem("emg-theme");if(!t){t=window.matchMedia&&window.matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}document.documentElement.dataset.theme=t}catch(e){document.documentElement.dataset.theme="dark"}try{if(!sessionStorage.getItem("emg-visit")){sessionStorage.setItem("emg-visit","1");document.documentElement.classList.add("first-load")}}catch(e){}})();`;
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  name: "Elite Manufacturing Group",
-  description:
-    "Container homes and portable buildings delivered and installed Australia-wide.",
-  telephone: "+61 420 251 550",
-  email: "admin@elitemanufacturing.com.au",
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: "Herbert",
-    addressRegion: "NT",
-    addressCountry: "AU",
-  },
-  areaServed: "Australia",
-  url: "https://elitemanufacturing.com.au",
-};
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -71,7 +81,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script dangerouslySetInnerHTML={{ __html: themeInit }} />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: ld(organisation) }}
         />
       </head>
       <body className={`${archivo.variable} ${inter.variable} ${plexMono.variable}`}>

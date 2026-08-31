@@ -5,6 +5,8 @@ import { Reveal } from "@/components/shared";
 import Gallery from "@/components/Gallery";
 import { CATALOGUE, bySlug, gallery } from "@/lib/catalogue";
 import { money } from "@/lib/configurator";
+import { productSchema, breadcrumbs, ld } from "@/lib/schema";
+import { OG_BASE } from "@/lib/site";
 
 export function generateStaticParams() {
   return CATALOGUE.map((c) => ({ slug: c.slug }));
@@ -16,10 +18,24 @@ export async function generateMetadata(
   const { slug } = await params;
   const c = bySlug(slug);
   if (!c) return {};
+  /* the blurb is written for the page; a snippet is cut at ~160, so trim on a
+     word boundary rather than letting Google do it mid-sentence */
+  const snippet = c.blurb.length <= 158
+    ? c.blurb
+    : c.blurb.slice(0, 155).replace(/[\s,.;:]+\S*$/, "") + "…";
   return {
     title: `${c.name} — ${c.from ? "from " : ""}${money(c.price)} inc GST`,
-    description: c.blurb,
+    description: snippet,
     alternates: { canonical: `/shop/${c.slug}` },
+    /* F-05: the shared link shows this build, not the site-wide fallback */
+    openGraph: {
+      ...OG_BASE,
+      title: c.name,
+      description: snippet,
+      url: `/shop/${c.slug}`,
+      images: [{ url: `/shop/${c.slug}/00.webp`, alt: `${c.name} — ${c.spec}` }],
+    },
+    twitter: { card: "summary_large_image", images: [`/shop/${c.slug}/00.webp`] },
   };
 }
 
@@ -51,6 +67,14 @@ export default async function CatalogueProduct(
 
   return (
     <>
+      {/* F-04: the price on this page is now readable by a machine, not just
+          by a person. F-11: the trail replaces a bare URL in the result. */}
+      <script type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: ld(productSchema(c)) }} />
+      <script type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: ld(breadcrumbs([
+          ["Home", "/"], ["Shop all models", "/shop"], [c.name, `/shop/${c.slug}`],
+        ])) }} />
       <div className="page-hero">
         <Reveal>
           <p className="eyebrow mono">{c.category.toUpperCase()}</p>

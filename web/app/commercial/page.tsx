@@ -8,9 +8,9 @@ import { PRODUCTS } from "@/lib/products";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/commercial" },
-  title: "Commercial & Remote-Site Buildings for Mining, Community & Government",
+  title: "Commercial & Site Buildings",
   description:
-    "Site accommodation, ablution blocks and kitchen/mess units for mining, remote community and government projects. Specified, delivered and installed Australia-wide.",
+    "Site offices, worker accommodation, ablution blocks and full camps for mining, community and government work. Delivered and installed Australia-wide.",
 };
 
 export default function Commercial() {
