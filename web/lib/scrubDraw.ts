@@ -29,9 +29,27 @@ export type FrameRenderer = {
   blending(): boolean;
 };
 
-/** how far the playhead may move between paints and still be worth blending.
-    Beyond this we are skipping frames anyway and the blend is invisible. */
+/** how far the playhead may move between paints and still be worth blending
+    when the sequence is dense. Beyond this we are skipping frames anyway and
+    the blend is invisible. Does not apply when frames are still arriving —
+    see MAX_SPAN. */
 const CRAWL = 1.35;
+/** Reymart, 31 Aug: "it feels like freezing... like I'm scrolling every
+    picture, no transition."
+
+    Measured: scrolling the moment the page appears, with 1 of 361 frames in,
+    gives 34 distinct pictures across the whole sequence, 89% of paints
+    repeating, and holds of up to 700ms. Four seconds later it is 0% repeats.
+    So the stepping he feels is the loading window, not the scrub — and the
+    blend as first written could not help, because it required frame N and N+1
+    and the interleaved loader delivers every 16th first.
+
+    Blending between the two nearest LOADED frames instead covers the gap
+    whatever its size: at 1-in-16 density the playhead crossfades from frame 16
+    to frame 32 rather than snapping. Capped, because past about a coarse step
+    apart the two pictures differ enough that a crossfade reads as a dissolve
+    rather than as movement. */
+const MAX_SPAN = 16;
 /** Measured 28 Aug: watching draw DURATION was the wrong signal. On a 4x
     throttled phone the two draws stayed under budget individually, yet the
     paint interval stretched and slow scrub came out worse blended (60% ->
@@ -97,22 +115,36 @@ export function makeFrameRenderer(
   function draw(exact: number) {
     const clamped = Math.max(0, Math.min(count - 1, exact));
     const lo = Math.floor(clamped);
-    const t = clamped - lo;
     const base = nearestLoaded(lo);
     if (base < 0) return;
 
-    /* blend only while crawling: a fast scrub already skips whole frames, so
-       a second draw would cost a paint and change nothing on screen */
+    /* the two loaded frames the playhead currently sits between */
+    let below = lo, above = -1;
+    while (below >= 0 && !loaded(below)) below--;
+    for (let i = Math.max(lo + 1, below + 1); i < count && i - Math.max(below, 0) <= MAX_SPAN; i++) {
+      if (loaded(i)) { above = i; break; }
+    }
+
+    /* where between them we are — with every frame loaded this is just the
+       fractional part, and while the sequence is still arriving it is the
+       position across whatever gap exists */
+    const span = above > below ? above - below : 0;
+    const t = span > 0 ? (clamped - below) / span : 0;
+
+    /* Crawling gates WHETHER to blend; the span decides WHAT to blend between.
+       Letting a sparse sequence blend at any speed was measurably worse: on a
+       desktop flick it took repeats from 49% to 56% and cost 8fps, because at
+       that pace the second draw loses more paints than the crossfade adds
+       pictures. The gap-spanning is the win; doing it during a flick is not. */
     const crawling = Math.abs(clamped - last) <= CRAWL;
-    const next = lo + 1;
     const now = performance.now();
     const wantBlend =
       blendWanted && now >= blendPausedUntil &&
-      crawling && t > 0.02 && base === lo && next < count && loaded(next);
+      below >= 0 && span > 0 && t > 0.02 && t < 0.995 && crawling;
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    paint(images[base]!, 1);
-    if (wantBlend) paint(images[next]!, t);
+    paint(images[wantBlend ? below : base]!, 1);
+    if (wantBlend) paint(images[above]!, t);
 
     /* self-tuning: a device that cannot hold ~45fps has nothing spare for the
        second draw. Judged only once past warm-up, and only while we are
