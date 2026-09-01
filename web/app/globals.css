@@ -2058,3 +2058,44 @@ input:focus-visible, select:focus-visible, textarea:focus-visible {
   text-wrap: pretty;
 }
 .cat-prose p:first-child { color: var(--text-hi); font-size: 1.06rem; }
+
+/* ---------- Terms & conditions ---------- */
+/* EMG's published legal text, restored after the domain move dropped it.
+   Long-form and read in anger, so: a narrow measure, clause numbers that stay
+   findable, and enough air between subsections to hold a reference. */
+.legal-callout {
+  max-width: 46rem; margin: var(--space-4) 0;
+  border: 1px solid var(--accent); border-radius: 4px;
+  padding: var(--space-3);
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+}
+.legal-callout h2 { font-size: 1.15rem; margin: 0 0 0.6rem; }
+.legal-callout p { margin: 0; color: var(--text-hi); font-size: 1rem; line-height: 1.6; }
+.legal-callout-sub { margin-top: 0.6rem !important; color: var(--text-mid) !important; font-size: 0.92rem !important; }
+
+.legal-prose { max-width: 46rem; }
+.legal-part { max-width: 46rem; margin-top: var(--space-5); }
+.legal-part-head {
+  font-size: 0.7rem; letter-spacing: 0.14em; color: var(--text-mid);
+  padding-bottom: 0.6rem; border-bottom: 1px solid var(--line);
+  margin: 0 0 var(--space-3);
+}
+.legal-section { margin-bottom: var(--space-4); scroll-margin-top: 7.5rem; }
+.legal-section > h3 { font-size: 1.2rem; margin: 0 0 0.7rem; }
+.legal-section > p { color: var(--text-mid); margin: 0 0 0.7rem; line-height: 1.7; }
+.legal-sub { margin-bottom: var(--space-3); }
+.legal-sub h4 {
+  font-family: var(--font-plex-mono), monospace;
+  font-size: 0.76rem; letter-spacing: 0.04em; color: var(--text-hi);
+  margin: 0 0 0.45rem; font-weight: 500;
+}
+.legal-sub p {
+  margin: 0 0 0.6rem; color: var(--text-mid);
+  font-size: 0.96rem; line-height: 1.7; text-wrap: pretty;
+}
+.legal-foot {
+  max-width: 46rem; margin-top: var(--space-5);
+  padding-top: var(--space-3); border-top: 1px solid var(--line);
+}
+.legal-foot p { color: var(--text-mid); font-size: 0.95rem; }
+.legal-foot a { color: var(--accent-text); }

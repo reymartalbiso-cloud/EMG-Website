@@ -60,6 +60,11 @@ const wpRedirects = [
   /* anything else under /product that we have not enumerated still lands on
      the range rather than a dead end */
   { source: "/product/:slug*", destination: "/shop", permanent: true },
+  /* The old site published the full terms at /return-policy — an odd URL for a
+     29-section T&C document, but it is the one Google indexed and the one in
+     circulation. The refunds clause is section 16. */
+  { source: "/return-policy", destination: "/terms#refunds", permanent: true },
+  { source: "/terms-and-conditions", destination: "/terms", permanent: true },
 ];
 
 const nextConfig: NextConfig = {
