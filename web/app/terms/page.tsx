@@ -6,8 +6,11 @@ import { TERMS, TERMS_VERSION } from "@/lib/terms";
 export const metadata: Metadata = {
   alternates: { canonical: "/terms" },
   title: "Terms & Conditions",
+  /* Refunds named early: /return-policy redirects here, so that is what people
+     arriving from Google are looking for. Under 160 characters so the snippet
+     is not truncated mid-clause. */
   description:
-    "Elite Manufacturing Group's terms and conditions of sale: orders, pricing, payment, delivery, site access, warranty, refunds, liability and dispute resolution.",
+    "Elite Manufacturing Group's terms of sale: refunds, orders, pricing, payment, delivery, site access, warranty, liability and disputes.",
 };
 
 /* Anchors people are sent to. The refunds one matters most: /return-policy
