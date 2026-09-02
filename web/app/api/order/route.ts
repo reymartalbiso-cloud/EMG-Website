@@ -1,7 +1,8 @@
 import "server-only";
-import { NextResponse } from "next/server";
+import { NextResponse, after } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { validateOrderRequest, isBot, toRow } from "@/lib/enquiry";
+import { sendOrderConfirmation } from "@/lib/confirmMail";
 
 /**
  * The website's order button.
@@ -83,6 +84,38 @@ export async function POST(request: Request) {
       { error: `We couldn't submit that automatically. ${FALLBACK}`, fallback: true },
       { status: 502 }
     );
+  }
+
+  /* The receipt, AFTER the response is on its way: the customer's
+     confirmation must never wait on Microsoft, and a mail failure must never
+     turn a stored order into an on-screen error.
+
+     Fresh inserts only. Duplicates returned above never resend, bots never
+     reach here at all, and a per-address count stops the remaining abuse:
+     without it, anyone could POST our form in a loop and have admin@ hose a
+     victim's inbox with receipts. Three an hour is generous for a human
+     configuring two buildings and useless for a spammer. The row is stored
+     regardless; only the email is withheld. */
+  if (data?.ref && parsed.value.email) {
+    const email = parsed.value.email;
+    const ref = data.ref as string;
+    after(async () => {
+      try {
+        const hourAgo = new Date(Date.now() - 3600_000).toISOString();
+        const { count } = await sb
+          .from("web_orders")
+          .select("id", { count: "exact", head: true })
+          .eq("email", email)
+          .gte("created_at", hourAgo);
+        if (count !== null && count > 3) {
+          console.warn(`order receipt withheld for ${ref}: ${count} submissions from this address in the last hour`);
+          return;
+        }
+        await sendOrderConfirmation(parsed.value, ref);
+      } catch (e) {
+        console.warn(`order receipt failed for ${ref}: ${(e as Error).message}`);
+      }
+    });
   }
 
   return NextResponse.json({ ok: true, ref: data?.ref ?? null });
