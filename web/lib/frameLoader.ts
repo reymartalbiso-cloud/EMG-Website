@@ -84,5 +84,22 @@ export function loadSequence(opts: SequenceOpts): { cancel: () => void } {
 export const wantsSmallFrames = () => {
   if (typeof window === "undefined") return false;
   const dpr = Math.min(window.devicePixelRatio || 1, 2);
-  return window.innerWidth * dpr <= 1000;
+  if (window.innerWidth * dpr <= 1000) return true;
+
+  /* Weak desktops get the small set too. The bottleneck on a slow CPU is not
+     drawing the canvas, it is DECODING the source frames: at 4x CPU throttle
+     the camp scrub ran 29fps with 12 visible hitches on the 1440px set and
+     47-60fps with one hitch on the 900px set, same canvas, same code. A
+     900px picture stretched to a big screen is softer, but the reader this
+     fires for was getting a slideshow, and softness moves with the scroll
+     while stutter is what the eye locks onto.
+
+     deviceMemory is capped at 8 and missing outside Chromium, so treat both
+     signals as "only trip on clear evidence": <= 4GB of RAM or <= 4 threads.
+     (Save-data readers never reach this code — the heroes skip the sequence
+     entirely and hold the poster.) */
+  const nav = navigator as Navigator & { deviceMemory?: number };
+  if (nav.deviceMemory !== undefined && nav.deviceMemory <= 4) return true;
+  if (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) return true;
+  return false;
 };
