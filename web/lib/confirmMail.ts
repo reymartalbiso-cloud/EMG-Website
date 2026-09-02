@@ -1,5 +1,6 @@
 import "server-only";
 import type { OrderRequest } from "@/lib/enquiry";
+import { EMG_LOGO_B64 } from "@/lib/emailLogo";
 
 /**
  * The receipt a customer gets after pressing "Send my order request".
@@ -87,10 +88,17 @@ function receiptHtml(v: OrderRequest, ref: string): string {
       ? `<p style="margin:0 0 14px;color:#6b6b6b;font-size:13px;line-height:1.6">The total above is the indicative figure you were shown on our website. It is not a quote. Your written quote will account for your site, access and delivery distance.</p>`
       : "";
 
+  /* The logo's own background is the site's #161616, so it sits on a band of
+     the same colour and reads as one piece: dark brand header, white receipt
+     body. The mark's lettering is white, which is why it cannot sit directly
+     on the white card. */
   return `
   <div style="background:#f6f5f3;padding:32px 16px">
-    <div style="max-width:560px;margin:0 auto;background:#ffffff;border:1px solid #e5e2dd;padding:32px">
-      <p style="margin:0 0 4px;font-size:11px;letter-spacing:2px;color:#9a5b2d;font-weight:bold">ELITE MANUFACTURING GROUP</p>
+    <div style="max-width:560px;margin:0 auto;background:#ffffff;border:1px solid #e5e2dd">
+      <div style="background:#161616;padding:22px 32px;text-align:center">
+        <img src="cid:emg-logo" width="72" height="72" alt="Elite Manufacturing Group" style="display:inline-block;color:#f5f5f5;font-size:12px">
+      </div>
+      <div style="padding:28px 32px 32px">
       <h1 style="margin:0 0 18px;font-size:22px;color:#1a1a1a">We've received your request.</h1>
       <p style="margin:0 0 14px;color:#333;font-size:14px;line-height:1.6">Hi ${esc(v.name)},</p>
       <p style="margin:0 0 14px;color:#333;font-size:14px;line-height:1.6">
@@ -113,6 +121,7 @@ function receiptHtml(v: OrderRequest, ref: string): string {
         Elite Manufacturing Group Pty Ltd &middot; ABN 13 669 513 473 &middot; Darwin, NT<br>
         <a href="https://www.elitemanufacturing.com.au/terms" style="color:#9b9b9b">Terms &amp; conditions</a>
       </p>
+      </div>
     </div>
   </div>`;
 }
@@ -141,6 +150,19 @@ export async function sendOrderConfirmation(v: OrderRequest, ref: string): Promi
           body: { contentType: "HTML", content: receiptHtml(v, ref) },
           toRecipients: [{ emailAddress: { address: v.email } }],
           ccRecipients: CC_INTERNAL.map((address) => ({ emailAddress: { address } })),
+          /* The logo travels WITH the email (Content-ID) rather than being
+             fetched from our site: Outlook blocks remote images by default,
+             and a receipt with a broken-image box reads as phishing. */
+          attachments: [
+            {
+              "@odata.type": "#microsoft.graph.fileAttachment",
+              name: "emg-logo.png",
+              contentType: "image/png",
+              contentId: "emg-logo",
+              isInline: true,
+              contentBytes: EMG_LOGO_B64,
+            },
+          ],
         },
       }),
     }
