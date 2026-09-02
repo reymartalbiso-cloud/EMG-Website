@@ -32,6 +32,8 @@ type Entry = {
   photo: string;
   alt: string;
   href: string;
+  /** price published exactly as supplied — suppress the inc GST label */
+  priceAsGiven?: boolean;
   cta: string;
   live: boolean;
   category: Category;
@@ -66,6 +68,9 @@ const sizeOf = (spec: string) => {
   const m = spec.match(/\b(10ft|13ft|20ft|40ft)\b/i);
   if (m) return m[1].toLowerCase();
   if (/12m/.test(spec)) return "40ft";
+  /* the Retreat is 5.85m — 20ft-class for filtering, stated in metres on the
+     card because Ben corrected the length (1 Sep 2026) */
+  if (/5\.85m/.test(spec)) return "20ft";
   return "Any";
 };
 
@@ -95,6 +100,7 @@ const ENTRIES: Entry[] = [
     photo: cover(c),
     alt: coverAlt(c),
     href: `/shop/${c.slug}`,
+    priceAsGiven: c.priceAsGiven,
     cta: "See this build",
     live: false,
     category: c.category,
@@ -249,7 +255,7 @@ export default function ShopGrid() {
                       few catalogue items sell as a range — everything else is
                       the published fixed price, so don't say "from" */}
                   <span className="from mono">{m.live || m.from ? "FROM" : "PRICE"}</span>{" "}
-                  {money(m.price)} <small>inc GST</small>
+                  {money(m.price)}{!m.priceAsGiven && <> <small>inc GST</small></>}
                 </p>
                 <Link className={`btn ${m.live ? "btn-accent" : "btn-ghost"}`} href={m.href}>
                   {m.cta} ↗

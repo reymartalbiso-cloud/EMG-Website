@@ -25,7 +25,7 @@ export async function generateMetadata(
     ? c.blurb
     : c.blurb.slice(0, 155).replace(/[\s,.;:]+\S*$/, "") + "…";
   return {
-    title: `${c.name} — ${c.from ? "from " : ""}${money(c.price)} inc GST`,
+    title: `${c.name} — ${c.from ? "from " : ""}${money(c.price)}${c.priceAsGiven ? "" : " inc GST"}`,
     description: snippet,
     alternates: { canonical: `/shop/${c.slug}` },
     /* F-05: the shared link shows this build, not the site-wide fallback */
@@ -93,8 +93,10 @@ export default async function CatalogueProduct(
               ))}
             </div>
             <p className="shop-price cat-price">
-              <span className="from mono">{c.from ? "FROM" : "PRICE"}</span> {money(c.price)}{" "}
-              <small>inc GST</small>
+              <span className="from mono">{c.from ? "FROM" : "PRICE"}</span> {money(c.price)}
+              {/* priceAsGiven: Ben stated this price with no GST position, so
+                  the page states exactly what he stated */}
+              {!c.priceAsGiven && <>{" "}<small>inc GST</small></>}
             </p>
           </div>
 

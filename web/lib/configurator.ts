@@ -59,7 +59,9 @@ export const MODELS: Model[] = [
     base: 36000,
     ac: "mix",
     show: ["colour", "bench", "tap", "floor", "hw", "ac", "delivery"],
-    spec: "20ft · 1 room · kitchen · ensuite",
+    /* Ben, 1 Sep 2026: the Retreat is 5.85m, not 6m — so not "20ft" either,
+       which reads as 6.06m. The one model whose length is stated in metres. */
+    spec: "5.85m · 1 room · kitchen · ensuite",
     photo: img("rt_ext"),
     carousel: [...["rt_ext", "rt_int", "rt_bath", "rt_bath2", "rt_ext2", "rt_yard"].map(img), plan("st_fp")],
   },

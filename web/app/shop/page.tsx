@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/shop" },
   title: "Shop All Models & Prices",
   description:
-    "Every Elite Manufacturing model in one place. Filter by bedrooms, size and price. All prices inc GST, configured and quoted live in Build Your Own.",
+    "Every Elite Manufacturing model in one place. Filter by bedrooms, size and price, then configure and quote it live in Build Your Own.",
 };
 
 export default function Shop() {
@@ -25,7 +25,7 @@ export default function Shop() {
           <p className="section-sub">
             Filter by what matters to you (bedrooms, size or budget), then
             take any model into Build Your Own to spec it and price it live.
-            All prices inc GST.
+            GST treatment is shown with each price.
           </p>
         </Reveal>
       </div>

@@ -80,19 +80,26 @@ const withContext = <T extends object>(o: T) => ({ "@context": "https://schema.o
    `price: 54900` for The Infinity Cube would be a claim we do not honour the
    moment somebody adds aircon, and the same is true of the five catalogue
    items the live shop sells as a range. */
-function offer(low: number, exact: boolean, url: string) {
+function offer(low: number, exact: boolean, url: string, noGstClaim = false) {
   const common = {
     priceCurrency: "AUD",
     availability: "https://schema.org/InStock",
     seller: { "@id": ORG_ID },
     url,
-    /* prices on this site include GST, which is not the default assumption */
-    priceSpecification: {
-      "@type": "PriceSpecification",
-      valueAddedTaxIncluded: true,
-      priceCurrency: "AUD",
-      price: low,
-    },
+    /* prices on this site include GST, which is not the default assumption.
+       The exception is a price supplied with no GST position (priceAsGiven):
+       claiming valueAddedTaxIncluded there would put words in Ben's mouth,
+       so that offer carries no tax statement at all. */
+    ...(noGstClaim
+      ? {}
+      : {
+          priceSpecification: {
+            "@type": "PriceSpecification",
+            valueAddedTaxIncluded: true,
+            priceCurrency: "AUD",
+            price: low,
+          },
+        }),
   };
   return exact
     ? { "@type": "Offer", price: low, ...common }
@@ -109,7 +116,7 @@ export function productSchema(c: CatalogueItem) {
     category: c.category,
     brand: { "@type": "Brand", name: "Elite Manufacturing Group" },
     url,
-    offers: offer(c.price, !c.from, url),
+    offers: offer(c.price, !c.from, url, c.priceAsGiven),
   });
 }
 

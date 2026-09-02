@@ -35,6 +35,11 @@ export type CatalogueItem = {
   plansFrom?: number;
   /** no photography exists yet; the card shows the schematic */
   planOnly?: boolean;
+  /** Ben supplied this price with no GST position, so it is published exactly
+      as given: no "inc GST", no "ex GST", no "from" — anywhere it renders,
+      including metadata and JSON-LD. Resolve against the standing GST question
+      before ever removing this flag. */
+  priceAsGiven?: boolean;
 };
 
 const C: CatalogueItem[] = [
@@ -61,6 +66,25 @@ const C: CatalogueItem[] = [
     blurb:
       "A full 40ft body on a heavy steel chassis and off-road wheels. Insulated walls and ceiling, kitchen, bathroom, split-system aircon, wired and plumbed throughout.",
     shots: 6,
+  },
+  {
+    /* Ben, 1 Sep 2026: "could you please upload this to our website as the
+       commercial kitchen price $44,900". New listing, price exactly as he gave
+       it. No spec beyond the size and no inclusions ANYWHERE on this page —
+       there is no verified inclusions list yet, and an inclusion on a priced
+       page is a price commitment. The photos are his eight edited picks; the
+       fit-out they show is described as a fit-out, never as what's included.
+       Air-con and hot water may only ever be described as quotable extras
+       installed after delivery. 20ft building — never imply 40ft. */
+    slug: "commercial-kitchen",
+    name: "Commercial Kitchen",
+    price: 44900,
+    priceAsGiven: true,
+    category: "Commercial",
+    spec: "20ft",
+    blurb:
+      "A 20ft commercial kitchen building. The photographs show a recent fit-out; the exact specification for your kitchen is settled on your written quote, so what arrives matches your site and the way you cook.",
+    shots: 8,
   },
   {
     slug: "mobile-village-13x-shipping-containers",

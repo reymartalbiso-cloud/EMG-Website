@@ -19,6 +19,11 @@
  */
 
 export const COPY: Record<string, string[]> = {
+  "commercial-kitchen": [
+    "A commercial kitchen in a 20ft building: one truck, one lift, and a kitchen on site the same day it arrives. It suits camp catering, event grounds, station cookhouses and any operation that needs to feed people properly without waiting for a built kitchen.",
+    "The photographs on this page show one recent fit-out. Benches, appliances and cold storage are specified with you and confirmed on your written quote, so the kitchen that arrives is built around the way you cook rather than a brochure. Air conditioning and hot water can be quoted as extras and installed after delivery.",
+    "Delivery is priced from your site like every building we sell: the first 100km of road transport is included and it is $15 a kilometre after that, with a typical lead time of 4 to 6 months from order.",
+  ],
   "vantalux-350": [
     "The largest thing we sell and the one with the fewest fixed decisions. Twelve metres by three and a half gives you two bedrooms, two bathrooms, a full kitchen and a living area without the compromises that come with fitting a home inside a shipping container's width.",
     "At this size the configuration conversation happens before anything is built rather than after. Layout, finishes and where the walls land are settled at order, which is also why it is the model people come to when they have a plan of their own rather than a preference between ours.",
