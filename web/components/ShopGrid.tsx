@@ -140,6 +140,7 @@ export default function ShopGrid() {
   const hasNtStock = ENTRIES.some((m) => m.ntOnly);
   const gridRef = useRef<HTMLDivElement>(null);
   const flipState = useRef<ReturnType<typeof Flip.getState> | null>(null);
+  const flipTl = useRef<gsap.core.Timeline | null>(null);
 
   const results = useMemo(() => {
     const list = ENTRIES.filter((m) => {
@@ -156,15 +157,21 @@ export default function ShopGrid() {
     return sort === 0 ? list : [...list].sort((a, b) => SORTS[sort].cmp(a.price, b.price));
   }, [cat, beds, size, price, sort, liveOnly, ntFilter, q]);
 
-  /* FLIP: capture positions before a filter/sort change, animate after */
+  /* FLIP: capture positions before a filter/sort change, animate after.
+     The search box calls this on EVERY keystroke, and a Flip mid-flight has
+     the cards absolutely positioned — capturing THAT and starting another
+     animation strands cards on top of each other (Reymart's screenshot,
+     typing "van", 4 Sep). So any animation still running is jumped to its
+     end first: layout restored, absolute positioning cleaned up, and only
+     then is the state photographed. */
   const capture = () => {
-    if (gridRef.current) {
-      flipState.current = Flip.getState(gridRef.current.querySelectorAll(".pcard"));
-    }
+    if (!gridRef.current) return;
+    if (flipTl.current?.isActive()) flipTl.current.progress(1);
+    flipState.current = Flip.getState(gridRef.current.querySelectorAll(".pcard"));
   };
   useLayoutEffect(() => {
     if (!flipState.current) return;
-    Flip.from(flipState.current, {
+    flipTl.current = Flip.from(flipState.current, {
       duration: 0.45,
       ease: "power2.inOut",
       stagger: 0.02,
