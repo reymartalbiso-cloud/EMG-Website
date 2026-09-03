@@ -242,14 +242,21 @@ export default function ShopGrid() {
           const chips = m.spec.split("·").map((s) => s.trim());
           return (
             <div className={`pcard${idx === 0 ? " pcard-feature" : ""}`} key={m.id} data-flip-id={m.id}>
-              <div className="pcard-media">
+              {/* Ben, 4 Sep: tapping the product must open its gallery. Only
+                  the CTA button was a link, so on a phone the photo and the
+                  name answered a tap with nothing. Both now go where the
+                  button goes: the product page and its gallery, or the
+                  configurator and its carousel. */}
+              <Link className="pcard-media" href={m.href} aria-label={`${m.name} — photos and details`}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={m.photo} alt={m.name} loading="lazy" />
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img className="img-alt" src={m.alt} alt="" loading="lazy" aria-hidden="true" />
-              </div>
+              </Link>
               <div className="pcard-body">
-                <h3 className="display">{m.name}</h3>
+                <h3 className="display">
+                  <Link href={m.href}>{m.name}</Link>
+                </h3>
                 <div className="spec-chips" aria-label="Specifications">
                   {chips.map((c) => (
                     <span className="mono spec-chip" key={c}>{c.toUpperCase()}</span>
