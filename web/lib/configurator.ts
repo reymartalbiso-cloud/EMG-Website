@@ -56,7 +56,8 @@ export const MODELS: Model[] = [
   {
     id: "studio",
     name: "The Retreat",
-    base: 36000,
+    /* Ben, WhatsApp 3 Sep 10:05: "Retreats can be 34900 for the 20-foot" */
+    base: 34900,
     ac: "mix",
     show: ["colour", "bench", "tap", "floor", "hw", "ac", "delivery"],
     /* Ben, 1 Sep 2026: the Retreat is 5.85m, not 6m — so not "20ft" either,
@@ -173,3 +174,89 @@ export const AC_UNITS = {
 export const KM_RATE = 15;
 
 export const money = (n: number) => "$" + n.toLocaleString("en-AU");
+
+/* ---------------------------------------------------------------------------
+   The four LAYOUT FAMILIES the page now leads with.
+
+   Ben, WhatsApp 3 Sep 10:05: "I think it should just lead with a layout of
+   each type of building that we can customize rather than having the product
+   there to start with. Our customizable layouts are currently: 20- and
+   40-foot-high cube containers / 350 and 450 Vantalux / 20-foot slide-out and
+   / 20 and 40ft retreat models with cladding."
+
+   No price is ever written here: members point at MODELS or the catalogue so
+   every figure keeps exactly one source. "enquire" members exist for the two
+   buildings Ben named that have no page yet (Vantalux 450 has no price from
+   him at all; the 40ft Retreat has one but Reymart is holding the page until
+   Ben confirms) — they show no number, only a way to ask.
+
+   Not placed in any family, still in the model picker below: the 40ft
+   slide-out (Ben's list says only "20-foot slide-out" and Reymart's brief
+   says leave it as it is until Ben says where it goes) and the Custom build,
+   which is by definition every layout. */
+export type FamilyMember =
+  | { kind: "model"; id: string }
+  | { kind: "catalogue"; slug: string }
+  | { kind: "enquire"; name: string };
+
+export type Family = {
+  id: string;
+  name: string;
+  sizes: string;
+  /** the layout drawing or top-down view that leads the card */
+  plan: string;
+  /** line art needs paper behind it; top-down renders do not */
+  planIsLineArt?: boolean;
+  blurb: string;
+  members: FamilyMember[];
+};
+
+export const FAMILIES: Family[] = [
+  {
+    id: "hc",
+    name: "High cube container",
+    sizes: "20ft & 40ft",
+    plan: "/cfg/dl_fp-sm.webp",
+    planIsLineArt: true,
+    blurb: "The shell that started it all, fitted out to your layout. One or two bedrooms in a 20ft; full homes and crew accommodation in a 40ft.",
+    members: [
+      { kind: "catalogue", slug: "one-two-bedroom-20ft-buildings" },
+      { kind: "catalogue", slug: "2-bedroom-20ft-building" },
+      { kind: "model", id: "one" },
+      { kind: "model", id: "family" },
+      { kind: "model", id: "workers" },
+    ],
+  },
+  {
+    id: "vx",
+    name: "Vantalux",
+    sizes: "350 & 450",
+    plan: "/shop/vantalux-350/06-sm.webp",
+    blurb: "Our largest homes, settled finish by finish before the build starts.",
+    members: [
+      { kind: "catalogue", slug: "vantalux-350" },
+      { kind: "enquire", name: "Vantalux 450" },
+    ],
+  },
+  {
+    id: "so",
+    name: "Slide-out",
+    sizes: "20ft",
+    plan: "/cfg/sl_fp-sm.webp",
+    planIsLineArt: true,
+    blurb: "Arrives closed on one truck; the living space slides out on site.",
+    members: [{ kind: "model", id: "ob20" }],
+  },
+  {
+    id: "rt",
+    name: "Retreat, clad",
+    sizes: "20ft & 40ft",
+    plan: "/cfg/st_fp.jpg",
+    planIsLineArt: true,
+    blurb: "External cladding over the whole build, so nothing about it reads as a container.",
+    members: [
+      { kind: "model", id: "studio" },
+      { kind: "enquire", name: "Retreat 40ft" },
+    ],
+  },
+];

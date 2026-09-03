@@ -32,10 +32,10 @@ export default async function BuildYourOwn({
           <p className="eyebrow mono">BUILD YOUR OWN</p>
           <h1 className="display">Pick it. Spec it. We build it.</h1>
           <p className="section-sub">
-            Choose a model and make it yours: colour, benchtop, flooring,
-            tapware, hot water and air conditioning. Your total updates live as
-            you go, and when you&apos;re happy, send it straight to us as your
-            quote request.
+            Start with the layout, pick the version of it that fits, then make
+            it yours: colour, benchtop, flooring, tapware, hot water and air
+            conditioning. Your total updates live as you go, and when
+            you&apos;re happy, send it straight to us as your quote request.
           </p>
         </Reveal>
       </div>

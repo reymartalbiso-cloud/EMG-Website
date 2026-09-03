@@ -2005,6 +2005,36 @@ input:focus-visible, select:focus-visible, textarea:focus-visible {
 .cfg-lightbox.lb-plan img { background: #f4f2ee; padding: 1rem; border-radius: 4px; }
 .cfg-car img.cfg-car-plan { background: #f4f2ee; padding: 8px; }
 
+/* ---------- Layout families (Ben, 3 Sep: lead with the layout) ---------- */
+.fam-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-3); }
+@media (max-width: 900px) { .fam-grid { grid-template-columns: 1fr; } }
+.fam-card {
+  background: var(--bg-2); border: 1px solid var(--line); border-radius: 6px;
+  overflow: hidden; display: flex; flex-direction: column;
+}
+.fam-plan { aspect-ratio: 16 / 9; overflow: hidden; }
+.fam-plan img { width: 100%; height: 100%; object-fit: cover; display: block; }
+/* dimensioned line art is black on white; give it paper, not the dark plate */
+.fam-plan.paper { background: #f4f2ee; }
+.fam-plan.paper img { object-fit: contain; padding: 10px; }
+.fam-body { padding: var(--space-3); display: flex; flex-direction: column; gap: 0.5rem; }
+.fam-sizes { font-size: 0.7rem; letter-spacing: 0.12em; color: var(--accent-text); }
+.fam-body h3 { margin: 0; font-size: 1.5rem; }
+.fam-blurb { margin: 0 0 0.4rem; color: var(--text-mid); font-size: 0.95rem; line-height: 1.6; }
+.fam-members { list-style: none; margin: 0; padding: 0; }
+.fam-members li {
+  display: flex; align-items: center; gap: var(--space-2);
+  padding: 0.65rem 0; border-top: 1px solid var(--line);
+}
+.fm-name { flex: 1; color: var(--text-hi); font-size: 0.95rem; }
+.fm-price { color: var(--text-mid); font-size: 0.88rem; white-space: nowrap; }
+.fm-poa { font-style: normal; letter-spacing: 0.02em; }
+.fm-btn { padding: 7px 13px; font-size: 0.8rem; white-space: nowrap; }
+@media (max-width: 520px) {
+  .fam-members li { flex-wrap: wrap; }
+  .fm-btn { margin-left: auto; }
+}
+
 /* ---------- Testimonial quotes, rendered as text ---------- */
 /* The 3D map is the experience; this is the same four testimonials as words a
    crawler, a screen reader and a customer skimming can all reach without

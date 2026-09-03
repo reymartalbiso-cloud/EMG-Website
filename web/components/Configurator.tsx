@@ -7,8 +7,10 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
-  MODELS, COLOURS, BENCHTOPS, FLOORS, DOORS, HOT_WATER, AC_UNITS, KM_RATE, money, thumb,
+  MODELS, COLOURS, BENCHTOPS, FLOORS, DOORS, HOT_WATER, AC_UNITS, KM_RATE, money, thumb, FAMILIES,
 } from "@/lib/configurator";
+import { bySlug } from "@/lib/catalogue";
+import Link from "next/link";
 import LayoutDesigner from "@/components/LayoutDesigner";
 import type { PlacedItem } from "@/lib/fixtures";
 
@@ -147,29 +149,69 @@ export default function Configurator({ initialModel }: { initialModel?: string }
 
   return (
     <>
-      {/* Range cards */}
+      {/* The layouts. Ben, 3 Sep: "lead with a layout of each type of
+          building that we can customize rather than having the product there
+          to start with" — so the page opens on the four shells, each led by
+          its layout drawing, with the finished products underneath as
+          versions of it. */}
       <section className="section" id="range" style={{ paddingBottom: 0 }}>
         <div className="section-head">
-          <h2 className="display">Built for every site.</h2>
-          <p className="section-sub">All prices inc GST.</p>
+          <h2 className="display">Start with the layout.</h2>
+          <p className="section-sub">
+            Four buildings we customise. Pick the layout, then the version of
+            it that fits. All prices inc GST.
+          </p>
         </div>
-        <div className="card-grid">
-          {MODELS.map((m) => (
-            <div className="pcard" key={m.id}>
-              <div className="pcard-media">
+        <div className="fam-grid">
+          {FAMILIES.map((f) => (
+            <div className="fam-card" key={f.id}>
+              <div className={`fam-plan${f.planIsLineArt ? " paper" : ""}`}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={thumb(m.photo)} alt={m.name} loading="lazy" />
+                <img src={f.plan} alt={`${f.name} layout`} loading="lazy" />
               </div>
-              <div className="pcard-body">
-                <h3 className="display">{m.name}</h3>
-                <p style={{ flex: "none" }}>{m.spec}</p>
-                {m.glass && <p className="cfg-glass mono">{m.glass.toUpperCase()}</p>}
-                <p className="cfg-price">
-                  From {money(m.base)} <small>inc GST</small>
-                </p>
-                <button className="btn btn-accent" onClick={() => pickModel(m.id, true)}>
-                  Build now ↗
-                </button>
+              <div className="fam-body">
+                <p className="mono fam-sizes">{f.sizes.toUpperCase()}</p>
+                <h3 className="display">{f.name}</h3>
+                <p className="fam-blurb">{f.blurb}</p>
+                <ul className="fam-members">
+                  {f.members.map((mem) => {
+                    if (mem.kind === "model") {
+                      const m = MODELS.find((x) => x.id === mem.id)!;
+                      return (
+                        <li key={mem.id}>
+                          <span className="fm-name">{m.name}</span>
+                          <span className="fm-price">from {money(m.base)}</span>
+                          <button className="btn btn-accent fm-btn" onClick={() => pickModel(m.id, true)}>
+                            Build now ↗
+                          </button>
+                        </li>
+                      );
+                    }
+                    if (mem.kind === "catalogue") {
+                      const c = bySlug(mem.slug)!;
+                      return (
+                        <li key={mem.slug}>
+                          <span className="fm-name">{c.name}</span>
+                          <span className="fm-price">{c.from ? "from " : ""}{money(c.price)}</span>
+                          <Link className="btn btn-ghost fm-btn" href={`/shop/${c.slug}`}>
+                            See this build ↗
+                          </Link>
+                        </li>
+                      );
+                    }
+                    /* no page and no confirmed price yet — a way to ask,
+                       never a number */
+                    return (
+                      <li key={mem.name}>
+                        <span className="fm-name">{mem.name}</span>
+                        <span className="fm-price fm-poa">priced on enquiry</span>
+                        <Link className="btn btn-ghost fm-btn" href="/contact">
+                          Ask us ↗
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
               </div>
             </div>
           ))}
