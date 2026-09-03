@@ -100,6 +100,12 @@ export default async function CatalogueProduct(
             </p>
           </div>
 
+          {/* Ben's "little disclaimer" (4 Sep): interstate minimums and the
+              Darwin-only boundary are notes, never checkout rules, and the
+              wording deliberately does not say whether building types can be
+              mixed to reach a minimum — he has not answered that. */}
+          {c.deliveryNote && <p className="cat-note">{c.deliveryNote}</p>}
+
           {c.planOnly ? (
             <p className="cat-note">
               We have not photographed this one yet, so the drawing is what we

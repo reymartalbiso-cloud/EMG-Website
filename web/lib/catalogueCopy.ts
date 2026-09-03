@@ -30,11 +30,11 @@ export const COPY: Record<string, string[]> = {
     "The images on this page are the design renders and the dimensioned drawings. We have not photographed a completed Vantalux yet, and would rather tell you that than let a render pass for a photograph.",
   ],
   "40ft-steel-frame-caravan-customisable": [
-    "A full forty-foot body on a heavy steel chassis and off-road wheels: insulated walls and ceiling, kitchen, bathroom, split-system air conditioning, wired and plumbed. It is the size of our 40ft homes, on wheels.",
+    "A full forty-foot body on a heavy steel chassis and off-road wheels: insulated walls and ceiling, kitchen and bathroom, wired and plumbed. It is the size of our 40ft homes, on wheels. Air conditioning can be quoted as an extra and installed after delivery.",
     "That combination suits people who need the building to move again. Stations that shift a crew between paddocks, contractors who follow the work, anyone who does not want the building to be a permanent decision about a permanent address. It tows rather than needing a crane on both ends.",
   ],
   "20ft-customisable-steel-frame-caravan": [
-    "The twenty-foot version, on the same heavy chassis and off-road wheels. Insulated, with kitchen, bathroom and air conditioning, in a body you can tow behind a serious vehicle rather than book a truck for.",
+    "The twenty-foot version, on the same heavy chassis and off-road wheels. Insulated, with kitchen and bathroom, in a body you can tow behind a serious vehicle rather than book a truck for.",
     "The trade against the 40ft is floor area for manoeuvrability. If the tracks you use are tight, or you expect to move it more than once a year, the shorter body is usually the right call even though the price gap is not large.",
   ],
   "the-caravan": [
@@ -97,12 +97,14 @@ export const COPY: Record<string, string[]> = {
   "2-bedroom-20ft-building": [
     "Two bedrooms and a bathroom inside a twenty-foot shell. It is the cheapest way we can put two separate sleeping rooms on a block.",
     "Twenty feet is not much to divide twice, and the honest way to describe the result is compact rather than roomy. People buy it because two doors matter more to them than floor area — a second child, a parent, a shift worker who sleeps at odd hours.",
-    "Listed from a figure because the fit-out varies with what you choose.",
+    "The building is coolroom panel on a steel frame, and the same shell comes in three layouts at the same price: open plan, self-contained, or two-bedroom. Air conditioning and hot water can be quoted as extras and installed after delivery.",
+    "Delivered in the Darwin region only.",
   ],
   "one-two-bedroom-20ft-buildings": [
     "A single bedroom, a bathroom and a living space in a twenty-foot building. Our entry point into something finished and liveable rather than a shell.",
     "The same shell as the two-bedroom, with the floor area spent on living space instead of a second door. For one person or a couple this is almost always the better of the two.",
-    "Listed from a figure because the fit-out varies with what you choose.",
+    "The building is coolroom panel on a steel frame, and the same shell comes in three layouts at the same price: open plan, self-contained, or two-bedroom. Air conditioning and hot water can be quoted as extras and installed after delivery.",
+    "Delivered in the Darwin region only.",
   ],
   "13ft-bedroom-add-on": [
     "A thirteen-foot room that couples onto a building you already have. For when the family grew after the house arrived.",

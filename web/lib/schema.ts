@@ -116,7 +116,11 @@ export function productSchema(c: CatalogueItem) {
     category: c.category,
     brand: { "@type": "Brand", name: "Elite Manufacturing Group" },
     url,
-    offers: offer(c.price, !c.from, url, c.priceAsGiven),
+    offers: {
+      ...offer(c.price, !c.from, url, c.priceAsGiven),
+      /* the coolroom panel buildings do not ship interstate (Ben, 4 Sep) */
+      ...(c.darwinOnly ? { areaServed: { "@type": "City", name: "Darwin" } } : {}),
+    },
   });
 }
 

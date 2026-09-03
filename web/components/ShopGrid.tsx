@@ -29,6 +29,8 @@ type Entry = {
   spec: string;
   glass?: string;
   ntOnly?: boolean;
+  /** stricter than ntOnly: Darwin region only (Ben, 4 Sep) */
+  darwinOnly?: boolean;
   photo: string;
   alt: string;
   href: string;
@@ -101,6 +103,7 @@ const ENTRIES: Entry[] = [
     alt: coverAlt(c),
     href: `/shop/${c.slug}`,
     priceAsGiven: c.priceAsGiven,
+    darwinOnly: c.darwinOnly,
     cta: "See this build",
     live: false,
     category: c.category,
@@ -137,7 +140,7 @@ export default function ShopGrid() {
   const [q, setQ] = useState("");
   /* the NT controls exist only once a flagged model exists — invisible until
      Joel's D-types and fold-outs land */
-  const hasNtStock = ENTRIES.some((m) => m.ntOnly);
+  const hasNtStock = ENTRIES.some((m) => m.ntOnly || m.darwinOnly);
   const gridRef = useRef<HTMLDivElement>(null);
   const flipState = useRef<ReturnType<typeof Flip.getState> | null>(null);
   const flipTl = useRef<gsap.core.Timeline | null>(null);
@@ -149,8 +152,8 @@ export default function ShopGrid() {
       if (size !== "All" && m.size !== size && m.size !== "Any") return false;
       if (!PRICE_FILTERS[price].test(m.price)) return false;
       if (liveOnly && !m.live) return false;
-      if (ntFilter === "nt" && !m.ntOnly) return false;
-      if (ntFilter === "everywhere" && m.ntOnly) return false;
+      if (ntFilter === "nt" && !m.ntOnly && !m.darwinOnly) return false;
+      if (ntFilter === "everywhere" && (m.ntOnly || m.darwinOnly)) return false;
       if (q && !(m.name + " " + m.spec + " " + m.category).toLowerCase().includes(q.toLowerCase())) return false;
       return true;
     });
@@ -263,6 +266,7 @@ export default function ShopGrid() {
                   ))}
                   {m.glass && <span className="mono spec-chip glass">{m.glass.toUpperCase()}</span>}
                   {m.ntOnly && <span className="mono spec-chip nt-only">NT DELIVERY ONLY</span>}
+                  {m.darwinOnly && <span className="mono spec-chip nt-only">DARWIN DELIVERY ONLY</span>}
                 </div>
                 <p className="shop-price">
                   {/* the seven configurable models price up from a base, and a

@@ -35,6 +35,15 @@ export type CatalogueItem = {
   plansFrom?: number;
   /** no photography exists yet; the card shows the schematic */
   planOnly?: boolean;
+  /** shown as a note on the product page: interstate minimums, or a
+      delivery boundary. Ben called it "a little disclaimer" (4 Sep) — a note
+      only, never a checkout rule, and worded so it does not answer whether a
+      buyer can mix building types to reach a minimum, because he has not
+      answered that. */
+  deliveryNote?: string;
+  /** Ben, 4 Sep, on the coolroom panel buildings: "Yes Darwin only". Shows
+      the card chip and keeps the item out of the delivered-anywhere filter. */
+  darwinOnly?: boolean;
   /** Ben supplied this price with no GST position, so it is published exactly
       as given: no "inc GST", no "ex GST", no "from" — anywhere it renders,
       including metadata and JSON-LD. Resolve against the standing GST question
@@ -64,7 +73,7 @@ const C: CatalogueItem[] = [
     category: "Caravans",
     spec: "40ft · steel chassis · off-road wheels",
     blurb:
-      "A full 40ft body on a heavy steel chassis and off-road wheels. Insulated walls and ceiling, kitchen, bathroom, split-system aircon, wired and plumbed throughout.",
+      "A full 40ft body on a heavy steel chassis and off-road wheels. Insulated walls and ceiling, kitchen and bathroom, wired and plumbed throughout. Air conditioning can be quoted as an extra and installed after delivery.",
     shots: 6,
   },
   {
@@ -179,7 +188,7 @@ const C: CatalogueItem[] = [
     category: "Caravans",
     spec: "20ft · steel chassis · off-road wheels",
     blurb:
-      "The 20ft version of our steel-frame caravan. Same heavy chassis and off-road wheels, insulated, with kitchen, bathroom and aircon in a body you can tow anywhere in the Territory.",
+      "The 20ft version of our steel-frame caravan. Same heavy chassis and off-road wheels, insulated, with kitchen and bathroom, in a body you can tow anywhere in the Territory.",
     shots: 4,
   },
   {
@@ -263,23 +272,33 @@ const C: CatalogueItem[] = [
     slug: "2-bedroom-20ft-building",
     name: "Two Bedroom 20ft Building",
     price: 21400,
-    from: true,
     category: "Compact homes",
-    spec: "20ft · 2 bed · bathroom",
+    spec: "20ft · coolroom panel · 2 bed · bathroom",
     blurb:
-      "Two bedrooms and a bathroom inside a 20ft shell. The cheapest way we can put two separate sleeping rooms on a block.",
+      "Two bedrooms and a bathroom in a 20ft coolroom-panel building. The cheapest way we can put two separate sleeping rooms on a block. Darwin delivery only.",
+    deliveryNote:
+      "Delivered in the Darwin region only. This building does not ship interstate.",
+    darwinOnly: true,
     shots: 8,
     plansFrom: 7,
   },
   {
+    /* Ben, 4 Sep: these ARE his "20ft coolroom panel building" — the photos
+       show the same flat-panel build on both pages, so his three variants
+       live here rather than as duplicate listings at the same price. Flat
+       $21,400 across variants (his figure), Darwin only (his words: "Yes
+       Darwin only"), and air-con is "additional charge" — standard wording
+       only. */
     slug: "one-two-bedroom-20ft-buildings",
     name: "One Bedroom 20ft Building",
     price: 21400,
-    from: true,
     category: "Compact homes",
-    spec: "20ft · 1 bed · bathroom",
+    spec: "20ft · coolroom panel · 1 bed · bathroom",
     blurb:
-      "A single bedroom, bathroom and living space in a 20ft building. Our entry point into a finished, liveable building.",
+      "A single bedroom, bathroom and living space in a 20ft coolroom-panel building. Our entry point into a finished, liveable building. Darwin delivery only.",
+    deliveryNote:
+      "Delivered in the Darwin region only. This building does not ship interstate.",
+    darwinOnly: true,
     shots: 8,
     plansFrom: 7,
   },
@@ -304,6 +323,8 @@ const C: CatalogueItem[] = [
     blurb:
       "A 10ft block with ramp access, grab rails, a fold-down shower seat and turning space. Built to the same accessibility standard we hold our homes to.",
     shots: 5,
+    deliveryNote:
+      "Interstate orders carry a 3-building minimum. There is no minimum for NT delivery.",
   },
   {
     slug: "13ft-site-office-with-bathroom",
@@ -326,6 +347,8 @@ const C: CatalogueItem[] = [
     blurb:
       "A single toilet and shower finished properly: tiled walls, timber-lined ceiling, real fixtures. What you put on a block when a portaloo would be an insult.",
     shots: 7,
+    deliveryNote:
+      "Interstate orders carry a 6-building minimum. There is no minimum for NT delivery.",
   },
   {
     slug: "portable-double-toilet-block",
@@ -336,6 +359,8 @@ const C: CatalogueItem[] = [
     blurb:
       "Two plumbed cubicles on a base a forklift can pick up. The cheapest thing we make, built to the same standard as everything else.",
     shots: 7,
+    deliveryNote:
+      "Interstate orders carry a 6-building minimum. There is no minimum for NT delivery.",
   },
 ];
 
