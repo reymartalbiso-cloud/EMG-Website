@@ -35,6 +35,21 @@ const ACT_RANGES = [
   { from: 0.82, to: 1.01 },
 ];
 
+/* ?mode=chapters — Reymart's idea (3 Sep): instead of the scroll scrubbing
+   frames, crossing a phase boundary plays the film forward to the next stop
+   at its native rate while the page keeps scrolling freely. Prototype for
+   him and Ben to feel against the scrub; nothing loads it without the flag.
+   The pin, captions and HUD are the same code either way. */
+const chaptersWanted = () => {
+  if (typeof window === "undefined") return false;
+  return new URLSearchParams(window.location.search).get("mode") === "chapters";
+};
+const CHAPTER_VIDEO = "/campframes/camp-chapters.mp4";
+/* rest points as fractions of the film: the start, then each phase boundary,
+   then the finished village (0.9 rather than 1.01 so the ending actually
+   plays when the reader nears the bottom of the pin) */
+const CHAPTER_AT = [0, 0.14, 0.48, 0.78, 0.9];
+
 function slowConnection(): boolean {
   const c = (navigator as any).connection;
   if (!c) return false;
@@ -56,6 +71,8 @@ export default function CampHero() {
     const images: (HTMLImageElement | undefined)[] = new Array(FRAME_COUNT);
     let current = 0;
     let killed = false;
+    /* set only in chapters mode; the scroll trigger feeds it progress */
+    let chapterUpdate: ((p: number) => void) | null = null;
     const cleanups: (() => void)[] = [];
 
     function sizeCanvas() {
@@ -121,9 +138,13 @@ export default function CampHero() {
              the opposite of what a shorter pin would have fixed. */
           scrub: scrubFromUrl(0.3),
           anticipatePin: 1,
-          onUpdate: (self) => updateOverlays(self.progress),
+          onUpdate: (self) => {
+            updateOverlays(self.progress);
+            chapterUpdate?.(self.progress);
+          },
         },
         onUpdate: () => {
+          if (chapterUpdate) return; // the film drives the picture, not the canvas
           /* the float, not the rounded integer: the blend lives between the
              two frames either side of it, and rounding threw that away */
           const f = playhead.frame;
@@ -157,8 +178,61 @@ export default function CampHero() {
       cleanups.push(() => window.removeEventListener("resize", onResize));
     }
 
+    function startChapters() {
+      const video = root.querySelector<HTMLVideoElement>(".hero-video")!;
+      root.classList.add("chapters");
+      video.src = CHAPTER_VIDEO;
+      video.preload = "auto";
+      /* the veil must never wait on a mode the loader knows nothing about */
+      window.dispatchEvent(new CustomEvent("emg:preload", { detail: { loaded: 1, total: 1, ready: true } }));
+      video.addEventListener("canplay", () => { poster.style.opacity = "0"; }, { once: true });
+
+      let stage = 0;          // which rest point the film is parked at (or heading to)
+      let playingTo = -1;     // target time while the film is running, else -1
+      let raf = 0;
+      const stopTime = (k: number) =>
+        Math.min(CHAPTER_AT[k] * (video.duration || 19.9), (video.duration || 19.9) - 0.05);
+
+      const settle = () => {
+        video.pause();
+        video.currentTime = stopTime(stage);
+        playingTo = -1;
+      };
+      const watch = () => {
+        if (playingTo >= 0 && video.currentTime >= playingTo) settle();
+        if (!killed) raf = requestAnimationFrame(watch);
+      };
+      raf = requestAnimationFrame(watch);
+      cleanups.push(() => cancelAnimationFrame(raf));
+
+      const stageOf = (p: number) => {
+        let k = 0;
+        for (let i = 1; i < CHAPTER_AT.length; i++) if (p >= CHAPTER_AT[i]) k = i;
+        return k;
+      };
+      chapterUpdate = (p: number) => {
+        const k = stageOf(p);
+        if (k === stage) return;
+        if (k > stage) {
+          /* forward: let the film run to the new rest point at its own pace */
+          stage = k;
+          playingTo = stopTime(k);
+          video.play()?.catch(() => { /* autoplay veto: park at the stop instead */ settle(); });
+        } else {
+          /* backward: film can't run in reverse, so cut straight to the stop */
+          stage = k;
+          settle();
+        }
+      };
+
+      /* same pin, same captions, same HUD — only the picture's driver differs */
+      start();
+    }
+
     if (slowConnection()) {
       startStatic();
+    } else if (chaptersWanted()) {
+      startChapters();
     } else {
       /* create the pin EAGERLY at mount — pins created late invalidate other
          triggers' cached positions (the rail-over-video bug). The poster
@@ -194,7 +268,7 @@ export default function CampHero() {
           src={framePath(0)}
           /* the browser picks by viewport x DPR, so a phone takes the
              900px poster and a desktop the full one */
-          srcSet={`${FRAME_DIR_SM}${frameName(0)} 900w, ${FRAME_DIR}${frameName(0)} 1600w`}
+          srcSet={`${FRAME_DIR_SM}${frameName(0)} 900w, ${FRAME_DIR}${frameName(0)} 1440w`}
           sizes="100vw"
           alt=""
           fetchPriority="high"
@@ -204,6 +278,8 @@ export default function CampHero() {
           role="img"
           aria-label="A single accommodation unit multiplying into a full workers' camp village"
         />
+        {/* chapters prototype: empty and inert unless ?mode=chapters sets a src */}
+        <video className="hero-video" playsInline muted preload="none" aria-hidden="true" />
         <div className="hero-vignette" aria-hidden="true" />
 
         <div className="hud mono" aria-hidden="true">

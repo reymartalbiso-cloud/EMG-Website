@@ -237,6 +237,11 @@ html:not(.js) .act > * { transform: none; }
 .hero-stage { position: relative; height: 100vh; height: 100svh; overflow: hidden; }
 .hero-poster, .hero-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
 .hero-poster { object-fit: cover; transition: opacity 0.4s; }
+/* the chapters prototype's film: sits where the canvas sits, shown only when
+   the mode is on */
+.hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; }
+.hero.chapters .hero-video { opacity: 1; }
+.hero.chapters .hero-canvas { opacity: 0; }
 .hero-vignette {
   position: absolute; inset: 0; pointer-events: none;
   background:

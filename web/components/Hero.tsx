@@ -206,7 +206,7 @@ export default function Hero() {
           src={framePath(0)}
           /* the browser picks by viewport x DPR, so a phone takes the
              900px poster and a desktop the full one */
-          srcSet={`${FRAME_DIR_SM}${frameName(0)} 900w, ${FRAME_DIR}${frameName(0)} 1600w`}
+          srcSet={`${FRAME_DIR_SM}${frameName(0)} 900w, ${FRAME_DIR}${frameName(0)} 1440w`}
           sizes="100vw"
           alt=""
           fetchPriority="high"

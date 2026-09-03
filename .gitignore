@@ -26,6 +26,10 @@ build/
 *.mp4
 *.mov
 *.avi
+# The one exception: a film the site SERVES, not source. The chapters
+# prototype (/commercial?mode=chapters) plays this 9.6MB encode of the camp
+# sequence; it has to deploy with public/ like the frames do.
+!web/public/campframes/camp-chapters.mp4
 
 # OS and editor noise
 .DS_Store
