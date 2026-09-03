@@ -10,12 +10,12 @@
    Motion tiers (design doc §3.1): functional pages get state transitions
    only — no decorative scroll choreography. */
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
-import { registerScroller } from "@/lib/scrollLock";
+import { registerScroller, jumpTo } from "@/lib/scrollLock";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -62,6 +62,15 @@ function splitChars(el: HTMLElement) {
 
 export default function ScrollFX() {
   const pathname = usePathname();
+  /* browser back/forward: the browser restores the old position, and that
+     restoration is correct — only forward navigations reset to the top */
+  const popped = useRef(false);
+  const firstRender = useRef(true);
+  useEffect(() => {
+    const onPop = () => { popped.current = true; };
+    window.addEventListener("popstate", onPop);
+    return () => window.removeEventListener("popstate", onPop);
+  }, []);
 
   /* Smooth scroll — once for the whole app */
   useEffect(() => {
@@ -78,6 +87,30 @@ export default function ScrollFX() {
 
   /* Per-page effects — rebuilt on navigation */
   useEffect(() => {
+    /* Every forward navigation starts at the top of the new page. Without
+       this, Lenis carried its position and any un-spent flick momentum from
+       the previous page onto the new one, which clamps to the bottom when the
+       new page is shorter — Reymart hit it on the phone (3 Sep), where flick
+       inertia makes it near-certain, but the mechanism is the same with a
+       mouse wheel. Skipped on first render (reloads restore their position)
+       and on back/forward (the browser's restoration is the right answer).
+       A hash still wins: /terms#refunds lands on the clause, not the top. */
+    if (firstRender.current) {
+      firstRender.current = false;
+    } else if (popped.current) {
+      popped.current = false;
+    } else {
+      /* ScrollTrigger remembers scroll positions and restores them on
+         refresh() — and the heroes call refresh() after mount, so a stale
+         memory from the previous page is a snap to nowhere. GSAP's own SPA
+         guidance: clear it on every route change. */
+      ScrollTrigger.clearScrollMemory?.();
+      const el = window.location.hash
+        ? document.getElementById(window.location.hash.slice(1))
+        : null;
+      jumpTo(el ?? 0);
+    }
+
     const FUNCTIONAL = ["/build-your-own", "/contact", "/faq"];
     const isFunctional = FUNCTIONAL.some((p) => pathname.startsWith(p));
     const finePointer = window.matchMedia("(pointer: fine)").matches;
