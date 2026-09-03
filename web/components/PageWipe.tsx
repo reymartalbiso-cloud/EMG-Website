@@ -1,9 +1,11 @@
 "use client";
 
-/* Route-change wipe, choreographed to Ben's spec (18 Aug): the screen fades
-   to black FIRST, the mark pops up on the black, navigation happens under
-   cover, and then the orange bar sweeps up to carry it all away — nothing
-   ever slides over a still-visible page, which is what he called messy.
+/* Route-change wipe: the screen fades to black FIRST, the mark pops up on
+   the black, navigation happens under cover, and the cover fades away over
+   the new page — nothing ever slides over a still-visible page, which is
+   what Ben called messy (18 Aug). His original spec ended with an orange
+   bar sweeping up to carry the black away; Reymart had it removed (3 Sep)
+   because it read as an orange flash on every navigation.
    No transforms ever touch <main>, so hero pin creation is unaffected.
    Back/forward navigation skips the wipe (no click to intercept). */
 
@@ -20,15 +22,12 @@ export default function PageWipe() {
 
   const reveal = () => {
     if (failsafe.current) { clearTimeout(failsafe.current); failsafe.current = null; }
-    /* the orange bar rises to cover the black, the black (and the mark) leave
-       behind it, and the bar keeps going off the top to reveal the new page */
+    /* the mark leaves first, then the black lifts off the new page. A touch
+       of hold (0.12s) keeps the badge from blinking on very fast loads. */
     gsap.timeline({ onComplete: () => { covering.current = false; } })
-      .fromTo(".wipe-orange", { yPercent: 103 }, { yPercent: 0, duration: 0.38, ease: "power2.in" }, 0.05)
-      .set(".wipe-black", { opacity: 0 })
-      .set(".wipe-badge", { opacity: 0 })
-      .to(".wipe-orange", { yPercent: -103, duration: 0.55, ease: "power3.inOut" }, "+=0.02")
-      .set(".page-wipe", { visibility: "hidden", pointerEvents: "none" })
-      .set(".wipe-orange", { yPercent: 103 });
+      .to(".wipe-badge", { opacity: 0, scale: 0.94, duration: 0.24, ease: "power1.in" }, 0.12)
+      .to(".wipe-black", { opacity: 0, duration: 0.4, ease: "power1.inOut" }, "-=0.08")
+      .set(".page-wipe", { visibility: "hidden", pointerEvents: "none" });
   };
 
   /* intercept internal left-clicks and play the cover before navigating */
@@ -88,7 +87,6 @@ export default function PageWipe() {
             reader navigated or not, 303KB of a logo nobody had asked for. */}
         <img src="/emg-mark-md.webp" alt="" width={512} height={512} />
       </div>
-      <div className="wipe-orange" />
     </div>
   );
 }
