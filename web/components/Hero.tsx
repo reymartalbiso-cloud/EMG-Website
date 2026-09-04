@@ -2,7 +2,7 @@
 
 /* Scroll-scrubbed build sequence — poster-first (§9).
    The first frame renders immediately as a plain <img> so the hero carries
-   itself on any connection; the 361-frame sequence streams in behind it and
+   itself on any connection; the 719-frame sequence streams in behind it and
    the canvas takes over only once enough frames exist. Slow connections and
    Save-Data get the poster + summary instead of the sequence. */
 
@@ -15,7 +15,12 @@ import { makeFrameRenderer, scrubFromUrl, pinFromUrl } from "@/lib/scrubDraw";
 import PreloadVeil from "@/components/PreloadVeil";
 import { PORTAL_URL } from "@/lib/links";
 
-const FRAME_COUNT = 361;
+/* 719: the 24fps source motion-interpolated to 48fps (4 Sep), the same
+   treatment the camp hero already had. Measured before/after on every
+   consecutive pair: median step 11.11 -> 7.37, p90 18.29 -> 12.14, which puts
+   this sequence at 1.11x the camp benchmark instead of 1.79x. The 361-frame
+   sets are in the scratchpad backups if this ever needs reverting. */
+const FRAME_COUNT = 719;
 const FRAME_DIR = "/frames/";
 const FRAME_DIR_SM = "/frames-sm/";
 const frameName = (i: number) =>
@@ -123,11 +128,14 @@ export default function Hero() {
           pin: ".hero-stage",
           /* the floating buttons stand down while this owns the screen */
           onToggle: (self) => setPinned(self.isActive),
-          /* Reymart picked 0.3 over 1 after trying both on the live site, 31 Aug.
-             One second of easing meant the picture arrived a beat after the
-             finger, which read as the sequence being slow rather than smooth —
-             the opposite of what a shorter pin would have fixed. */
-          scrub: scrubFromUrl(0.3),
+          /* 0 is EXPLICIT and it is what has actually shipped since 31 Aug:
+             a Number(null)===0 bug in scrubFromUrl silently overrode the 0.3
+             everyone believed was live, and nobody - Ben included - found the
+             result too tight. The picture answers the finger directly; the
+             only smoothing left is Lenis. (Reymart's original "0.3 over 1"
+             choice was made through the same bug: both test URLs carried
+             explicit params, the no-param page he approved was scrub 0.) */
+          scrub: scrubFromUrl(0),
           anticipatePin: 1,
           onUpdate: (self) => updateOverlays(self.progress),
         },
@@ -220,7 +228,7 @@ export default function Hero() {
 
         <div className="hud mono" aria-hidden="true">
           <span className="hud-line" />
-          <span className="hud-seq">SEQ 001/361</span>
+          <span className="hud-seq">SEQ 001/719</span>
           <span className="hud-phase">PHASE 01 · RAW SHELL</span>
         </div>
 

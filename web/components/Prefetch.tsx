@@ -16,9 +16,9 @@ import { usePathname } from "next/navigation";
 import { coarseCount, interleavedOrder, wantsSmallFrames } from "@/lib/frameLoader";
 
 const SEQS: { route: string; big: string; small: string; count: number }[] = [
-  { route: "/residential", big: "/frames/", small: "/frames-sm/", count: 361 },
+  { route: "/residential", big: "/frames/", small: "/frames-sm/", count: 719 },
   { route: "/commercial", big: "/campframes/", small: "/campframes-sm/", count: 479 },
-  { route: "/how-it-works", big: "/journeyframes/", small: "/journeyframes-sm/", count: 361 },
+  { route: "/how-it-works", big: "/journeyframes/", small: "/journeyframes-sm/", count: 719 },
 ];
 
 const frameName = (i: number) => `frame_${String(i + 1).padStart(3, "0")}.webp`;

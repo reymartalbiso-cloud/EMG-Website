@@ -1,6 +1,6 @@
 /* Sub-frame blending for the scroll-scrub sequences.
  *
- * The three sequences (Hero 361, CampHero 479, JourneySequence 361) each drew
+ * The three sequences (Hero 719, CampHero 479, JourneySequence 719) each drew
  * Math.round(playhead) and redrew only when that integer changed. Measured on
  * 28 Aug, that leaves the picture standing still for most of a slow scroll:
  *
@@ -8,12 +8,15 @@
  *   desktop, 5s  scrub   301/361 shown, 22% repeat, 16% skip ahead
  *   desktop, 1.5s flick   92/361 shown, 51% skip ahead
  *
- * The 63% is the stepping you feel when scrubbing slowly. Adding frames does
- * not fix it — at anything above a crawl we already skip frames, so a denser
- * sequence would just be skipped harder for double the bandwidth (all three
- * sequences are 51MB today). Blending between the two frames either side of
- * the playhead fixes it for nothing: the in-between positions become real
- * pictures instead of a held one.
+ * The 63% is the stepping you feel when scrubbing slowly. Two things fix it,
+ * and both shipped: blending between the frames either side of the playhead
+ * (the in-between positions become real pictures instead of a held one), and
+ * — 4 Sep — motion-interpolating the sequences themselves to 48fps, which
+ * halves how far apart those two pictures are. An earlier version of this
+ * comment argued that adding frames cannot help because flicks skip frames
+ * anyway; that is true at flick speed and beside the point in the crawl
+ * regime where the stepping complaint actually lived, and the camp sequence
+ * (interpolated, densest on the site) was always the one Ben called smooth.
  *
  * The second draw is not free, so it is spent only where it buys something:
  * while the playhead is crawling (a fast scrub is already skipping, and the
@@ -93,10 +96,21 @@ export function makeFrameRenderer(
     return -1;
   }
 
-  function paint(img: HTMLImageElement, alpha: number) {
+  /* A pre-decoded ImageBitmap window was built and measured here on 4 Sep
+     and REJECTED: per-draw decode drops 9.5ms -> 0.6ms in a microbench, but
+     system-level the decode pump competes with raster for the same throttled
+     CPU — flick regime 29fps -> 6fps even with the pump gated to the crawl,
+     and the crawl regime (54fps, 0 long gaps WITHOUT it) picked up 8 long
+     gaps WITH it. Decode-at-paint at crawl is one decode per new frame, which
+     the plain path already does; the window only added lookahead waste and
+     create/close churn. Do not rebuild it without new evidence from a real
+     weak device rather than a throttled emulation. */
+  function paint(index: number, alpha: number) {
+    const img = images[index]!;
+    const iw = img.naturalWidth, ih = img.naturalHeight;
     const cw = canvas.width, ch = canvas.height;
-    const s = Math.max(cw / img.naturalWidth, ch / img.naturalHeight);
-    const w = img.naturalWidth * s, h = img.naturalHeight * s;
+    const s = Math.max(cw / iw, ch / ih);
+    const w = iw * s, h = ih * s;
     ctx.globalAlpha = alpha;
     ctx.drawImage(img, (cw - w) / 2, (ch - h) / 2, w, h);
     ctx.globalAlpha = 1;
@@ -143,8 +157,8 @@ export function makeFrameRenderer(
       below >= 0 && span > 0 && t > 0.02 && t < 0.995 && crawling;
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    paint(images[wantBlend ? below : base]!, 1);
-    if (wantBlend) paint(images[above]!, t);
+    paint(wantBlend ? below : base, 1);
+    if (wantBlend) paint(above, t);
 
     /* self-tuning: a device that cannot hold ~45fps has nothing spare for the
        second draw. Judged only once past warm-up, and only while we are
@@ -176,7 +190,17 @@ export function makeFrameRenderer(
    for an A/B against the old behaviour. */
 export function scrubFromUrl(fallback: number): number {
   if (typeof window === "undefined") return fallback;
-  const v = Number(new URLSearchParams(window.location.search).get("scrub"));
+  /* Number(null) === 0, and 0 is inside the valid range — so before this
+     guard, a page with NO ?scrub param silently ran scrub 0 and the fallback
+     was dead code. That shipped on 31 Aug and is what everyone, Ben included,
+     has been scrolling since. The 4 Sep audit measured it (no-param behaved
+     identically to ?scrub=0 on every metric) and nobody had complained about
+     tightness, so the heroes now pass 0 EXPLICITLY as their fallback — this
+     guard exists so the URL override works as documented, not to change the
+     shipped feel. */
+  const raw = new URLSearchParams(window.location.search).get("scrub");
+  if (raw === null) return fallback;
+  const v = Number(raw);
   return Number.isFinite(v) && v >= 0 && v <= 4 ? v : fallback;
 }
 

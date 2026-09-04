@@ -132,11 +132,14 @@ export default function CampHero() {
           pin: ".hero-stage",
           /* the floating buttons stand down while this owns the screen */
           onToggle: (self) => setPinned(self.isActive),
-          /* Reymart picked 0.3 over 1 after trying both on the live site, 31 Aug.
-             One second of easing meant the picture arrived a beat after the
-             finger, which read as the sequence being slow rather than smooth —
-             the opposite of what a shorter pin would have fixed. */
-          scrub: scrubFromUrl(0.3),
+          /* 0 is EXPLICIT and it is what has actually shipped since 31 Aug:
+             a Number(null)===0 bug in scrubFromUrl silently overrode the 0.3
+             everyone believed was live, and nobody - Ben included - found the
+             result too tight. The picture answers the finger directly; the
+             only smoothing left is Lenis. (Reymart's original "0.3 over 1"
+             choice was made through the same bug: both test URLs carried
+             explicit params, the no-param page he approved was scrub 0.) */
+          scrub: scrubFromUrl(0),
           anticipatePin: 1,
           onUpdate: (self) => {
             updateOverlays(self.progress);

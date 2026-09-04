@@ -72,9 +72,23 @@ export default function ScrollFX() {
     return () => window.removeEventListener("popstate", onPop);
   }, []);
 
-  /* Smooth scroll — once for the whole app */
+  /* Smooth scroll — once for the whole app.
+
+     lerp: the 4 Sep audit measured the full input-to-picture chain at 203ms,
+     98.5% of it this one number (scrub is 0 — see scrubFromUrl). 0.12 cuts
+     the chain to 134ms with steppiness provably unchanged (median frame
+     increment, hold rate and paint p95 were invariant across the whole
+     lerp x scrub grid); Lenis's own default is 0.1, so this is the calmer
+     side of stock. ?lerp= overrides per visit for taste passes, same pattern
+     as ?scrub= and ?pin=. */
   useEffect(() => {
-    const lenis = new Lenis({ lerp: 0.08, wheelMultiplier: 1 });
+    let lerp = 0.12;
+    const raw = new URLSearchParams(window.location.search).get("lerp");
+    if (raw !== null) {
+      const v = Number(raw);
+      if (Number.isFinite(v) && v >= 0.02 && v <= 1) lerp = v;
+    }
+    const lenis = new Lenis({ lerp, wheelMultiplier: 1 });
     /* so a modal (the mobile menu) can actually stop the page: body overflow
        is inert against a programmatic scroller */
     registerScroller(lenis);
