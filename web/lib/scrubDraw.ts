@@ -215,18 +215,22 @@ export function scrubFromUrl(fallback: number): number {
    wants kept) and the resting position is quantized to an EXACT frame, so
    nobody ever parks on a blend. ?snap=0 turns it off for A/B. */
 export function actSnap(
-  ranges: { from: number; to: number }[],
+  /** the exact frames the hero rests on (0-based), one per act EXCEPT the
+      last: the final act lands on the sequence's last frame (progress 1), so
+      the stop after it is the next SECTION, never a second stop inside the
+      hero — Reymart, 5 Sep: "the 2nd scroll down is just to see the Scope a
+      camp, just go there directly". Frames are hand-picked for stability:
+      the stillest legible frame inside each act's caption window, each one
+      eyeballed (the mathematically stillest hero act-1 frame was an abstract
+      close-up, which is why this is a list, not a formula). */
+  restFrames: number[],
   count: number
 ): object | undefined {
   if (typeof window === "undefined") return undefined;
   if (new URLSearchParams(window.location.search).get("snap") === "0") return undefined;
-  const mids = ranges.map((r) => {
-    const p = Math.min(1, (r.from + r.to) / 2);
-    return Math.round(p * (count - 1)) / (count - 1);
-  });
   /* 0 and 1 stay snap points so the hero never traps a reader at either
      edge: leaving the pin is always "the next stop" in their direction */
-  const points = [0, ...mids, 1];
+  const points = [0, ...restFrames.map((f) => f / (count - 1)), 1];
   return {
     snapTo: points,
     duration: { min: 0.35, max: 0.9 },

@@ -33,6 +33,11 @@ const PHASES = [
   { until: 0.7, label: "PHASE 03 · ASSEMBLY" },
   { until: 1.01, label: "PHASE 04 · HANDOVER" },
 ];
+/* where each act comes to REST (0-based frames): the stillest legible frame
+   in each caption window, hand-checked 5 Sep. The last act rests on the final
+   frame via actSnap, so leaving the hero never needs a second stop. */
+const SNAP_FRAMES = [8, 131, 351];
+
 const ACT_RANGES = [
   { from: 0.0, to: 0.1 },
   { from: 0.125, to: 0.25 },
@@ -137,7 +142,7 @@ export default function Hero() {
              explicit params, the no-param page he approved was scrub 0.) */
           scrub: scrubFromUrl(0),
           anticipatePin: 1,
-          snap: actSnap(ACT_RANGES, FRAME_COUNT) as never,
+          snap: actSnap(SNAP_FRAMES, FRAME_COUNT) as never,
           onUpdate: (self) => updateOverlays(self.progress),
         },
         onUpdate: () => {

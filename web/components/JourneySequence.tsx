@@ -27,6 +27,11 @@ const PHASES = [
   { until: 0.72, label: "LEG 03 · THE HIGHWAY" },
   { until: 1.01, label: "LEG 04 · YOUR BLOCK" },
 ];
+/* where each act comes to REST (0-based frames): the stillest legible frame
+   in each caption window, hand-checked 5 Sep. The last act rests on the final
+   frame via actSnap, so leaving the hero never needs a second stop. */
+const SNAP_FRAMES = [29, 163, 270];
+
 const ACT_RANGES = [
   { from: 0.0, to: 0.13 },
   { from: 0.2, to: 0.41 },
@@ -123,7 +128,7 @@ export default function JourneySequence() {
              explicit params, the no-param page he approved was scrub 0.) */
           scrub: scrubFromUrl(0),
           anticipatePin: 1,
-          snap: actSnap(ACT_RANGES, FRAME_COUNT) as never,
+          snap: actSnap(SNAP_FRAMES, FRAME_COUNT) as never,
           onUpdate: (self) => updateOverlays(self.progress),
         },
         onUpdate: () => {
