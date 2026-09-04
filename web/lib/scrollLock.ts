@@ -29,6 +29,12 @@ export function jumpTo(target: number | HTMLElement) {
   else window.scrollTo(0, typeof target === "number" ? target : target.offsetTop);
 }
 
+/* The act-snap glide animates window scroll directly; if Lenis keeps easing
+   toward its own stale target underneath it, the two fight and the glide
+   stutters. Halt it for the glide's duration, nothing else. */
+export function haltScroller() { scroller?.stop(); }
+export function resumeScroller() { scroller?.start(); }
+
 export function lockScroll() {
   scroller?.stop();
   document.documentElement.classList.add("nav-open");

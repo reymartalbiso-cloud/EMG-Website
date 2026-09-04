@@ -23,6 +23,8 @@
  * blend would be invisible), and only while the device is keeping up.
  */
 
+import { haltScroller, resumeScroller } from "@/lib/scrollLock";
+
 export type FrameRenderer = {
   /** draw at a fractional frame position */
   draw(exact: number): void;
@@ -202,6 +204,43 @@ export function scrubFromUrl(fallback: number): number {
   if (raw === null) return fallback;
   const v = Number(raw);
   return Number.isFinite(v) && v >= 0 && v <= 4 ? v : fallback;
+}
+
+/* Act snapping — Reymart, 5 Sep: "when a customer will scroll down once it
+   should go to 'Or fifty' directly, however the movement should still be
+   there." A reader can otherwise stop anywhere, including resting on a
+   between-frames cross-fade, which reads as a blurry nothing with no caption
+   fully on. So when scrolling ends, the page glides to the next act in the
+   direction of travel: the frames play through the glide (the movement he
+   wants kept) and the resting position is quantized to an EXACT frame, so
+   nobody ever parks on a blend. ?snap=0 turns it off for A/B. */
+export function actSnap(
+  ranges: { from: number; to: number }[],
+  count: number
+): object | undefined {
+  if (typeof window === "undefined") return undefined;
+  if (new URLSearchParams(window.location.search).get("snap") === "0") return undefined;
+  const mids = ranges.map((r) => {
+    const p = Math.min(1, (r.from + r.to) / 2);
+    return Math.round(p * (count - 1)) / (count - 1);
+  });
+  /* 0 and 1 stay snap points so the hero never traps a reader at either
+     edge: leaving the pin is always "the next stop" in their direction */
+  const points = [0, ...mids, 1];
+  return {
+    snapTo: points,
+    duration: { min: 0.35, max: 0.9 },
+    delay: 0.06,
+    ease: "power2.inOut",
+    directional: true,
+    /* no velocity projection: a hard flick would otherwise sail past every
+       act and collapse the hero to its final frame. Land where the scroll
+       actually stops, then glide to the next act from there. */
+    inertia: false,
+    onStart: haltScroller,
+    onComplete: resumeScroller,
+    onInterrupt: resumeScroller,
+  };
 }
 
 export function blendFromUrl(): boolean {

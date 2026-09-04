@@ -10,7 +10,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { setPinned } from "@/lib/pinState";
 import { loadSequence, wantsSmallFrames } from "@/lib/frameLoader";
-import { makeFrameRenderer, scrubFromUrl, pinFromUrl } from "@/lib/scrubDraw";
+import { makeFrameRenderer, scrubFromUrl, pinFromUrl, actSnap } from "@/lib/scrubDraw";
 
 /* 479 frames: the 24fps source motion-interpolated to 48fps, so each
    scrolled pixel steps half as far through the build-out — the smoothness ask
@@ -141,6 +141,7 @@ export default function CampHero() {
              explicit params, the no-param page he approved was scrub 0.) */
           scrub: scrubFromUrl(0),
           anticipatePin: 1,
+          snap: actSnap(ACT_RANGES, FRAME_COUNT) as never,
           onUpdate: (self) => {
             updateOverlays(self.progress);
             chapterUpdate?.(self.progress);

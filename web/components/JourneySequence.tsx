@@ -10,7 +10,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { setPinned } from "@/lib/pinState";
 import { loadSequence, wantsSmallFrames } from "@/lib/frameLoader";
-import { makeFrameRenderer, scrubFromUrl, pinFromUrl } from "@/lib/scrubDraw";
+import { makeFrameRenderer, scrubFromUrl, pinFromUrl, actSnap } from "@/lib/scrubDraw";
 
 /* 719: motion-interpolated 24->48fps from the source video (4 Sep) —
    median step 11.84 -> 7.29 vs camp's 6.65. */
@@ -123,6 +123,7 @@ export default function JourneySequence() {
              explicit params, the no-param page he approved was scrub 0.) */
           scrub: scrubFromUrl(0),
           anticipatePin: 1,
+          snap: actSnap(ACT_RANGES, FRAME_COUNT) as never,
           onUpdate: (self) => updateOverlays(self.progress),
         },
         onUpdate: () => {
